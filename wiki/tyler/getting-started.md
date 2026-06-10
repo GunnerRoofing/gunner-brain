@@ -80,7 +80,6 @@ wiki/               ← Claude-maintained knowledge base
   concepts/         ← Security concepts, frameworks
   threats/          ← MITRE ATT&CK aligned threat pages
   runbooks/         ← Maintained IT procedures
-  ciso-track/       ← Career development, cert study
   summaries/        ← Per-source summary pages
   questions/        ← Saved Q&A synthesis
   canvases/         ← Obsidian visual canvases

@@ -140,8 +140,6 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 | Page | Description |
 |------|-------------|
-| [[ciso-track/roadmap]] | Certs (A+, Net+, Sec+, CySA+, PenTest+, MS done; CISSP next), frameworks, skill gaps, practical experience |
-| [[ciso-track/cissp]] | CISSP study page — 8 domains, exam details, Gunner experience mapping, study plan stub |
 
 ## Summaries
 
