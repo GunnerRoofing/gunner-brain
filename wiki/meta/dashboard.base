@@ -1,0 +1,92 @@
+filters:
+  and:
+    - file.inFolder("wiki")
+    - file.ext == "md"
+formulas:
+  age_days: (now() - file.mtime).days
+properties:
+  type:
+    displayName: Type
+  status:
+    displayName: Status
+  updated:
+    displayName: Updated
+  formula.age_days:
+    displayName: Days Since Edit
+views:
+  - type: table
+    name: Recent Activity
+    groupBy:
+      property: type
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - status
+      - updated
+      - formula.age_days
+    limit: 20
+  - type: list
+    name: Needs Development
+    filters:
+      and:
+        - or:
+            - status == "seed"
+            - status == "developing"
+    order:
+      - file.name
+      - updated
+  - type: list
+    name: Open Questions
+    filters:
+      and:
+        - file.inFolder("wiki/questions")
+        - or:
+            - status == "developing"
+            - status == "seed"
+    order:
+      - file.name
+      - updated
+  - type: table
+    name: Threats
+    filters:
+      and:
+        - file.inFolder("wiki/threats")
+    order:
+      - file.name
+      - status
+      - updated
+  - type: table
+    name: Runbooks
+    filters:
+      and:
+        - file.inFolder("wiki/runbooks")
+    order:
+      - file.name
+      - status
+      - updated
+  - type: table
+    name: Vendors
+    filters:
+      and:
+        - file.inFolder("wiki/vendors")
+    order:
+      - file.name
+      - status
+      - updated
+  - type: table
+    name: Summaries
+    filters:
+      and:
+        - file.inFolder("wiki/summaries")
+    order:
+      - file.name
+      - updated
+  - type: table
+    name: Comparisons
+    filters:
+      and:
+        - file.inFolder("wiki/comparisons")
+    order:
+      - file.name
+      - updated

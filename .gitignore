@@ -1,0 +1,13 @@
+# Obsidian workspace / UI state (per-machine, not shared)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian plugins (installed per-machine)
+.obsidian/plugins/
+
+# OS cruft
+.DS_Store
+
+# Local identity / private working files (created at onboarding, never committed)
+CLAUDE.local.md
+*.local.md
