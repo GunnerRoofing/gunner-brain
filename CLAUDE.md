@@ -103,7 +103,7 @@ When the user says `/lint` ("lint the wiki", "health check", "wiki audit"):
 
 1. **Scan all sections** — `wiki/tyler/`, `wiki/gunnerteam/`, `wiki/colin/`, `wiki/leo/`, `wiki/doug/`, `wiki/shared/`, plus the root index/log.
 2. Check for: broken wikilinks, orphan pages (no inbound links), stale pages (not updated in >6 months), frontmatter gaps (missing `type`/`owner`/`created`/`updated`/`tags`/`status`), empty sections, concepts referenced 3+ times with no page, and stale `index.md` entries.
-3. Produce **`wiki/meta/lint-report-YYYY-MM-DD.md`** (do not overwrite older dated reports — each run is a new dated file).
+3. Produce **`wiki/meta/lint/lint-report-YYYY-MM-DD.md`** (one file per run). Before writing, delete any reports in `wiki/meta/lint/` older than 30 days. Only the latest report needs to be kept.
 4. **Flag findings by section**, attributing each issue to its owning section so each person can fix their own.
 5. **Never auto-delete or rewrite another person's pages.** Lint reports; it does not mutate other owners' content. The most you do in someone else's section is *report*. Only the owner (per `CLAUDE.local.md`) edits their own pages. Mark suspected-dead pages as flagged in the report, not deleted.
 
