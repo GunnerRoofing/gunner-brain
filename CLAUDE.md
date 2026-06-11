@@ -252,6 +252,35 @@ Include: What it does, how it's used at Gunner, key configs/quirks, integration 
 | `/lint`, "health check", "wiki audit" | `wiki-lint` |
 | `/autoresearch [topic]`, "research [topic]" | `autoresearch` |
 | `/canvas` | `canvas` |
+| `/save`, "save this", "file this" | `save` |
+| `/clear` | `clear` (end session, commit context) |
+| `ingest [source]`, "add this to the wiki" | `wiki-ingest` |
 | `/wiki` | `wiki` (setup + routing) |
 | "clean this page", "defuddle" | `defuddle` |
 | "create a base", "obsidian bases" | `obsidian-bases` |
+
+---
+
+## 16. Session Efficiency Rules
+
+**Reading files:** Read only what the task requires. Use offset/limit for partial reads. Never re-read a file already in context. Find the exact target and act — no codebase scan first.
+
+**Responses:** No trailing summaries. No "let me know if you need anything." No restating the request. No narrating reasoning — state results and decisions only. Match response length to the ask.
+
+**Tool use:** All independent calls in parallel. Never re-derive facts already in context. Never call a tool to confirm something already known.
+
+**Decision making:** Do not ask for permission when the task is clear. Do not present options when one is correct. Do not re-litigate decided questions.
+
+**Scope:** Do exactly what was asked. Nothing adjacent, nothing extra. If a bug fix works, stop. No abstractions or "while I'm here" changes.
+
+---
+
+## 17. `/clear` protocol
+
+At the end of every completed task, remind the user:
+> **Run `/clear` to reset context** — saves tokens, prevents Claude from re-reading the full conversation next turn.
+
+When `/clear` is run:
+1. `/save session` to capture the session.
+2. Update `wiki/<owner>/hot.md`.
+3. Confirm saved — user starts a new conversation.
