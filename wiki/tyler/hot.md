@@ -1,12 +1,12 @@
 # Wiki Hot Cache
 
-**Last Updated:** 2026-06-10 — cc-279 through cc-288 ✅
+**Last Updated:** 2026-06-11 — cc-299–338 perf sprint + prod infra ✅
 
-## Current State (2026-06-10)
+## Current State (2026-06-11)
 
-**Repo:** `~/Dev/GunnerTeam/` | **HEAD (main):** `dec91fd` | **Lambda:** v139 live
-**release/3.0.0** frozen at `74c9d2c` (App Store submission, build 8). All new work on `main`.
-**OMP:** 15.10.8
+**Repo:** `~/Dev/GunnerTeam/` | **Lambda:** v156 live (prod Aurora) | **iOS:** BUILD SUCCEEDED
+**release/3.0.0** frozen at `74c9d2c` (App Store submission). All new work on `main`.
+**OMP:** 15.10.12
 
 **Customer Photo Upload (cc-279–288):** Working. Root cause was `PayloadTooLargeError` — Express JSON body limit raised `100kb → 20mb` in `src/app.js`. CompanyCam `POST /projects/:id/photos` returns `{ photo: {...} }` (wrapped), so `gt_customer_photos` INSERT now unwraps `ccData?.photo ?? ccData?.photos?.[0]` (the old `ccData?.id` guard silently skipped every insert). CC dev `/photos` never populates `source`, so the `gt_customer_photos` table lookup is the sole `isCustomer` signal. All PHOTODEBUG/GETDEBUG/UPLOADDEBUG/ROUTEHIT debug logs removed.
 
@@ -36,9 +36,10 @@
 
 ## Backend
 
-- **`GET/PATCH /org/theme`** — `gt_org_theme` table (plain UUID PK, JSONB, no FK). Admin/manager PATCH only.
-- **`GET /companycam/tasks/high-alert`** — per-user jobs with pending high-alert tasks (job summary + count).
-- **Lambda v139** live (alias `live`). Body limit 20mb. `gt_customer_photos` INSERT uses `photoObj` unwrap.
+- **`GET /companycam/tasks/high-alert`** — single upstream call (cc-327); no 1+N fan-out
+- **`GET /companycam/jobs/:id/photos?limit=&before=`** — paged gallery route (cc-322); cursor-based
+- **`POST /announcements/:id/read`** — idempotent upsert; `priority` field on announcements (cc-335)
+- **Lambda v156** live (alias `live`). Prod Aurora. Body limit 20mb.
 
 ## FAB State Machine
 
@@ -78,8 +79,7 @@ See [[meta/session-2026-05-19-masterdb-migration]] for full revision chain and c
 | Fact | Value |
 |---|---|
 | API base URL | `https://api.team.gunnerroofing.com` |
-| API Gateway | `k5h2n0rog9.execute-api.us-east-2.amazonaws.com` |
-| Lambda function | `gunnerteam-dev-api`, v139 live on alias `live` |
+| Lambda function | `gunnerteam-dev-api`, v156 live on alias `live` |
 | Provisioned concurrency | 2 containers always warm (~$22/mo) |
 | Dev URL | `https://api-dev.team.gunnerroofing.com` |
 | RDS | `gunnerteam-dev.c52gm8goign8.us-east-2.rds.amazonaws.com` |
@@ -90,27 +90,53 @@ See [[meta/session-2026-05-19-masterdb-migration]] for full revision chain and c
 
 ---
 
-## OMP Status (2026-06-09 current)
+## OMP Status (2026-06-10 current)
 
-**Version:** 15.10.8 — [[runbooks/omp-hang-fix]] + [[runbooks/mac-tool-setup]]
+**Version:** 15.10.12 — [[runbooks/omp-hang-fix]] + [[runbooks/mac-tool-setup]]
 
 ### Config (`~/.omp/agent/config.yml`)
 - **Theme:** `dark-gruvbox` (dark) / `light-github` (light) — Nerd Font symbols
 - **Status line:** `custom` preset, `powerline` separators
-- **Models:** default=sonnet-4-6:minimal, smol=sonnet-4-6:off, slow=opus-4-7:high, plan=opus-4-7:high, task=sonnet-4-6:minimal, commit=sonnet-4-6:off
-- **Key flags:** autoResume, startup.quiet, async.enabled, checkpoint.enabled, display.showTokenUsage
-- **Task isolation:** worktree
+- **Models:** default=sonnet-4-6:minimal, smol=sonnet-4-6:off, slow=opus-4-8:high, plan=opus-4-8:high, task=sonnet-4-6:minimal, commit=sonnet-4-6:off
+- **Key flags:** autoResume, startup.quiet, async.enabled, checkpoint.enabled, rewind.enabled, search_tool_bm25.enabled, display.showTokenUsage
+- **Task isolation:** rcopy
+- **Memory:** enabled, 4h idle, 60-day window, 8k injection limit, 100 rollouts/startup
+- **lastChangelogVersion:** 15.10.8 (suppresses changelog on startup)
+
+### Project settings (vault-local)
+- **`.omp/settings.json`** in `gunner-brain/` — pins default/smol/task to sonnet-4-6:minimal/:off/:minimal
+- `.omp/` added to `.gitignore` — not committed
+
+### MCP (`~/.omp/agent/mcp.json` — restored 2026-06-10)
+- `obsidian-vault` via `/opt/homebrew/bin/mcpvault` → `gunner-brain/` vault
+- `aws-core:aws-mcp` — SigV4 proxy, via plugin (not mcp.json)
 
 ### Plugins Active
-- `pi-obsidian-context@0.1.1` ✅
-- `pi-powerline-footer` ✅ (working as of 15.10.x)
-- `swift-lsp` ✅ auto-detected via Xcode — do NOT install manually (recursive cleanup crash)
-- `@oh-my-pi/swarm-extension` — status unknown on 15.10.8
 
+**npm: NONE (all removed 2026-06-10)**
+- `pi-powerline-footer` — removed; broken in 15.10.12 (legacy-pi-compat regression, issue #1215) AND installs 1GB of transitive deps (fastembed, onnxruntime, full OMP stack) that make startup hang. Do NOT reinstall until OMP upstream confirms fix. Track 15.10.13+.
+- `pi-obsidian-context` — removed (terminal-mode irrelevant; covered by obsidian-vault MCP)
+- **`~/.omp/plugins/node_modules/` is now empty** (was 2.2GB; OMP starts clean)
+- Built-in `statusLine` config still provides full powerline — no regression.
+
+**Marketplace (`claude-plugins-official`):**
+- `security-guidance@2.0.0` — security hooks on every edit + diff review on Stop
+- `aws-core@1.0.0` — AWS skills + SigV4 MCP proxy (already active in session)
+- `aws-serverless@1.1.0` — Lambda, API Gateway, Step Functions, SAM/CDK skills ✨ new 2026-06-10
+- `typescript-lsp@1.0.0` — TS/JS language server
+- `commit-commands@0.0.0` — `/commit`, `/push`, `/pr` slash commands
+- `pr-review-toolkit@0.0.0` — PR review agents
+- `semgrep@0.5.3` — SAST hooks (requires `brew install semgrep` ✅ done)
+- `claude-md-management@1.0.0` — `/claude-md audit` slash command
+- `session-report@0.0.0` — `/session-report` HTML usage reports
+- `github@0.0.0` — GitHub MCP (requires `GITHUB_PERSONAL_ACCESS_TOKEN` in `~/.zshrc`)
+- `context7@0.0.0` — up-to-date library docs lookup mid-session ✨ new 2026-06-10
+- `stripe@0.1.0` — Stripe dev skills ✨ new 2026-06-10
+
+**Not installed (known broken/removed):**
+- `swift-lsp` — auto-detected via Xcode; do NOT install manually (recursive cleanup crash)
+- `@oh-my-pi/swarm-extension` — removed permanently (50GB RAM spike; never reinstall)
+- `terraform` — removed (requires Docker + TFE_TOKEN; not useful for local Terraform workflow)
 ### Skills (`~/.omp/agent/skills/`)
 - **claude-obsidian (10 symlinks):** autoresearch, canvas, defuddle, obsidian-bases, obsidian-markdown, save, wiki, wiki-ingest, wiki-lint, wiki-query
 - Custom: `obsidian-second-brain`, `hindsight`, `discovery-mode`
-
-### MCP
-- `obsidian-vault` via `/opt/homebrew/bin/mcpvault` → Gunner Vault (mcp.json active)
-- `aws-core:aws-mcp` — SigV4 proxy, 11 tools active

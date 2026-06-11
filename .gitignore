@@ -11,3 +11,6 @@
 # Local identity / private working files (created at onboarding, never committed)
 CLAUDE.local.md
 *.local.md
+
+# OMP project settings (local machine config, not shared)
+.omp/

@@ -1,3 +1,18 @@
+## [2026-06-11] save | cc-299–338: GunnerCam Perf Sprint, Color Tokens, Prod Infra, UX Polish
+- Type: session
+- Location: wiki/meta/session-2026-06-11-cc299-338-perf-polish-prod-infra.md
+- From: ~40 cc-prompts — incremental sync + ETag + cursor pagination, PhotoImageCache, color token migration (AppBackground/AppSurface), prod Aurora seed via _stmts Lambda runner, pull-to-refresh, toast consolidation, haptics, accessibility 44pt + labels, password flicker fix, loadError sweep, announcement reads + urgent modal, email PII redaction, scheduler dual-push fix, Lambda v156
+
+## [2026-06-10] save | OMP Config Fixes, Plugin Refresh, and CLAUDE.md Merge
+- Type: session
+- Location: wiki/meta/session-2026-06-10-omp-config-plugin-claudemd-merge.md
+- From: OMP config regressions fixed (5 keys), mcp.json restored, .omp/settings.json created, terraform plugin removed, aws-serverless/context7/stripe installed, CLAUDE.md §§10-15 appended from old Gunner Vault CLAUDE.md
+
+## [2026-06-10] save | Save Skill Workflow Test
+- Type: session
+- Location: wiki/meta/session-2026-06-10-save-skill-test.md
+- From: Single-turn meta-session testing the /save workflow end-to-end
+
 ## [2026-06-10] session | cc-279–288 Customer Photos Debug
 - Type: session
 - Location: wiki/meta/session-2026-06-10-cc279-288-customer-photos-debug.md

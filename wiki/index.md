@@ -39,6 +39,8 @@ Read by everyone; write with coordination.
 ## Meta
 
 - `meta/` — session notes (from `/save`) and lint reports (from `/lint`).
+  - [[meta/session-2026-06-10-omp-config-plugin-claudemd-merge]] — 2026-06-10: OMP config fixes, plugin refresh (aws-serverless, context7, stripe), CLAUDE.md merge from old vault.
+  - [[meta/session-2026-06-10-save-skill-test]] — 2026-06-10: Save skill workflow test.
 - [[log.md]] — append-only activity log across all sections.
 
 ## How This Vault Works

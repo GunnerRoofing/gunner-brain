@@ -158,5 +158,100 @@ When Claude Code is running inside one of the **app project repos** (GunnerTeam 
 - Edit or delete existing `wiki/log.md` entries (append-only).
 - Delete or rewrite another person's pages during a lint — report only.
 - Let a `/save` finish without updating `wiki/<owner>/hot.md` and appending to `wiki/log.md`.
-- Copy credentials, API keys, passwords, or MFA codes into any page — flag them instead.
+- Let a **session end** without updating `wiki/<owner>/hot.md` — even if `/save` was not invoked.
+- Copy credentials, API keys, passwords, or MFA codes into any page — flag them instead (see §12 security flag protocol).
+- Guess at Gunner-specific details you don't have confirmed facts for — flag unknowns explicitly rather than inferring.
 - Guess the owner — if `CLAUDE.local.md` is absent, stop and point to `ONBOARDING.md`.
+
+---
+
+## 11. Vault owner context — Tyler Suffern
+
+Tyler Suffern — IT Manager ("IT Support & System Administrator"), Gunner Roofing LLC. Sole IT admin for ~36 employees + ~10 contractors across 3 offices (Stamford CT HQ, Cromwell CT branch, NJ).
+
+**IT stack:** Hexnode MDM, Google Workspace (primary IdP), Chrome Enterprise Core, Keeper, Dialpad, HubSpot, Monday.com, Apple Business Manager, Unifi networking.  
+**Home lab:** Debian/Docker, OPNsense + HAProxy + Cloudflare DNS.  
+**Certs:** CompTIA A+, Network+, Security+, CySA+, PenTest+. MS in Cybersecurity (WGU) — finished July 2025.  
+**Next cert:** CISSP (high priority), then SecurityX.  
+**Career goal:** CISO or Director of Information Security (~10-year timeline).
+
+Tyler's work spans two intertwined domains: **IT/security operations** (Hexnode, Keeper, GWS hardening, incident response, Unifi) and **security research** (MITRE ATT&CK, cert study, frameworks, threat hunting). The value is in connecting them — see §13 interlinking philosophy.
+
+Tyler's two sections in this vault:
+- **`wiki/tyler/`** — IT ops, security posture, CISO track, Gunner environment reference.
+- **`wiki/gunnerteam/`** — GunnerTeam iOS + Lambda API engineering. App-repo rules live in `~/Dev/GunnerTeam/CLAUDE.md`; never duplicate them here.
+
+Tyler's key pages to keep current on every relevant save/ingest:
+- `wiki/tyler/concepts/ciso-track/roadmap.md` — certs (CISSP next), MS status, frameworks studied, skill gaps, target roles/timeline.
+- `wiki/gunnerteam/aws-environment.md` — network topology, Lambda version, RDS, deploy commands.
+
+---
+
+## 12. Ingest protocol
+
+When a source is ingested (`/wiki-ingest`, "ingest [file]", "process this source"):
+
+1. Read the source.
+2. Write a summary page → `wiki/<owner>/summaries/[source-name].md`.
+3. Update or create any concept, threat, vendor, or runbook pages the source touches.
+4. Update the section index with a link + one-line description.
+5. Cross-link new and updated pages to each other generously.
+6. Append to `wiki/log.md`: `## [YYYY-MM-DD] ingest | [Source Title]`.
+7. Update `wiki/<owner>/hot.md`.
+8. Report every file touched.
+
+**Dual-domain question (Tyler):** For every source, ask both directions:
+- Study material → "Does this have a Gunner implication?" (e.g. T1078 study → link to Keeper runbook + GWS hardening notes)
+- Gunner doc → "Does this connect to a concept or threat page?" (e.g. Hexnode MDM feature → link to MDM frameworks page)
+
+If yes to either, add the cross-link before closing the ingest.
+
+**Security flag protocol:** If a source contains credentials, passwords, API keys, or MFA codes: flag inline with `> ⚠ CRITICAL: credential present — not copied`, do NOT transcribe the value into any wiki page, and note it as an open item in the session summary. No exceptions.
+
+---
+
+## 13. Query protocol
+
+When answering a question from the vault:
+
+1. Check `wiki/<owner>/hot.md` first — may already have the answer.
+2. Read `wiki/index.md` to find relevant pages.
+3. Read those pages.
+4. Answer with inline citations: `(Source: [[Page Name]])`.
+5. If the answer is a useful synthesis, offer to `/save` it as a questions page.
+
+**Three modes:**
+- **Quick** — hot.md + index only. Fast lookups.
+- **Standard** (default) — traverse relevant pages. Most questions.
+- **Deep** — full section sweep + optional web search. Research questions.
+
+---
+
+## 14. Specialized page conventions
+
+Extends §8 for Tyler's domain-specific page types. Other owners should document their own conventions in their section's README or index.
+
+### Threat pages (MITRE ATT&CK aligned)
+Include: Tactic, Technique ID (e.g. T1078), description, detection notes, relevant tooling in Tyler's stack, Gunner-specific exposure notes. Always link to any relevant runbook if one exists.
+
+### Runbook pages
+Include: Purpose, scope (which offices/systems), step-by-step procedure, last-verified date, related tools, escalation path. Link to relevant threat or concept pages.
+
+### Vendor pages
+Include: What it does, how it's used at Gunner, key configs/quirks, integration points, support contacts, renewal info. Link to related runbooks and concept pages.
+
+---
+
+## 15. Skills quick reference
+
+| Trigger | Skill |
+|---------|-------|
+| `/save`, "save this", "file this" | `save` |
+| `ingest [source]`, "add this to the wiki" | `wiki-ingest` |
+| `query: [question]`, "what do you know about" | `wiki-query` |
+| `/lint`, "health check", "wiki audit" | `wiki-lint` |
+| `/autoresearch [topic]`, "research [topic]" | `autoresearch` |
+| `/canvas` | `canvas` |
+| `/wiki` | `wiki` (setup + routing) |
+| "clean this page", "defuddle" | `defuddle` |
+| "create a base", "obsidian bases" | `obsidian-bases` |
