@@ -1,14 +1,14 @@
 # Wiki Hot Cache
 
-**Last Updated:** 2026-06-11 — cc-390–402 fleet inspection + hub polish, role fix, notification animation ✅
+**Last Updated:** 2026-06-11 — cc-403–412 shared AuxComponents + aux screen UX sprint ✅
 
 ## Current State (2026-06-11)
 
 **Repo:** `~/Dev/GunnerTeam/` | **Lambda:** v175 live (prod Aurora) | **iOS:** BUILD SUCCEEDED
+**OMP:** 15.11.8 (just updated)
 **release/3.0.0** frozen at `74c9d2c`. All new work on `main`.
-**OMP:** 15.11.1
 
-**Tyler role:** Fixed to `gt-admin` via migration `20260611_fix_tyler_admin` (v174). Sign out + sign back in to refresh JWT.
+**AuxComponents:** `Theme/AuxComponents.swift` — `StatusBadge`, `EmptyStateView`, `StickyEditBar`, `DestructiveConfirmSheet` + haptic reference comment
 
 **Customer Photo Upload (cc-279–288):** Working. Root cause was `PayloadTooLargeError` — Express JSON body limit raised `100kb → 20mb` in `src/app.js`. CompanyCam `POST /projects/:id/photos` returns `{ photo: {...} }` (wrapped), so `gt_customer_photos` INSERT now unwraps `ccData?.photo ?? ccData?.photos?.[0]` (the old `ccData?.id` guard silently skipped every insert). CC dev `/photos` never populates `source`, so the `gt_customer_photos` table lookup is the sole `isCustomer` signal. All PHOTODEBUG/GETDEBUG/UPLOADDEBUG/ROUTEHIT debug logs removed.
 
