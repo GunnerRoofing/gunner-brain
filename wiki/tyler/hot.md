@@ -1,14 +1,14 @@
 # Wiki Hot Cache
 
-**Last Updated:** 2026-06-11 — cc-390–393 fleet inspection UX sprint ✅
+**Last Updated:** 2026-06-11 — cc-390–402 fleet inspection + hub polish, role fix, notification animation ✅
 
 ## Current State (2026-06-11)
 
-**Repo:** `~/Dev/GunnerTeam/` | **Lambda:** v171 live (prod Aurora) | **iOS:** BUILD SUCCEEDED
+**Repo:** `~/Dev/GunnerTeam/` | **Lambda:** v175 live (prod Aurora) | **iOS:** BUILD SUCCEEDED
 **release/3.0.0** frozen at `74c9d2c`. All new work on `main`.
 **OMP:** 15.11.1
 
-**Pending deploy:** cc-391 backend (`GET /vehicle/inspections` + review_status/notes/license_plate) — code in `function.zip`, MFA expired before deploy. Run deploy block when MFA is refreshed.
+**Tyler role:** Fixed to `gt-admin` via migration `20260611_fix_tyler_admin` (v174). Sign out + sign back in to refresh JWT.
 
 **Customer Photo Upload (cc-279–288):** Working. Root cause was `PayloadTooLargeError` — Express JSON body limit raised `100kb → 20mb` in `src/app.js`. CompanyCam `POST /projects/:id/photos` returns `{ photo: {...} }` (wrapped), so `gt_customer_photos` INSERT now unwraps `ccData?.photo ?? ccData?.photos?.[0]` (the old `ccData?.id` guard silently skipped every insert). CC dev `/photos` never populates `source`, so the `gt_customer_photos` table lookup is the sole `isCustomer` signal. All PHOTODEBUG/GETDEBUG/UPLOADDEBUG/ROUTEHIT debug logs removed.
 
