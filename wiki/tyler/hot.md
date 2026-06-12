@@ -1,12 +1,12 @@
 # Wiki Hot Cache
 
-**Last Updated:** 2026-06-11 — cc-299–338 perf sprint + prod infra ✅
+**Last Updated:** 2026-06-11 — cc-370–389 Field Portal rename, fleet UX, auth fix, jobs polish ✅
 
 ## Current State (2026-06-11)
 
-**Repo:** `~/Dev/GunnerTeam/` | **Lambda:** v156 live (prod Aurora) | **iOS:** BUILD SUCCEEDED
+**Repo:** `~/Dev/GunnerTeam/` | **Lambda:** v171 live (prod Aurora) | **iOS:** BUILD SUCCEEDED
 **release/3.0.0** frozen at `74c9d2c` (App Store submission). All new work on `main`.
-**OMP:** 15.10.12
+**OMP:** 15.11.1 (updated this session)
 
 **Customer Photo Upload (cc-279–288):** Working. Root cause was `PayloadTooLargeError` — Express JSON body limit raised `100kb → 20mb` in `src/app.js`. CompanyCam `POST /projects/:id/photos` returns `{ photo: {...} }` (wrapped), so `gt_customer_photos` INSERT now unwraps `ccData?.photo ?? ccData?.photos?.[0]` (the old `ccData?.id` guard silently skipped every insert). CC dev `/photos` never populates `source`, so the `gt_customer_photos` table lookup is the sole `isCustomer` signal. All PHOTODEBUG/GETDEBUG/UPLOADDEBUG/ROUTEHIT debug logs removed.
 
@@ -36,11 +36,13 @@
 
 ## Backend
 
-- **`GET /companycam/tasks/high-alert`** — single upstream call (cc-327); no 1+N fan-out
-- **`GET /companycam/jobs/:id/photos?limit=&before=`** — paged gallery route (cc-322); cursor-based
-- **`POST /announcements/:id/read`** — idempotent upsert; `priority` field on announcements (cc-335)
-- **Lambda v156** live (alias `live`). Prod Aurora. Body limit 20mb.
-
+- **`GET /fieldportal/tasks/high-alert`** — single upstream call (cc-327); no 1+N fan-out
+- **`GET /fieldportal/jobs/:id/photos?limit=&before=`** — paged gallery route; cursor-based
+- **`POST /announcements/:id/read`** — idempotent upsert; `priority` field on announcements
+- **Time tracking:** `POST /time/checkin|checkout|travel-ping`, `GET /time/active|my|events|summary` (cc-343, cc-367)
+- **Field Portal push:** `pushFieldPortalCheckin`/`pushFieldPortalCheckout` awaited before response; `displayName` in payload
+- **`POST /auth/validate`** — role scoped to `gunner-team` app via `LEFT JOIN LATERAL` (cc-100)
+- **Lambda v171** live (alias `live`). Prod Aurora. Body limit 20mb.
 ## FAB State Machine
 
 `onDisappear` never restores FAB — only `onAppear` on destination drives it. `JobsView.onAppear` restores. `JobGuidedView.onAppear` hides. `GuidedTasksView.onAppear` hides (and has `assistantStore` injected).
@@ -79,7 +81,7 @@ See [[meta/session-2026-05-19-masterdb-migration]] for full revision chain and c
 | Fact | Value |
 |---|---|
 | API base URL | `https://api.team.gunnerroofing.com` |
-| Lambda function | `gunnerteam-dev-api`, v156 live on alias `live` |
+| Lambda function | `gunnerteam-dev-api`, v171 live on alias `live` |
 | Provisioned concurrency | 2 containers always warm (~$22/mo) |
 | Dev URL | `https://api-dev.team.gunnerroofing.com` |
 | RDS | `gunnerteam-dev.c52gm8goign8.us-east-2.rds.amazonaws.com` |
