@@ -17,7 +17,7 @@ session. For app-specific detail, see your own section's `hot.md`
 
 | App | Owner | Status |
 |---|---|---|
-| GunnerTeam iOS + API | Tyler | Active. Lambda **~v140** live on alias `live` (`gunnerteam-dev-api`, us-east-2). |
+| GunnerTeam iOS + API | Tyler | Active. Lambda **v233** live on alias `live` (`gunnerteam-dev-api`, us-east-2, behind RDS Proxy). ⚠️ Working tree not yet reconciled with v233 — see `tyler/hot.md` before deploying. |
 | GunnerCam | Colin | Active. Multi-tenant AWS / Next.js field-operations app. |
 | gunner-ops | Leo | Active. Job-lifecycle CRM replacing Monday.com. |
 | Lead Finder / Review Engine / Content Creator / WP Local Page Template | Doug | Active. Standalone apps. |
@@ -27,7 +27,7 @@ session. For app-specific detail, see your own section's `hot.md`
 
 ## Recent Cross-Team Changes
 
-_Empty._
+**2026-06-15 — Tyler** — New process rule: git is the source of truth for GunnerTeam. No direct Lambda patches from anyone (Tyler, Colin, contractors). All changes via PR → reviewed merge → deploy from `main`. External contractors (Colin/Project Hub): do not patch GunnerTeam's Lambda or AWS resources directly. See [[gunnerteam/git-source-of-truth-policy]].
 
 Add an entry here whenever a change in your app affects another team member's app —
 a schema change, an API contract change, a shared integration behavior change, etc.

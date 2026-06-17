@@ -7,7 +7,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[meta/session-2026-06-10-cc279-288-customer-photos-debug]] | cc-279–288: customer photo upload debug — PayloadTooLargeError root cause (Express 100kb→20mb), photoObj unwrap, source field null, Lambda v139; UI polish (haptics, photo cell hit area, Customer badge) |
 | [[meta/session-2026-06-02-cc87-89-91-phase-workflow-models]] | cc-87, 89–91: CompletedTasksSheet, PhaseWorkflowModels (data layer), JobGuidedView, PhaseDetailView+PhaseItemGridCell |
 | [[meta/session-2026-06-02-cc82-86-guided-tasks-complete]] | cc-82–86: highAlert tasks, GuidedJobsListView, list/grid toggle, TaskDetailSheet+uncheck, in-app task creation (v108) |
-| [[meta/lint-report-2026-06-02]] | Lint report 2026-06-02: 180 pages, 1 orphan, 3 dead links, 151 empty sections |
+| [[meta/lint/lint-report-2026-06-02]] | Lint report 2026-06-02: 180 pages, 1 orphan, 3 dead links, 151 empty sections |
 | [[meta/session-2026-06-02-cc76-80-notion-workspace-soc2-fixes]] | cc-76–80: Notion workspace build (8 DBs, Tasks, notion-sync.js), SOC 2 #36 CompanyCam org scope, SOC 2 #37 fleet doc ownership + audit(), CLAUDE.md long-term context scaffolded |
 | [[meta/session-2026-05-27-cc38-45-cc69-75-fleet-perf-webhooks]] | cc-38–45, 69–75: CompanyCam webhook push fix (user_devices), fleet perf sweep (query() migration, onAppear guards, indexes, Lambda migration runner), iOS doc upload fixes |
 | [[meta/session-2026-05-27-cc64-67-password-policy-cognito-email]] | cc-64–67: password policy validation, Cognito SES email + branded template, admin reset Cognito sync, iOS hint text |

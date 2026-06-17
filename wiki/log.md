@@ -1,3 +1,22 @@
+## [2026-06-16] save | Session cc-789–815: always-on location, Monday forms, 360 gallery
+- Type: session
+- Location: wiki/meta/session-2026-06-16-cc789-815-location-forms-360gallery.md
+- Lambda: v238 → v249; iOS: cc-789–815 committed to main; omp 15.11.8 → 16.0.5
+- Key: always-on device location store (gt_location_history, fleet-locations, location-history, 90d retention); geofence auto-check-in across 20 nearest jobs; Dumpster Swap + Material Shortage Monday forms; 360 tags persist + gallery confirm + grouped review + tag pill; masterdb schema gotchas (varchar id/org_id, no role/display_name on gt_user_profile); awsmfa rewritten; confirmationDialog picker pattern
+
+## [2026-06-15] save | Session cc-766–788: App Store hardening, 360 camera redesign, polish sprint
+- Type: session
+- Location: wiki/meta/session-2026-06-15-cc766-788-appstore-hardening-polish.md
+- Lambda: v234 → v237; iOS: cc-766–788 all committed to main
+- Key: App Store v3.0.0 build 9 (aps-environment→production, zero URL!, all prints gated); leaderboard always-on; 360 arm-before-shoot; phase complete confetti; activity lightweight route; field task chips exclude completed; governance docs filed; employee notice draft; solo-maintainer process rule finalized
+
+## [2026-06-13] save | Session cc-608–742: Bundle Perf, Gamification Phase 2–3, iOS Polish
+- Type: session
+- Location: wiki/meta/session-2026-06-13-cc608-742-bundle-perf-gamification-ios-polish.md
+- Lambda: v183 → v220 (38 versions)
+- iOS: cc-608 through cc-742
+- Key: GunnerCam bundle TCP-abort root cause confirmed (Colin's endpoints); gamification Phase 2–3 shipped; iOS UX sprint (geofence, job list, phases, points hub, check-in); wiki lint auto-fix pass (31 issues, 8 auto-fixed)
+
 ## [2026-06-11] save | cc-299–338: GunnerCam Perf Sprint, Color Tokens, Prod Infra, UX Polish
 - Type: session
 - Location: wiki/meta/session-2026-06-11-cc299-338-perf-polish-prod-infra.md
@@ -29,7 +48,7 @@
 - Auto-fixed: 11 index gaps (9 session notes + 2 runbooks); 5 pages created (Colin, Leonard, Ruchir, Stripe, DocuSign)
 - Stale claims flagged (20 across 10 pages) — needs human review: aws-environment, gunnerteam-project-structure, omp-hang-fix, mac-tool-setup
 - Leonard confirmed = Leo (alias added); Ruchir = former contractor (departed 2026-06-09); DocuSign = active/heavily used
-- Report: [[meta/lint-report-2026-06-09]]
+- Report: [[meta/lint/lint-report-2026-06-10]]
 
 ## [2026-06-08] save | iOS cc-167–233: Tab Architecture, Markup Fix, ThemeManager, Polish Sprint
 - Type: session

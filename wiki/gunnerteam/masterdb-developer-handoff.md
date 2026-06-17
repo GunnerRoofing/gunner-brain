@@ -17,7 +17,7 @@ related:
   - "[[gunner/gunnerteam-api-aws-migration]]"
   - "[[gunner/aws-environment]]"
 sources:
-  - "[[raw-sources/handoff masterdb.md]]"
+  - "handoff masterdb.md (raw source — not in vault)"
 ---
 
 # masterdb Developer Handoff

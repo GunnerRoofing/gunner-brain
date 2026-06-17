@@ -1,111 +1,36 @@
 ---
 type: meta
 title: Dashboard
-created: '2026-04-14'
-updated: '2026-05-15'
-tags: [meta, dashboard]
-status: evergreen
-related:
-  - '[[index]]'
-  - '[[log]]'
-  - '[[concepts/Compounding Knowledge]]'
+updated: '2026-06-13'
+tags:
+  - meta
+status: active
 ---
 
-# Gunner Vault Dashboard
+# Wiki Dashboard
 
-Navigation: [[index]] | [[log]] | [[hot]] | [[getting-started]]
+**Last lint:** [[meta/lint/lint-report-2026-06-13]] (2026-06-13) — 31 issues, 0 auto-fixed
 
-## Dataview Dashboard
-
-Requires the Dataview community plugin (already installed).
-
-### Recent Activity (All Sections)
-
+## Recent Activity
 ```dataview
-TABLE type, status, updated FROM "wiki"
-WHERE file.name != "index" AND file.name != "log" AND file.name != "hot"
-SORT updated DESC LIMIT 20
+TABLE type, status, updated FROM "wiki" SORT updated DESC LIMIT 15
 ```
 
-### Recent Sessions
-
+## Seed Pages (Need Development)
 ```dataview
-TABLE status, updated FROM "wiki/meta"
-WHERE type = "session"
-SORT updated DESC LIMIT 10
+LIST FROM "wiki" WHERE status = "seed" SORT updated ASC
 ```
 
-### Pages Needing Development
-
+## Entities Missing Sources
 ```dataview
-LIST FROM "wiki"
-WHERE status = "developing" OR status = "seed"
-SORT updated ASC
+LIST FROM "wiki/shared/entities" WHERE !sources OR length(sources) = 0
 ```
 
-### Open Gunner Items
-
+## Open Questions
 ```dataview
-LIST FROM "wiki/gunner"
-WHERE status = "developing" OR status = "current"
-SORT updated DESC
+LIST FROM "wiki/tyler/questions" WHERE answer_quality = "draft" SORT created DESC
 ```
 
-### Open Questions
-
-```dataview
-LIST FROM "wiki/questions"
-WHERE status = "developing" OR status = "seed"
-SORT updated DESC
-```
-
-### Threat Pages
-
-```dataview
-TABLE status, updated FROM "wiki/threats"
-SORT updated DESC
-```
-
-### Runbooks (Check Freshness)
-
-```dataview
-TABLE status, updated FROM "wiki/runbooks"
-SORT updated ASC
-```
-
-### Vendor Pages
-
-```dataview
-TABLE status, updated FROM "wiki/vendors"
-SORT updated DESC
-```
-
-### Sources Ingested
-
-```dataview
-TABLE sources, updated FROM "wiki/summaries"
-SORT updated DESC
-```
-
-### Infrastructure & AWS Pages
-
-```dataview
-TABLE status, updated FROM "wiki/gunner"
-WHERE contains(tags, "aws") OR contains(tags, "infrastructure") OR contains(tags, "soc2")
-SORT updated DESC
-```
-
-### Pages Missing Status Field
-
-```dataview
-LIST FROM "wiki"
-WHERE !status
-SORT file.name ASC
-```
-
-### Comparisons
-
-```dataview
-TABLE updated FROM "wiki/comparisons"
-SORT updated DESC
-```
+## Lint History
+- [[meta/lint/lint-report-2026-06-13]] — 2026-06-13: 31 issues (6 orphans, 13 dead links, 2 root strays, 10 frontmatter gaps)
+- [[meta/lint/lint-report-2026-06-10]] — 2026-06-10
