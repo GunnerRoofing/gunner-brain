@@ -1,3 +1,9 @@
+## [2026-06-17] save | Session cc-815–842: location compliance, iOS file split, service keys
+- Type: session
+- Location: wiki/meta/session-2026-06-17-cc815-842-compliance-refactor-service-keys.md
+- Lambda: v249→v259; iOS: cc-815–842 committed to main
+- Key: location consent gate (ct/nj), permission status reporting, compliance roster (dual-auth + service key), iOS file rules sweep (18 files split/trimmed), inspection submit 500 fix (awardPoints path), service-key mint fix + rotate endpoints, omp 16.0.5 `/clear` updated, awsmfa fixed
+
 ## [2026-06-16] save | Session cc-789–815: always-on location, Monday forms, 360 gallery
 - Type: session
 - Location: wiki/meta/session-2026-06-16-cc789-815-location-forms-360gallery.md
