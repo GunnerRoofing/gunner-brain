@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v295 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1608: audit-archiver operational. Auth via Secrets Manager (proxy secret), not stale SSM. Monthly rolling prune (6mo retention, YYYY/MM S3 keys). S3 WORM: versioning + Object Lock GOVERNANCE 7yr. Dry-run: 245 rows archived from 2026/05, 0 deleted, S3 confirmed. Follow-up: SSM DB_PASSWORD drift (separate cc-prompt).
+- **Last session:** 2026-06-19 — cc-1609: SSM DB_PASSWORD reconciled with proxy Secrets Manager secret. Hashes match, SecureString + alias/aws/ssm preserved, v3. No deploy, no tf apply. Prod landmine cleared — next intentional tf apply on api Lambda will bake correct creds.
 - **OMP:** 16.0.7
 
 ## Process Rule
