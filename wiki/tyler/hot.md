@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v295 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v296 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1609: SSM DB_PASSWORD reconciled with proxy Secrets Manager secret. Hashes match, SecureString + alias/aws/ssm preserved, v3. No deploy, no tf apply. Prod landmine cleared — next intentional tf apply on api Lambda will bake correct creds.
+- **Last session:** 2026-06-19 — cc-1607: audit() standardized. templates.js local auditLog() deleted; 11 calls migrated + resource on service_key. points-webhook: awards + redemption fulfil/refund audited. forms.js: 4 submission routes audited. audit.js: orgId param added (backward-compat). CLAUDE.md: logging standard section added. v296.
 - **OMP:** 16.0.7
 
 ## Process Rule
