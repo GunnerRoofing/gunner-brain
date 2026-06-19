@@ -5,9 +5,9 @@ updated: '2026-06-19'
 
 # Tyler Hot Cache — 2026-06-19
 ## Current State
-- **Lambda:** v292 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v293 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-prompt-1505: Lambda env drift reconciled into Terraform. 11 drift keys wired to SSM + tf. NOTION_TOKEN removed (dead). GUNNERCAM_POINTS_WEBHOOK_TOKEN set (net-new). v292 live. `terraform plan` clean on env.
+- **Last session:** 2026-06-19 — cc-prompt-1501: REWARDS_ENABLED=true for dev (SSM + tf, v293). Pre-flight clear: no Tremendous creds → no real gift cards possible. POST /points/redeem no longer 403.
 - **OMP:** 16.0.7
 
 ## Process Rule
