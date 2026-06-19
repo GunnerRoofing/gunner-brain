@@ -1,3 +1,9 @@
+## [2026-06-19] save | Session cc-1500–1505: Terraform infra hardening + iOS receipt fixes
+- Type: session
+- Location: wiki/meta/session-2026-06-19-cc1500-1505-terraform-infra-hardening.md
+- Lambda: v291→v294 (3 publishes); iOS: BUILD SUCCEEDED, no new build
+- Key: Lambda env drift → tf (11 keys), COMPANYCAM_API_KEY restored, NOTION_TOKEN pruned, REWARDS_ENABLED=true (dev), daily 90-day location prune (EventBridge cron), null_resource canary-routing no-op fixed, stash@{0} dropped (fully superseded), Aurora idle_in_tx 24h→30s (dynamic param, no reboot), iOS receipt phantom row + editable total
+
 ## [2026-06-18] save | Session cc-1111–1126 + cc-1400: Receipt Scanner Phase 2
 - Type: session
 - Location: wiki/meta/session-2026-06-18-cc1111-1126-receipt-scanner-phase2.md
