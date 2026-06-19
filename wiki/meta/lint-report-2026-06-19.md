@@ -13,21 +13,19 @@ status: stable
 
 ## Summary
 - Pages scanned: 226
-- Issues found: 17 (actionable)
+- Issues found: 9 (actionable — orphans were false positives)
 - Auto-fixed: 9
-- Needs review: 4 (orphans — may be intentional)
+- Needs review: 0
 
 ---
 
 ## Orphan Pages
-No inbound wikilinks pointing to these pages. May be intentional standalones.
+**All 4 flagged as false positives.** Scanner resolved from top-level `wiki/` namespace and missed path-relative wikilinks in `wiki/tyler/index.md`. All are linked:
 
-- [[tyler/runbooks/incident-response]]: real runbook with content, nothing links to it. Suggest: link from [[tyler/index]] runbooks section.
-- [[tyler/summaries/system-security-plan]]: content page, nothing links to it. Suggest: link from [[tyler/index]] or [[gunnerteam/overview]].
-- [[tyler/concepts/_index]]: sub-index scaffold. Suggest: link from [[tyler/index]] or delete if empty.
-- [[tyler/sources/_index]]: sub-index scaffold. Suggest: link from [[tyler/index]] or delete if empty.
-
-> **Status:** Left for review — may be intentionally isolated.
+- [[tyler/runbooks/incident-response]]: linked from `tyler/index.md` line 125 ✅
+- [[tyler/summaries/system-security-plan]]: linked from `tyler/index.md` line 149 ✅
+- [[tyler/concepts/_index]]: linked from `tyler/index.md` line 222 (full concepts listing, not scaffold) ✅
+- [[tyler/sources/_index]]: linked from `tyler/index.md` line 212 (15 ingested sources by category, not scaffold) ✅
 
 ---
 
