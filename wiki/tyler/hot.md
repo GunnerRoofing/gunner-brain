@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v295 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1603: GitHub Actions CI live (syntax check, node --test, npm audit report-only). Unit tests pass; DB integration tests skip cleanly in CI via NO_DB guard. v295 unchanged. CI green on first push.
+- **Last session:** 2026-06-19 — cc-1606: audit-archiver schema fixed (audit_logs→audit_log, ts→created_at, s3 key audit_log.json, dryRun+year overrides). Networking fixed: archiver in vpc-0530f022b0273f215 (old VPC, where masterdb-proxy lives); sg-0d96e76f471e0d593 added to proxy SG inbound. BLOCKED: auth fails "wrong password for postgres" — DB_USER/DB_PASSWORD SSM params may not match what the proxy expects, or IAM auth token needed.
 - **OMP:** 16.0.7
 
 ## Process Rule
