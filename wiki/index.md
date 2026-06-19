@@ -1,7 +1,11 @@
 ---
 type: index
-updated: 2026-06-10
+updated: '2026-06-18'
 owner: vault
+status: stable
+tags:
+  - index
+  - vault
 ---
 
 # gunner-brain — Master Index
@@ -38,7 +42,14 @@ Read by everyone; write with coordination.
 
 ## Meta
 
-- `meta/` — session notes (from `/save`) and lint reports (from `/lint`).
+- `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-18]].
+  - [[meta/session-2026-06-18-cc1111-1126-receipt-scanner-phase2]] — 2026-06-18: Receipt scanner phase 2 (cc-1111–1126 + cc-1400): 502 fix, Sales Tax/Freight lines, trailing-minus detection, dual-image best-of OCR (original preferred, B&W only when clearly better and not garbled), cleanDescription rewrite (segment-split/longest-wins), verify UI (category grouping, compact fee rows, Items vs Receipt total reconciliation, multi-line descriptions), Requests row icon contrast. Lambda v283→v291.
+  - [[meta/session-2026-06-18-cc1100-1300-receipt-scanner-location-batch]] — 2026-06-18: Receipt scanner feature (VisionKit→ReceiptImageProcessor, Textract extract, commit+P&L push, verify screen, cc-1100–1110); location battery optimization + offline buffer + batch ingest (cc-1200–1202); address geocoding on PMLocationView (cc-1300). Lambda v279→v283.
+  - [[meta/session-2026-06-18-wiki-lint-all-fixed]] — 2026-06-18: Wiki lint pass — 227 pages, 13 issues found and all fixed (3 dead links, 3 stale Lambda versions, 3 index gaps, 2 structural, 2 orphans, 2 frontmatter gaps). Deploy recipe corrected in aws-environment.md.
+  - [[meta/session-2026-06-18-cc864-871-lockfix-ping-consent]] — 2026-06-18: Audit_log 12-min lock root cause (NodeJsExit + stranded Proxy txn, cc-864); silent-push debug chain (cc-865–870); /validate missing location_consent → device consent=false fixed (cc-867); PMLocationView 90s poll + map recenter + graceful fallback (cc-869); docs/gunnerteam-app-summary.md refreshed (cc-871). Lambda v275–v277 live.
+  - [[meta/session-2026-06-17-cc815-842-compliance-refactor-service-keys]] — 2026-06-17: Location compliance system (consent column, PATCH /time/location-permission, GET /time/location-compliance); service key lifecycle (revoke/expire/last_used); iOS file structure sweep; CC/FP comments split; v252–v269 deployed.
+  - [[meta/session-2026-06-16-cc789-815-location-forms-360gallery]] — 2026-06-16: Always-on PM locate; PMLocationView full-bleed map; Dumpster Swap + Material Shortage forms (Monday board 18406336489); 360 photo tagging + gallery confirm; geofences across 20 nearest jobs.
+  - [[meta/session-2026-06-15-cc766-788-appstore-hardening-polish]] — 2026-06-15: App Store hardening and polish.
   - [[meta/session-2026-06-13-cc608-742-bundle-perf-gamification-ios-polish]] — 2026-06-13: Bundle perf investigation (v183–v220), gamification Phase 2–3 (achievements/leaderboard/redemption/payroll), iOS polish (cc-608–742), wiki lint auto-fix.
   - [[meta/session-2026-06-11-cc403-412-fleet-inspection-hub-polish]] — 2026-06-11: AuxComponents (StatusBadge, EmptyStateView, StickyEditBar, DestructiveConfirmSheet), aux screen UX sprint.
   - [[meta/session-2026-06-11-cc390-402-fleet-inspection-hub-polish]] — 2026-06-11: Fleet inspection single-camera, driver feedback, hub redesign, notification animation.

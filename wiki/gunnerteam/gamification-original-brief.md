@@ -28,4 +28,4 @@ Raw brainstorm note from Tyler captured before implementation (cc-603–712).
 
 ## Status
 
-Implemented as cc-603–712 (points ledger, achievements, leaderboard, redemptions, celebration UX). See [[wiki/gunnerteam/index]] for session links.
+Implemented as cc-603–712 (points ledger, achievements, leaderboard, redemptions, celebration UX). See [[meta/session-2026-06-13-cc608-742-bundle-perf-gamification-ios-polish]] for the session record.

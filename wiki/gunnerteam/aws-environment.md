@@ -1,10 +1,14 @@
 ---
 title: AWS Environment — GunnerTeam
 type: gunner
-tags: [gunner, aws, lambda, infrastructure]
+tags:
+  - gunner
+  - aws
+  - lambda
+  - infrastructure
 status: stable
-created: 2026-04-23
-updated: 2026-06-09
+created: 2026-04-23T00:00:00.000Z
+updated: '2026-06-18'
 sources: []
 related:
   - '[[gunner/environment]]'
@@ -25,7 +29,7 @@ The GunnerTeam backend runs a Lambda-first architecture in **us-east-2**. The Ex
 |----------|-------|
 | Lambda function | `gunnerteam-dev-api` |
 | Alias | `live` |
-| Live version | `v127` |
+| Live version | `v277` (see [[tyler/hot]] for current before deploying) |
 | API Gateway host | `k5h2n0rog9.execute-api.us-east-2.amazonaws.com` |
 | Public hostname | `api.team.gunnerroofing.com` |
 | DNS | Cloudflare proxy (orange cloud) → API Gateway |
@@ -60,41 +64,41 @@ The Lambda connects through the RDS Proxy endpoint, which pools and reuses datab
 
 Deploys use `AWS_PROFILE=mfa`, which provides 60-minute MFA sessions refreshed via `awsmfa` (MFA serial `arn:aws:iam::980921733684:mfa/tylerMFA`). Refresh the session before deploying if the current one has expired.
 
-The flow zips the build, stages it in S3, points the function at the new artifact, waits for the update to settle, publishes a new immutable version, and moves the `live` alias to it:
+The flow zips the build, stages it in S3, points the function at the new artifact, waits for the update to settle, publishes a new immutable version, and moves the `live` alias to it.
+
+**Two rules that must not be skipped (learned from cc-867):**
+1. **`rm -f /tmp/gunnerteam-deploy.zip` before every zip** — `zip -r` merges into an existing archive; stale files survive silently and the function runs old code.
+2. **`--routing-config '{"AdditionalVersionWeights":{}}'` explicit JSON** — the shorthand `AdditionalVersionWeights={}` is a no-op and leaves any prior canary weight in place, routing 100% of traffic to the old version even after the alias is updated.
 
 ```bash
-export AWS_PROFILE=mfa
-awsmfa   # refresh 60-min MFA session
+awsmfa  # refresh 60-min MFA session if needed
 
-# 1. zip the build, then upload to the deploy bucket
-aws s3 cp function.zip s3://gunnerteam-lambda-deploy-useast2/function.zip --region us-east-2
-
-# 2. point the function at the new artifact
+rm -f /tmp/gunnerteam-deploy.zip && \
+cd ~/Dev/GunnerTeam/gunnerteam-api && \
+zip -r /tmp/gunnerteam-deploy.zip . -x "*.git*" "node_modules/.cache/*" > /dev/null && \
+aws s3 cp /tmp/gunnerteam-deploy.zip \
+  s3://gunnerteam-lambda-deploy-useast2/gunnerteam-deploy.zip \
+  --region us-east-2 --profile mfa && \
 aws lambda update-function-code \
   --function-name gunnerteam-dev-api \
   --s3-bucket gunnerteam-lambda-deploy-useast2 \
-  --s3-key function.zip \
-  --region us-east-2
-
-# 3. wait for the code update to finish
+  --s3-key gunnerteam-deploy.zip \
+  --region us-east-2 --profile mfa --query 'FunctionName' --output text && \
 aws lambda wait function-updated \
   --function-name gunnerteam-dev-api \
-  --region us-east-2
-
-# 4. publish an immutable version
-aws lambda publish-version \
+  --region us-east-2 --profile mfa && \
+VERSION=$(aws lambda publish-version \
   --function-name gunnerteam-dev-api \
-  --region us-east-2
-
-# 5. move the live alias to the new version (use the published version number)
+  --region us-east-2 --profile mfa \
+  --query 'Version' --output text) && \
 aws lambda update-alias \
   --function-name gunnerteam-dev-api \
   --name live \
-  --function-version <NEW_VERSION> \
-  --region us-east-2
+  --function-version "$VERSION" \
+  --routing-config '{"AdditionalVersionWeights":{}}' \
+  --region us-east-2 --profile mfa --query 'FunctionVersion' --output text && \
+echo "deployed v$VERSION"
 ```
-
-Uploads larger than 10 MB go through S3 (steps 1–2); the S3 deploy bucket exists for this reason.
 
 ### Migrations
 

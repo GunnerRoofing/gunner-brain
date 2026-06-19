@@ -1,15 +1,14 @@
 ---
 type: hot-cache
-updated: '2026-06-17'
+updated: '2026-06-19'
 ---
 
-# Tyler Hot Cache — 2026-06-17
-
+# Tyler Hot Cache — 2026-06-19
 ## Current State
-- **Lambda:** v259 (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
-- **iOS build:** BUILD SUCCEEDED — cc-815–842 committed to `main`
-- **Last session:** cc-815–842 (2026-06-17) — location compliance, iOS file split, service keys
-- **omp:** 16.0.5; `/clear` skill updated to end with `/new` instruction
+- **Lambda:** v291 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
+- **Last session:** 2026-06-19 — receipt validation confirmed good; LOCATION_PING_FORWARD ON + live; Colin service key wired to `/time/location-compliance`
+- **OMP:** 16.0.7
 
 ## Process Rule
 **Git is the source of truth — solo-maintainer rules:**
@@ -20,61 +19,96 @@ updated: '2026-06-17'
 ## awsmfa
 `awsmfa` in `~/.zshrc`: prompts code → `unset AWS_*` → `sts get-session-token` → writes to BOTH shell env AND `mfa` profile. One command, works everywhere.
 
-## What's Live (v259)
-
-### Backend — location consent/compliance (new this session)
-- `gt_user_profile.location_consent` (boolean, default false, migration 20260617_location_consent)
-- `PATCH /time/location` + `POST /time/travel-ping`: consent-gated (no write if false)
-- `gt_user_location_status` table (migration 20260617_user_location_status)
-- `PATCH /time/location-permission`: upserts OS permission status (un-gated)
-- `GET /time/location-compliance`: dual-auth (Cognito admin/manager + service key); all org users
-- `GET /time/fleet-locations`: +`auth_status` column
-- **Dev opt-in**: `UPDATE gt_user_profile SET location_consent = true WHERE user_id = '3e3f0491-b16f-42cd-9437-028a4a3ad771'`
-
-### Backend — service keys (fixed)
-- `POST /templates/service-keys` was always 500 (phantom `updated_at` column) — fixed
-- `GET /templates/service-keys` (list) + `DELETE /templates/service-keys/:id` (revoke) — new
-- **Colin's key**: `5762117f3cc91a2f0e3ccc9beadeea4dca9f0534fd3bb777c156c09ce4e0c4c1` → 1Password
-
-### Backend — other fixes
-- `routes/fleet/index.js`: `require('../points/awardPoints')` → `../../` (3 sites, was causing 500 on every inspection submit — **cc-835 was critical**)
-- Monday item names: `"<customer> - Dumpster Swap"` / `"<customer> - Material Shortage"`
-- `forwardLocationPing`: uses `FIELD_PORTAL_API_URL/KEY`; flag still off
-
-### iOS
-- `locationConsentGranted` in `AuthManager`; consent gates heartbeat stream in `CheckInManager`
-- `reportPermissionStatus()` fires on every auth-status change + foreground
-- `LocationComplianceView` in PMPickerSheet (checklist button, admin/manager)
-- Massive file refactor complete: all CLAUDE.md iOS file rules satisfied
-
-## Migrations Run (prod Aurora — complete list)
-20260612_points_ledger, 20260612_achievements, 20260612_leaderboard_optin, 20260612_redemptions, 20260612_point_multipliers, 20260612_points_exclusions, 20260613_delta_cursor, 20260613_deduction_rules, 20260613_review_cursor, 20260616_location_history, 20260616_location_history_retention, 20260617_location_consent, 20260617_opt_in_dev_accounts, 20260617_user_location_status
-
-## Service Key Rotation
+## Deploy Recipe (CRITICAL — both fixes required)
 ```bash
-gt && curl -s "${API}/templates/service-keys" -H "Authorization: Bearer ${TOKEN}" | jq .
-curl -s -X DELETE "${API}/templates/service-keys/<id>" -H "Authorization: Bearer ${TOKEN}"
-curl -s -X POST "${API}/templates/service-keys" -H "Authorization: Bearer ${TOKEN}" \
-  -H "Content-Type: application/json" -d '{"description":"..."}'
+rm -f /tmp/gunnerteam-deploy.zip && \
+zip -r /tmp/gunnerteam-deploy.zip . -x "*.git*" "node_modules/.cache/*" > /dev/null && \
+aws s3 cp /tmp/gunnerteam-deploy.zip s3://gunnerteam-lambda-deploy-useast2/gunnerteam-deploy.zip \
+  --region us-east-2 --profile mfa && \
+aws lambda update-function-code --function-name gunnerteam-dev-api \
+  --s3-bucket gunnerteam-lambda-deploy-useast2 --s3-key gunnerteam-deploy.zip \
+  --region us-east-2 --profile mfa --query 'FunctionName' --output text && \
+aws lambda wait function-updated --function-name gunnerteam-dev-api --region us-east-2 --profile mfa && \
+VERSION=$(aws lambda publish-version --function-name gunnerteam-dev-api \
+  --region us-east-2 --profile mfa --query 'Version' --output text) && \
+aws lambda update-alias --function-name gunnerteam-dev-api --name live \
+  --function-version "$VERSION" \
+  --routing-config '{"AdditionalVersionWeights":{}}' \
+  --region us-east-2 --profile mfa --query 'FunctionVersion' --output text && \
+echo "v$VERSION"
 ```
+- `rm -f` first — `zip -r` merges into existing archive (stale zip bug)
+- `'{"AdditionalVersionWeights":{}}'` explicit JSON — shorthand `AdditionalVersionWeights={}` is a no-op; prior canary weights route 100% to old version
 
-## Open Items
-- `gt_location_history` 90-day prune → recurring EventBridge schedule
-- `GUNNERCAM_POINTS_WEBHOOK_TOKEN` + `REWARDS_ENABLED=false`
-- Terraform stash reconcile
-- Employee notice — HR/legal/IT sign-off
-- `LOCATION_PING_FORWARD` flag — off until consent #37 signed
-- Colin to wire service key to `GET /time/location-compliance`
+## What's Live (v291)
+
+### Backend — receipt scanner (updated this session)
+- `POST /jobs/:jobId/receipt/extract`: dual-image best-of selection (cc-1122/1126)
+  - Accepts `imageBase64` (primary, original color) + optional `imageBase64Alt` (B&W)
+  - `parseExpenseDoc(out)` — pure fn; `reconScore(r)` — `|total − Σ lines|`
+  - `garbageFraction(r)` — fraction of lines with description `<4` chars or no 3+ letter run
+  - Selection: prefer original; switch to B&W only when `reconScore(bw)+1.0 < reconScore(orig)` AND `garbageFraction(bw) ≤ garbageFraction(orig)+0.05`
+  - `cleanDescription()`: segment-split, 5 passes (tax markers, qty@unit, UPC, prices, item codes), pick longest segment ≥ 2 chars
+  - Tax (`category:'tax'`), Freight (`category:'freight'`), Sales Tax fallback = TOTAL−SUBTOTAL
+  - ABC trailing-minus `110.00-` → `num()` detects → `credit`
+  - `audit` records `candidates` count
+- `POST /jobs/:jobId/receipt/commit`: unchanged (cc-1103)
+
+### Backend — location batch (cc-1202)
+- `POST /time/location-batch`: consent-gated; bulk INSERT with client `recorded_at`; 2000 ping ceiling
+
+### iOS — receipt scanner (updated this session)
+- `ReceiptScannerView`: `makeScan` → `(bw, ocr)` tuple; `ocrImage` = perspective-corrected color original (for Textract); B&W for PDF/Files only
+- `JobPhotoSessionView`: sends both images; `asJpeg(_:)` steps quality 0.85→0.7→0.55→0.4 at 6.5 MB ceiling
+- `ReceiptVerifyView`:
+  - `ReceiptLineCategory`: `item | tax | freight`; `ReceiptLineDraft` decode-tolerant (`decodeIfPresent`, defaults `.item`)
+  - `lineRow` dispatches to `itemRow` (full layout) or compact fee row (label + Amount + picker)
+  - Two-pass `ForEach` with "Taxes & Fees" divider; both passes have `.onDelete` with index mapping
+  - Summary: "Items total" + "Receipt total" + mismatch warning (`Color.appWarning`)
+  - `net` removed; `lineSum` = unsigned Σ
+  - Description field: `axis: .vertical`, `lineLimit(1...3)`, `minimumScaleFactor(0.85)`
+- SCAN mode HUD: moved to top (`.padding(.top, 60)`); `Capsule()` pill shape
+- `JobGuidedView+Content`: Requests row icons = white glyph on `themeManager.theme.secondary` chip (cc-1400)
+
+### iOS — location (cc-1200–1201)
+- `applyTrackingMode()` in `CheckInManager`: off-job → `kCLLocationAccuracyKilometer`, 500m filter, 900s interval; checked-in → 100m, 500m→100m filter, 300s
+- `LocationPingQueue`: disk-backed FIFO, cap 5000, batch max 2000; flush on reconnect + foreground
+- `reportLocation(lat:lng:)` deleted — replaced by queue enqueue with `loc.timestamp`
+
+### iOS — PMLocationView (cc-1300)
+- `reverseGeocode(_:)` via CLGeocoder; address shown in footer above status pill
+- `.task(id: location.recordedAt)` re-geocodes after each successful ping
+
+### Backend — earlier features still live
+- `POST /auth/validate` returns `location_consent`
+- `POST /time/request-location`: APNs silent push ping
+- `GET /time/location-compliance`: dual-auth
+- Assistant-kb.js lock fix (cc-864)
+
+## Pending
+- **`idle_in_transaction_session_timeout = 30000`** on RDS cluster param (pending-reboot)
+- **`COLIN_PNL_API_URL`**: unset until Colin implements `/jobs/:jobId/pnl/line-items`
+- **`REWARDS_ENABLED=false`**: set true when policy approved
+- **`gt_location_history` 90-day prune**: recurring EventBridge schedule
+- **`GUNNERCAM_POINTS_WEBHOOK_TOKEN`**: set real value in Lambda console
+- **Employee notice** (`employee-notice-points-location.md`): HR/legal/IT sign-off
+- **Terraform stash reconcile**: `stash@{0}`
 
 ## Key Facts
 - Gunner org ID: `69aad261-347c-44db-8e9e-6c25a8509aa3`
-- MFA ARN: `arn:aws:iam::980921733684:mfa/tylerMFA`
+- MFA ARN: `arn:aws:iam::980921733684:mfa/tylerMFA`; base profile `default`; mfa profile `mfa`
 - Deploy bucket: `gunnerteam-lambda-deploy-useast2`, key `gunnerteam-deploy.zip`
-- Migration secret: `gunner-migrate-2026`; use `--qualifier <version>` to hit fresh container
+- Migration secret: `gunner-migrate-2026`; invoke with `--qualifier <version>` for fresh container
+- `gt()` shell function in `~/.zshrc`: run `gt-setup` once; `gt` exports `$TOKEN` + `$API`
 
 ## Schema Gotchas (masterdb)
-- `users.id` is **varchar** → all JOINs need `u.id::uuid`
-- `gt_user_profile.user_id`/`.org_id` are **varchar** → `::uuid` casts needed
-- `gt_user_profile` has **no `role`** (use `req.user.role`) and **no `display_name`**
-- `pg` string param vs uuid column → `$1::uuid`
-- `captured[0]` in camera callbacks is `[Int: Data]` dict — safe, do not replace with `.first`
+- `users.id` is **VARCHAR** → `u.id::uuid`
+- `gt_user_profile.user_id`/`.org_id` are **VARCHAR** → `::text` casts
+- `gt_user_profile` has no `role` (use `req.user.role`) and no `display_name`
+- `SET LOCAL` rejects `$1` → use string interpolation (orgId is auth-derived)
+- `gt_task_cursors` keyed (org_id, task) — no user_id column
+- **Single flag owner**: if two functions gate on the same `isX` flag, the second one's guard fires immediately → silent bail. One function must own the flag end-to-end.
+- **`/validate` must return all per-user flags** the client gates on (cc-867 lesson)
+
+## Dev Environment
+- **iTerm scrollback**: OMP window move causes replay of full scroll buffer. Fix: `Settings → Profiles → Terminal → Scrollback lines` → ~1000. Also end sessions with `/new`.

@@ -1,3 +1,9 @@
+## [2026-06-18] save | Session cc-1111–1126 + cc-1400: Receipt Scanner Phase 2
+- Type: session
+- Location: wiki/meta/session-2026-06-18-cc1111-1126-receipt-scanner-phase2.md
+- Lambda: v283→v291 (8 deploys); iOS: cc-1111–1126 + cc-1400 committed to main
+- Key: 502 fix (parseAmount→num), Sales Tax + Freight lines, trailing-minus detection (ABC), dual-image best-of OCR (garbageFraction guard), cleanDescription rewrite (segment/longest), verify UI (category grouping, compact fee rows, Items vs Receipt total), Requests row icons contrast
+
 ## [2026-06-17] save | Session cc-815–842: location compliance, iOS file split, service keys
 - Type: session
 - Location: wiki/meta/session-2026-06-17-cc815-842-compliance-refactor-service-keys.md
@@ -302,6 +308,29 @@
 - SECURITY: API key NOT ingested — stays in SSM as COMPANYCAM_API_KEY; source file is git-ignored
 
 # Wiki Log
+
+## [2026-06-18] save | session-2026-06-18-cc1100-1300-receipt-scanner-location-batch
+- Type: session
+- Location: wiki/meta/session-2026-06-18-cc1100-1300-receipt-scanner-location-batch.md
+- From: receipt scanner feature (cc-1100–1110, 11 prompts), location batch + offline buffer (cc-1200–1202), address geocoding on PMLocationView (cc-1300), OMP 16.0.7. Lambda v279→v283.
+
+## [2026-06-18] save | session-2026-06-18-wiki-lint-all-fixed
+- Type: session
+- Location: wiki/meta/session-2026-06-18-wiki-lint-all-fixed.md
+- From: wiki lint pass — 13 issues found, all 13 fixed in same session; deploy recipe corrections from cc-867 now in aws-environment.md
+
+## [2026-06-18] lint | Vault health check — 227 pages, 13 issues, 8 auto-fixed
+- Type: lint
+- Location: wiki/meta/lint-report-2026-06-18.md
+- Auto-fixed: 3 dead links (tyler/index.md lint-report refs), 3 missing sessions in wiki/index.md, duplicate vendor table in tyler/index.md, stale Lambda version in wiki/hot.md
+- All 13 issues resolved same session: stale versions updated, deploy recipe fixed, orphans linked, frontmatter gaps filled
+
+## [2026-06-18] session | cc-864–871 — Lock Contention Fix, Location Ping Consent, Docs Refresh
+- Type: session
+- Location: wiki/meta/session-2026-06-18-cc864-871-lockfix-ping-consent.md
+- Lambda: v275→v277 live; v278 pending MFA
+- iOS: cc-864–871 committed to main
+- From: audit_log 12-min lock root cause (NodeJsExit + stranded Proxy txn); full silent-push debug chain; /validate missing location_consent → consent=false on device; PMLocationView 90s poll + map recenter + graceful fallback; docs/gunnerteam-app-summary.md refreshed to current architecture
 
 ## 2026-05-22 | save | Session: Feature Sprint + Folder Reorg
 - Type: session

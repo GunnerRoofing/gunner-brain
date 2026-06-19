@@ -2,8 +2,9 @@
 type: overview
 owner: tyler
 app: GunnerTeam iOS
-created: 2026-06-10
+created: 2026-06-10T00:00:00.000Z
 status: active
+updated: '2026-06-18'
 ---
 
 # GunnerTeam iOS — Section Overview
@@ -39,9 +40,8 @@ and the Lambda backend (`gunnerteam-api/`).
 
 ## Current State
 
-- Lambda **~v140** live.
-- iOS **`main`** branch active.
-- **`release/3.0.0`** frozen for the App Store release.
+- Lambda **v277** live (alias `live` on `gunnerteam-dev-api`). See [[tyler/hot]] for the current version before deploying.
+- iOS **`main`** branch active. Distributed via Apple Business Manager (Hexnode MDM).
 
 ## Integration with GunnerCam
 
@@ -55,4 +55,6 @@ and the Lambda backend (`gunnerteam-api/`).
 - [[aws-environment]]
 - [[masterdb-architecture]]
 - [[gunnerteam-project-structure]]
+- [[CONTRIBUTING]] — deploy workflow, branching rules, pre-deploy checklist
+- [[gamification-original-brief]] — original feature brief (implemented cc-603–712)
 - [[../tyler/overview]]

@@ -7,7 +7,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[meta/session-2026-06-10-cc279-288-customer-photos-debug]] | cc-279–288: customer photo upload debug — PayloadTooLargeError root cause (Express 100kb→20mb), photoObj unwrap, source field null, Lambda v139; UI polish (haptics, photo cell hit area, Customer badge) |
 | [[meta/session-2026-06-02-cc87-89-91-phase-workflow-models]] | cc-87, 89–91: CompletedTasksSheet, PhaseWorkflowModels (data layer), JobGuidedView, PhaseDetailView+PhaseItemGridCell |
 | [[meta/session-2026-06-02-cc82-86-guided-tasks-complete]] | cc-82–86: highAlert tasks, GuidedJobsListView, list/grid toggle, TaskDetailSheet+uncheck, in-app task creation (v108) |
-| [[meta/lint/lint-report-2026-06-02]] | Lint report 2026-06-02: 180 pages, 1 orphan, 3 dead links, 151 empty sections |
+| [[meta/lint/lint-report-2026-06-10]] | Lint report 2026-06-10: pages scanned, orphans, dead links, index gaps |
 | [[meta/session-2026-06-02-cc76-80-notion-workspace-soc2-fixes]] | cc-76–80: Notion workspace build (8 DBs, Tasks, notion-sync.js), SOC 2 #36 CompanyCam org scope, SOC 2 #37 fleet doc ownership + audit(), CLAUDE.md long-term context scaffolded |
 | [[meta/session-2026-05-27-cc38-45-cc69-75-fleet-perf-webhooks]] | cc-38–45, 69–75: CompanyCam webhook push fix (user_devices), fleet perf sweep (query() migration, onAppear guards, indexes, Lambda migration runner), iOS doc upload fixes |
 | [[meta/session-2026-05-27-cc64-67-password-policy-cognito-email]] | cc-64–67: password policy validation, Cognito SES email + branded template, admin reset Cognito sync, iOS hint text |
@@ -171,7 +171,8 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 | Page | Description |
 |------|-------------|
-| [[meta/lint-report-2026-06-09]] | Lint report 2026-06-09 — 191 pages, 0 dead links, 11 index gaps fixed, 20 stale claims, 8 cross-ref gaps |
+| [[meta/lint/lint-report-2026-06-13]] | Lint report 2026-06-13 — most recent timestamped report |
+| [[meta/lint-report-2026-06-18]] | Lint report 2026-06-18 — 227 pages, 13 issues (3 dead links, 3 stale claims, 3 index gaps, 2 structural, 2 orphans, 2 frontmatter gaps) |
 | [[meta/session-2026-06-08-cc167-233-ios-tab-markup-themes]] | Session 2026-06-08 — cc-167–233: 4-tab architecture, PhotoMarkupEditor UIKit inset fix, ThemeManager Gunner teal, 360 photo capture, scroll-aware titles, Lambda v127, OMP 15.10.4 |
 | [[meta/session-2026-06-04-cc148-193-ios-co-fixes]] | Session 2026-06-04 — cc-148–193: guided job overhaul, CO flow, home screen redesign, FAB, Lambda v119 |
 | [[meta/session-2026-06-04-cc148-160-ios-co-fixes]] | Session 2026-06-04 — cc-148–160: field task fixes, PDF CO form, leads nearby, phase workflow |
@@ -207,7 +208,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[meta/boss-setup-guide]] | Fresh claude-obsidian vault setup guide for new users (plugin install method) |
 | [[meta/claude-obsidian-setup-guide]] | claude-obsidian install session notes — skills, hooks, CLAUDE.md setup |
 | [[meta/dashboard]] | Live dashboard — Bases + Dataview queries across all wiki sections |
-| [[lint-report]] | Running lint report — current health status; timestamped copies in meta/ |
+| [[meta/lint-report-2026-06-18]] | Running lint report — 2026-06-18 (227 pages, 13 issues) |
 | [[sources/_index]] | Index of all ingested source summaries, organized by category |
 | [[getting-started]] | Vault onboarding and quick start guide |
 
@@ -232,14 +233,6 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[vendors/cloudflare]] | Cloudflare — DNS, Pages, legacy Workers/D1 (migrating to AWS), WAF |
 | [[vendors/stripe]] | Stripe — payments platform; planned for invoicing + white-label billing (stub) |
 | [[vendors/docusign]] | DocuSign — e-signature; heavily used for customer contracts, change orders, HR docs |
-| Page | Description |
-|------|-------------|
-| [[vendors/jamf]] | JAMF Pro — under evaluation as MDM alternative; Chrome Enterprise Core is the key gate |
-| [[vendors/quote-portal]] | Quote Portal — quote customization tool; stub |
-| [[vendors/make-com]] | Make.com — HubSpot → Google Chat automation; stub |
-| [[vendors/sendgrid]] | SendGrid — transactional email; stub |
-| [[vendors/bitdefender]] | Bitdefender GravityZone — AV/EDR candidate; CMMC blocker; stub |
-| [[vendors/cloudflare]] | Cloudflare — DNS, Pages, legacy Workers/D1 (migrating to AWS), WAF |
 
 ## Comparisons
 
