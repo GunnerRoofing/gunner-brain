@@ -5,9 +5,9 @@ updated: '2026-06-19'
 
 # Tyler Hot Cache — 2026-06-19
 ## Current State
-- **Lambda:** v293 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v294 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-prompt-1501: REWARDS_ENABLED=true for dev (SSM + tf, v293). Pre-flight clear: no Tremendous creds → no real gift cards possible. POST /points/redeem no longer 403.
+- **Last session:** 2026-06-19 — cc-prompt-1500: 90-day gt_location_history prune wired (scheduler.js + EventBridge cron 08:00 UTC daily). Fixed null_resource routing-config shorthand bug (was no-op, now file://JSON). v294 live.
 - **OMP:** 16.0.7
 
 ## Process Rule
