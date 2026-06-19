@@ -2,6 +2,8 @@
 type: postmortem
 owner: tyler
 date: '2026-06-15'
+created: '2026-06-15'
+updated: '2026-06-15'
 severity: high
 status: resolved
 tags:

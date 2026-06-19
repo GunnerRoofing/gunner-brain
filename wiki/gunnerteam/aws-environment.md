@@ -29,7 +29,7 @@ The GunnerTeam backend runs a Lambda-first architecture in **us-east-2**. The Ex
 |----------|-------|
 | Lambda function | `gunnerteam-dev-api` |
 | Alias | `live` |
-| Live version | `v277` (see [[tyler/hot]] for current before deploying) |
+| Live version | `v294` (see [[tyler/hot]] for current before deploying) |
 | API Gateway host | `k5h2n0rog9.execute-api.us-east-2.amazonaws.com` |
 | Public hostname | `api.team.gunnerroofing.com` |
 | DNS | Cloudflare proxy (orange cloud) → API Gateway |

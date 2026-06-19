@@ -3,6 +3,7 @@ type: policy-draft
 owner: tyler
 status: draft-ready-not-distributed
 created: '2026-06-15'
+updated: '2026-06-19'
 tags:
   - hr
   - points

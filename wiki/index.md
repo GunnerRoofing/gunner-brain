@@ -42,7 +42,7 @@ Read by everyone; write with coordination.
 
 ## Meta
 
-- `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-18]].
+- `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-19]].
   - [[meta/session-2026-06-19-cc1500-1505-terraform-infra-hardening]] — 2026-06-19: Lambda env drift → Terraform (11 keys, COMPANYCAM_API_KEY restored, NOTION_TOKEN pruned); REWARDS_ENABLED=true for dev; daily 90-day location prune (EventBridge); stash@{0} dropped; Aurora idle_in_tx 24h→30s; iOS receipt phantom row + editable total. Lambda v291→v294. Fixed null_resource canary-routing no-op bug.
   - [[meta/session-2026-06-18-cc1111-1126-receipt-scanner-phase2]] — 2026-06-18: Receipt scanner phase 2 (cc-1111–1126 + cc-1400): 502 fix, Sales Tax/Freight lines, trailing-minus detection, dual-image best-of OCR (original preferred, B&W only when clearly better and not garbled), cleanDescription rewrite (segment-split/longest-wins), verify UI (category grouping, compact fee rows, Items vs Receipt total reconciliation, multi-line descriptions), Requests row icon contrast. Lambda v283→v291.
   - [[meta/session-2026-06-18-cc1100-1300-receipt-scanner-location-batch]] — 2026-06-18: Receipt scanner feature (VisionKit→ReceiptImageProcessor, Textract extract, commit+P&L push, verify screen, cc-1100–1110); location battery optimization + offline buffer + batch ingest (cc-1200–1202); address geocoding on PMLocationView (cc-1300). Lambda v279→v283.

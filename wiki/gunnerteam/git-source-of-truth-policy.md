@@ -3,6 +3,7 @@ type: policy
 owner: tyler
 app: GunnerTeam
 created: '2026-06-15'
+updated: '2026-06-19'
 status: active
 tags:
   - process
@@ -120,7 +121,7 @@ Resolution required downloading the live bundle, diffing all changed files, and 
 ## Related
 
 - [[masterdb-architecture]]
-- [[gunnerteam/hot.md]]
-- [[shared/decisions/]]
+- [[tyler/hot]]
+- [[shared/decisions/README]]
 - `CONTRIBUTING.md` in repo
 - `CHANGE_MANAGEMENT_POLICY.md` in repo

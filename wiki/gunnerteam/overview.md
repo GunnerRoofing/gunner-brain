@@ -40,7 +40,7 @@ and the Lambda backend (`gunnerteam-api/`).
 
 ## Current State
 
-- Lambda **v277** live (alias `live` on `gunnerteam-dev-api`). See [[tyler/hot]] for the current version before deploying.
+- Lambda **v294** live (alias `live` on `gunnerteam-dev-api`). See [[tyler/hot]] for the current version before deploying.
 - iOS **`main`** branch active. Distributed via Apple Business Manager (Hexnode MDM).
 
 ## Integration with GunnerCam
