@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v310 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v311 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
-- **Last session:** 2026-06-19 — cc-1625: alert email buttonUrl bug fixed (ReferenceError was silently falling back to raw JSON since cc-1619). SNS lambda subscription restored via tf apply. Branded alarm emails live. v310.
+- **Last session:** 2026-06-19 — cc-1626: points webhook HMAC fixed (req.rawBody vs parsed Object). trust proxy set. Debug removed. v311. Pending: Colin sends signed events to confirm 2xx + points award.
 - **OMP:** 16.0.7
 
 ## Process Rule
