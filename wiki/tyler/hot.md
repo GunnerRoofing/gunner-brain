@@ -7,8 +7,8 @@ updated: '2026-06-19'
 
 ## Current State
 - **Lambda:** v307 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
-- **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1619: alert email CloudWatch button now routes through IAM Identity Center (gunnerroofing.awsapps.com/start/#/console?account_id=…). account_id from ARN. v307.
+- **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
+- **Last session:** 2026-06-19 — cc-1801: fleet doc views fixed. Removed captured auth.currentToken threading; all 7 network calls (upload, view, thumbnail across VehicleDocumentViews + OtherDocumentsViews) now fetch fresh token via await auth.token(). BUILD SUCCEEDED.
 - **OMP:** 16.0.7
 
 ## Process Rule
