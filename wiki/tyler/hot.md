@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v300 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1615: lambda-api.tf vpc_config fixed to prod VPC (vpc-0530f022b0273f215, subnet-004acfd6dbb59a231/0481e68e34ade2858, sg-06313256b581ef39a). terraform plan: No changes. CLAUDE.md: rule added. No deploy. Prevents next apply from re-breaking DB connectivity (cc-1610 outage root cause).
+- **Last session:** 2026-06-19 — cc-1614: API Gateway throttle codified (5000 burst/10000 rate + detailed metrics). Outage root: tyler-cli set 0/0 out-of-band 2026-06-18T21:25 ET. Terraform now owns default_route_settings; stray 0 will appear in plan. No function deploy.
 - **OMP:** 16.0.7
 
 ## Process Rule
