@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v308 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v310 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
-- **Last session:** 2026-06-19 — cc-1622: COLIN_PNL_API_URL + COLIN_PNL_API_KEY live (v308). Receipt → P&L push enabled. Validated cc-1621 safe env-change flow (2 env adds only, no code/vpc). cc-1621 follow-up: pending Colin confirming line items land.
+- **Last session:** 2026-06-19 — cc-1625: alert email buttonUrl bug fixed (ReferenceError was silently falling back to raw JSON since cc-1619). SNS lambda subscription restored via tf apply. Branded alarm emails live. v310.
 - **OMP:** 16.0.7
 
 ## Process Rule
