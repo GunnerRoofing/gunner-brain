@@ -4,10 +4,11 @@ updated: '2026-06-19'
 ---
 
 # Tyler Hot Cache — 2026-06-19
+
 ## Current State
 - **Lambda:** v294 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-prompt-1503: idle_in_transaction_session_timeout=30000 on prod Aurora param group (was 86400000). Dynamic param, no reboot. Both clusters on custom groups already.
+- **Last session:** 2026-06-19 — full cc-1500–1505 block shipped and verified. See "Shipped Tonight" below.
 - **OMP:** 16.0.7
 
 ## Process Rule
@@ -31,63 +32,83 @@ aws lambda update-function-code --function-name gunnerteam-dev-api \
 aws lambda wait function-updated --function-name gunnerteam-dev-api --region us-east-2 --profile mfa && \
 VERSION=$(aws lambda publish-version --function-name gunnerteam-dev-api \
   --region us-east-2 --profile mfa --query 'Version' --output text) && \
+printf '{"AdditionalVersionWeights":{}}' > /tmp/reset-routing.json && \
 aws lambda update-alias --function-name gunnerteam-dev-api --name live \
   --function-version "$VERSION" \
-  --routing-config '{"AdditionalVersionWeights":{}}' \
+  --routing-config file:///tmp/reset-routing.json \
   --region us-east-2 --profile mfa --query 'FunctionVersion' --output text && \
 echo "v$VERSION"
 ```
 - `rm -f` first — `zip -r` merges into existing archive (stale zip bug)
-- `'{"AdditionalVersionWeights":{}}'` explicit JSON — shorthand `AdditionalVersionWeights={}` is a no-op; prior canary weights route 100% to old version
+- `file:///tmp/reset-routing.json` — inline shorthand `AdditionalVersionWeights={}` is a CLI no-op; prior canary weights silently persist. Fixed in `null_resource.clear_alias_routing` (cc-1500).
 
-## What's Live (v291)
+## Shipped Tonight (cc-1500–1505, v292–v294)
 
-### Backend — receipt scanner (updated this session)
-- `POST /jobs/:jobId/receipt/extract`: dual-image best-of selection (cc-1122/1126)
-  - Accepts `imageBase64` (primary, original color) + optional `imageBase64Alt` (B&W)
-  - `parseExpenseDoc(out)` — pure fn; `reconScore(r)` — `|total − Σ lines|`
-  - `garbageFraction(r)` — fraction of lines with description `<4` chars or no 3+ letter run
-  - Selection: prefer original; switch to B&W only when `reconScore(bw)+1.0 < reconScore(orig)` AND `garbageFraction(bw) ≤ garbageFraction(orig)+0.05`
-  - `cleanDescription()`: segment-split, 5 passes (tax markers, qty@unit, UPC, prices, item codes), pick longest segment ≥ 2 chars
-  - Tax (`category:'tax'`), Freight (`category:'freight'`), Sales Tax fallback = TOTAL−SUBTOTAL
-  - ABC trailing-minus `110.00-` → `num()` detects → `credit`
-  - `audit` records `candidates` count
-- `POST /jobs/:jobId/receipt/commit`: unchanged (cc-1103)
+### cc-1505 — Lambda env drift → Terraform (v292)
+- 11 console-only drift keys wired into SSM + `lambda-api.tf` data sources + env block
+- `COMPANYCAM_API_KEY` restored (was missing from live Lambda despite being in tf/SSM)
+- `NOTION_TOKEN` removed (zero code refs — dead)
+- `GUNNERCAM_POINTS_WEBHOOK_TOKEN` set net-new from CompanyCam webhook config
+- Rule documented in `CLAUDE.md` under "Learned from mistakes"
+- `terraform plan` now clean on env — no more silent console-drift wipes
 
-### Backend — location batch (cc-1202)
-- `POST /time/location-batch`: consent-gated; bulk INSERT with client `recorded_at`; 2000 ping ceiling
+### cc-1501 — REWARDS_ENABLED=true for dev (v293)
+- SSM param updated `false→true`; tf already had the data source from cc-1505
+- Pre-flight clear: no Tremendous creds in SSM → no real gift cards possible
+- `POST /points/redeem` no longer returns `403 Rewards are not enabled yet`
 
-### iOS — receipt scanner (updated this session)
-- `ReceiptScannerView`: `makeScan` → `(bw, ocr)` tuple; `ocrImage` = perspective-corrected color original (for Textract); B&W for PDF/Files only
-- `JobPhotoSessionView`: sends both images; `asJpeg(_:)` steps quality 0.85→0.7→0.55→0.4 at 6.5 MB ceiling
-- `ReceiptVerifyView`:
-  - `ReceiptLineCategory`: `item | tax | freight`; `ReceiptLineDraft` decode-tolerant (`decodeIfPresent`, defaults `.item`)
-  - `lineRow` dispatches to `itemRow` (full layout) or compact fee row (label + Amount + picker)
-  - Two-pass `ForEach` with "Taxes & Fees" divider; both passes have `.onDelete` with index mapping
-  - Summary: "Items total" + "Receipt total" + mismatch warning (`Color.appWarning`)
-  - `net` removed; `lineSum` = unsigned Σ
-  - Description field: `axis: .vertical`, `lineLimit(1...3)`, `minimumScaleFactor(0.85)`
-- SCAN mode HUD: moved to top (`.padding(.top, 60)`); `Capsule()` pill shape
-- `JobGuidedView+Content`: Requests row icons = white glyph on `themeManager.theme.secondary` chip (cc-1400)
+### cc-1500 — 90-day gt_location_history prune, daily (v294)
+- `scheduler.js`: added `pruneLocationHistory()` + dispatch on `'prune-location-history'`
+- `eventbridge.tf`: `cron(0 8 * * ? *)` rule/target/permission via existing `for_each`
+- `lambda.js`: stale comment on `20260616_location_history_retention` migration updated
+- **Bonus:** fixed `null_resource.clear_alias_routing` — provisioner was using CLI shorthand (`AdditionalVersionWeights={}` = no-op); now uses `file:///tmp/reset-routing.json`. Resolves recurring canary-drift gotcha.
+- Verified: `{"ok":true,"task":"prune-location-history"}` on v294
 
-### iOS — location (cc-1200–1201)
-- `applyTrackingMode()` in `CheckInManager`: off-job → `kCLLocationAccuracyKilometer`, 500m filter, 900s interval; checked-in → 100m, 500m→100m filter, 300s
-- `LocationPingQueue`: disk-backed FIFO, cap 5000, batch max 2000; flush on reconnect + foreground
-- `reportLocation(lat:lng:)` deleted — replaced by queue enqueue with `loc.timestamp`
+### cc-1504 — terraform stash@{0} reconciled
+- `reconcile/v233` stash (71 files, v233-era) fully superseded by main (v294)
+- All API deltas already in main: `sendAlertEmail`, PII redaction, `etHour<14` guard, announcements priority/is_read, auth LATERAL JOIN + ipKeyGenerator, fleet `checkMaintenanceAlerts` + `awardPoints`
+- All terraform deltas superseded by cc-1505/1500 (old VPC, old SGs, old morning/afternoon EventBridge split)
+- stash@{0} dropped. Remaining: stash@{0}=upload-monday-null-check, stash@{1}=vehicle-inspections
 
-### iOS — PMLocationView (cc-1300)
-- `reverseGeocode(_:)` via CLGeocoder; address shown in footer above status pill
-- `.task(id: location.recordedAt)` re-geocodes after each successful ping
+### cc-1503 — Aurora idle_in_transaction_session_timeout=30s
+- Prod cluster already on custom param group — no new group, no reboot needed
+- Was: `86400000` ms (24 h = effectively disabled). Now: `30000` ms (30 s)
+- Dynamic param applied immediately; `DBClusterParameterGroupStatus: None`
+- Server-side 30s + pool-side 5s (`DB_IDLE_TX_TIMEOUT_MS`) now both enforced
 
-### Backend — earlier features still live
-- `POST /auth/validate` returns `location_consent`
-- `POST /time/request-location`: APNs silent push ping
-- `GET /time/location-compliance`: dual-auth
-- Assistant-kb.js lock fix (cc-864)
+### cc-1127 — iOS receipt verify fixes
+- Phantom empty row above "Taxes & Fees": replaced filtered `ForEach($lines)` with index-based `ForEach(itemIdx/feeIdx)` — no `if` inside ForEach, no blank cells
+- Editable receipt total: `@State private var totalInput: Double?`, seeded once on `.onAppear`, drives `receiptTotal` → `totalsMatch` live via `TextField`
 
-## Pending
+## Pending (2 items — both external blockers)
 - **`COLIN_PNL_API_URL`**: unset until Colin implements `/jobs/:jobId/pnl/line-items`
 - **Employee notice** (`employee-notice-points-location.md`): HR/legal/IT sign-off
+- **GUNNERCAM points webhook**: Tyler's half done (token set, `POST /points/webhook` handler live). Colin needs to install + smoke-test his side; verify no `401 bad signature`.
+
+## What's Still Live (v294 = everything below)
+
+### Backend — receipt scanner
+- `POST /jobs/:jobId/receipt/extract`: dual-image best-of selection (cc-1122/1126)
+- `POST /jobs/:jobId/receipt/commit`: unchanged (cc-1103)
+
+### Backend — location
+- `POST /time/location-batch`: consent-gated; bulk INSERT, 2000 ping ceiling
+- `LOCATION_PING_FORWARD=true`: pings forward live to Colin (GunnerCam)
+- `GET /time/location-compliance`: dual-auth, Colin service key wired
+
+### Backend — rewards/points
+- `REWARDS_ENABLED=true` (dev only)
+- `POST /points/redeem`: unblocked; `GUNNERCAM_POINTS_WEBHOOK_TOKEN` set
+
+### Backend — scheduled tasks (EventBridge)
+- `overdue-inspections`: `rate(4 hours)`
+- `maintenance-check`: `rate(4 hours)`
+- `prune-location-history`: `cron(0 8 * * ? *)` daily 08:00 UTC
+
+### iOS
+- Receipt scanner: dual-image OCR, verify UI (index-based rows, editable total)
+- Location: `applyTrackingMode()`, `LocationPingQueue`, `PMLocationView` geocoder
+- `JobGuidedView+Content`: Requests row icons (cc-1400)
 
 ## Key Facts
 - Gunner org ID: `69aad261-347c-44db-8e9e-6c25a8509aa3`
@@ -95,6 +116,7 @@ echo "v$VERSION"
 - Deploy bucket: `gunnerteam-lambda-deploy-useast2`, key `gunnerteam-deploy.zip`
 - Migration secret: `gunner-migrate-2026`; invoke with `--qualifier <version>` for fresh container
 - `gt()` shell function in `~/.zshrc`: run `gt-setup` once; `gt` exports `$TOKEN` + `$API`
+- Aurora prod cluster: `gunner-masterdb-production-masterdbcluster-sczazkvf` (custom param group, `idle_in_tx=30s`)
 
 ## Schema Gotchas (masterdb)
 - `users.id` is **VARCHAR** → `u.id::uuid`
