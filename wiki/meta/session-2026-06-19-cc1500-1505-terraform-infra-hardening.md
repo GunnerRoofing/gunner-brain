@@ -1,6 +1,6 @@
 ---
 type: session
-title: "Session 2026-06-19: cc-1500–1505 Terraform Infra Hardening + iOS Receipt Fixes"
+title: "Session 2026-06-19: cc-1500–1505 Terraform Infra Hardening + iOS Receipt Fixes + Wiki Lint"
 created: 2026-06-19
 updated: 2026-06-19
 tags:
@@ -11,6 +11,7 @@ tags:
   - ios
   - eventbridge
   - rewards
+  - wiki-lint
   - location
 status: stable
 related:
@@ -146,3 +147,21 @@ Dynamic param → applied immediately with `ApplyMethod=immediate`. `DBClusterPa
 - **`AdditionalVersionWeights={}` CLI shorthand is a no-op.** Use `file:///tmp/reset-routing.json`. Fixed in `null_resource.clear_alias_routing` and deploy recipe.
 - **Aurora prod cluster already on custom param group.** No ceremony needed for future param changes — just `modify-db-cluster-parameter-group` with `ApplyMethod=immediate`.
 - **FIELD_PORTAL_* is a separate integration from COMPANYCAM_*.** Not duplicates.
+
+---
+
+## Wiki Lint — 2026-06-19
+
+Full report: [[meta/lint-report-2026-06-19]]
+
+226 pages scanned. 9 issues found and fixed. 0 remaining.
+
+**Auto-fixed (9):**
+- Stale version: `overview.md` + `aws-environment.md` v277 → v294
+- Dead links in `git-source-of-truth-policy.md`: `[[gunnerteam/hot.md]]` → `[[tyler/hot]]`; `[[shared/decisions/]]` → `[[shared/decisions/README]]`
+- Frontmatter gaps: added missing `created`/`updated` to POSTMORTEM, git-source-of-truth-policy, employee-notice, CONTRIBUTING, CHANGE_MANAGEMENT_POLICY
+
+**Orphan false positives (4 — all clean):**
+Scanner flagged `runbooks/incident-response`, `summaries/system-security-plan`, `concepts/_index`, `sources/_index` as orphans. All are linked from `wiki/tyler/index.md` via path-relative wikilinks (`[[runbooks/incident-response]]` etc.). The scanner only matched exact bare-filename links and missed path-qualified ones. Both `_index` files are real, full navigation pages — not scaffold stubs.
+
+**Lint scanner note:** Path-relative wikilinks (e.g. `[[runbooks/x]]` inside `tyler/index.md`) resolve correctly in Obsidian but read as dead to a naive `[[filename]]` text matcher. Scope the orphan check to bare-filename links only, or resolve relative to the containing folder.

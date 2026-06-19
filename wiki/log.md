@@ -1,9 +1,8 @@
 ## [2026-06-19] lint | Wiki health check
 - Type: lint
 - Location: wiki/meta/lint-report-2026-06-19.md
-- Pages scanned: 226 | Issues: 17 | Fixed: 9 | Needs review: 4 orphans
-- Fixed: v277→v294 in overview + aws-environment; dead link [[gunnerteam/hot.md]]→[[tyler/hot]] + [[shared/decisions/README]]; frontmatter gaps in POSTMORTEM, git-source-of-truth-policy, employee-notice, CONTRIBUTING, CHANGE_MANAGEMENT_POLICY
-- Needs review: 4 orphan pages (incident-response, system-security-plan, concepts/_index, sources/_index)
+- Pages scanned: 226 | Issues: 9 | Fixed: 9 | Needs review: 0 (4 orphans were false positives — all linked from tyler/index.md)
+- Fixed: v277→v294 ×2; dead links ×2; frontmatter ×5
 
 ## [2026-06-19] save | Session cc-1500–1505: Terraform infra hardening + iOS receipt fixes
 - Type: session
