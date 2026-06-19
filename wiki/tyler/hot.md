@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v307 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
-- **Last session:** 2026-06-19 — cc-1801: fleet doc views fixed. Removed captured auth.currentToken threading; all 7 network calls (upload, view, thumbnail across VehicleDocumentViews + OtherDocumentsViews) now fetch fresh token via await auth.token(). BUILD SUCCEEDED.
+- **Last session:** 2026-06-19 — cc-1621: lifecycle.ignore_changes += [filename] in lambda-api.tf. Terraform now decoupled from code (S3 deploy block owns code). terraform plan -target=aws_lambda_function.api → No changes. Env/config applies are permanently safe. CLAUDE.md rule updated.
 - **OMP:** 16.0.7
 
 ## Process Rule
