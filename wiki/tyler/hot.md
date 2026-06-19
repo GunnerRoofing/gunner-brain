@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v300 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v304 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1614: API Gateway throttle codified (5000 burst/10000 rate + detailed metrics). Outage root: tyler-cli set 0/0 out-of-band 2026-06-18T21:25 ET. Terraform now owns default_route_settings; stray 0 will appear in plan. No function deploy.
+- **Last session:** 2026-06-19 — cc-1616: CloudWatch alarm emails now branded (red ALARM / green RESOLVED, Gunner logo, deep link to CloudWatch). Raw <pre> fallback for non-alarm SNS. v304.
 - **OMP:** 16.0.7
 
 ## Process Rule
