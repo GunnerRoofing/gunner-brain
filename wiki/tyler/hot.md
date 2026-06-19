@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v307 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
-- **Last session:** 2026-06-19 — cc-1621: lifecycle.ignore_changes += [filename] in lambda-api.tf. Terraform now decoupled from code (S3 deploy block owns code). terraform plan -target=aws_lambda_function.api → No changes. Env/config applies are permanently safe. CLAUDE.md rule updated.
+- **Last session:** 2026-06-19 — cc-1623: env re-bake confirmed — 0 Lambda changes (apply showed all 41 SSM values already matched live). publish-version returned v307 (same — no drift since v307 was published). Token IS correct in live Lambda. 401 on points webhook is NOT a stale-token issue; must be signature algorithm, payload encoding, or Colin-side config. Health 200.
 - **OMP:** 16.0.7
 
 ## Process Rule
