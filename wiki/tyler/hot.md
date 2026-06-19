@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v311 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v312 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
-- **Last session:** 2026-06-19 — cc-1626: points webhook HMAC fixed (req.rawBody vs parsed Object). trust proxy set. Debug removed. v311. Pending: Colin sends signed events to confirm 2xx + points award.
+- **Last session:** 2026-06-19 — cc-1628: resolveUser de-pinned (query() not queryWithTenant). Every auth request was pinning an RDS Proxy connection; under location flood this starved audit writes (47s timeouts). SQL unchanged — explicit org_id filters preserve isolation. CLAUDE.md updated. v312.
 - **OMP:** 16.0.7
 
 ## Process Rule
