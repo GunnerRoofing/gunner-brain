@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v306 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v307 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1618: payload.points honored from Colin's signed webhook (non-neg int ≤ 1000 → seeded default if absent/invalid, with audit). pointsSource in audit_log. Follow-up: strict cap when auto-redemption designed. v306.
+- **Last session:** 2026-06-19 — cc-1619: alert email CloudWatch button now routes through IAM Identity Center (gunnerroofing.awsapps.com/start/#/console?account_id=…). account_id from ARN. v307.
 - **OMP:** 16.0.7
 
 ## Process Rule
