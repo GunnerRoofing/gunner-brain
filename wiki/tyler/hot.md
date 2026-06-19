@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v300 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1611: audit() is sole writer. companycam.js deleted (dead code). fieldportal.js 7 raw INSERTs → audit(). auth.js + users.js admin.delete_user moved after COMMIT. grep clean. v300.
+- **Last session:** 2026-06-19 — cc-1615: lambda-api.tf vpc_config fixed to prod VPC (vpc-0530f022b0273f215, subnet-004acfd6dbb59a231/0481e68e34ade2858, sg-06313256b581ef39a). terraform plan: No changes. CLAUDE.md: rule added. No deploy. Prevents next apply from re-breaking DB connectivity (cc-1610 outage root cause).
 - **OMP:** 16.0.7
 
 ## Process Rule
