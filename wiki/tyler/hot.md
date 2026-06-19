@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v305 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v306 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1617: emailTemplate polished (24px side padding, optional hero block, conditional button). All 3 callers (invite, reset, alert) inherit automatically. v305.
+- **Last session:** 2026-06-19 — cc-1618: payload.points honored from Colin's signed webhook (non-neg int ≤ 1000 → seeded default if absent/invalid, with audit). pointsSource in audit_log. Follow-up: strict cap when auto-redemption designed. v306.
 - **OMP:** 16.0.7
 
 ## Process Rule
