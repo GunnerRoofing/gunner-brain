@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v307 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v308 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1801 committed to `main`
-- **Last session:** 2026-06-19 — cc-1623: env re-bake confirmed — 0 Lambda changes (apply showed all 41 SSM values already matched live). publish-version returned v307 (same — no drift since v307 was published). Token IS correct in live Lambda. 401 on points webhook is NOT a stale-token issue; must be signature algorithm, payload encoding, or Colin-side config. Health 200.
+- **Last session:** 2026-06-19 — cc-1622: COLIN_PNL_API_URL + COLIN_PNL_API_KEY live (v308). Receipt → P&L push enabled. Validated cc-1621 safe env-change flow (2 env adds only, no code/vpc). cc-1621 follow-up: pending Colin confirming line items land.
 - **OMP:** 16.0.7
 
 ## Process Rule
