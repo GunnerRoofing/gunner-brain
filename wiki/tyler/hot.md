@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v294 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v295 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — full cc-1500–1505 block shipped and verified. See "Shipped Tonight" below.
+- **Last session:** 2026-06-19 — cc-1601: prune-location-history gains audit() row + deleted rowCount return; schedule rate(1 day); null_resource provisioner fixed (dropped --function-version, was re-pinning alias to stale tf state version). v295 live.
 - **OMP:** 16.0.7
 
 ## Process Rule
