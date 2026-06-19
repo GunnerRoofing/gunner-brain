@@ -6,9 +6,9 @@ updated: '2026-06-19'
 # Tyler Hot Cache — 2026-06-19
 
 ## Current State
-- **Lambda:** v296 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
+- **Lambda:** v299 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1607: audit() standardized. templates.js local auditLog() deleted; 11 calls migrated + resource on service_key. points-webhook: awards + redemption fulfil/refund audited. forms.js: 4 submission routes audited. audit.js: orgId param added (backward-compat). CLAUDE.md: logging standard section added. v296.
+- **Last session:** 2026-06-19 — cc-1610/1604/1605: alert recipients (admin@ already present; DB_PASSWORD applied to api+assistant Lambdas via first intentional tf apply post-cc-1609, v297); Cognito imported into tf state (cognito.tf, No changes); DynamoDB rate-limit store wired (4 limiters, RATE_LIMIT_TABLE, v299, DynamoDB write confirmed).
 - **OMP:** 16.0.7
 
 ## Process Rule
