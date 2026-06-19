@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v295 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1601: prune-location-history gains audit() row + deleted rowCount return; schedule rate(1 day); null_resource provisioner fixed (dropped --function-version, was re-pinning alias to stale tf state version). v295 live.
+- **Last session:** 2026-06-19 — cc-1602: CloudWatch alarms (lambda-errors, lambda-throttles, apigw-5xx, security-events) → SNS gunnerteam-dev-alerts → Lambda live → sendAlertEmail(). Log metric filter for [Migration] Unauthorized OR idle_in_transaction. No deploy — reused existing SNS handler. v295 unchanged.
 - **OMP:** 16.0.7
 
 ## Process Rule
