@@ -1,3 +1,12 @@
+## [2026-06-19] onboard | leo | Leo onboards to gunner-brain (gunner-ops + QP + masterdb + Dialpad)
+- Type: onboard / migration
+- Migrated Leo's knowledge from his personal claude-obsidian vault into wiki/leo/
+- Pages created: [[leo/apps/gunner-ops]], [[leo/apps/masterdb-integration]], [[leo/apps/quote-portal]], [[leo/qp/quote-wizard]], [[leo/qp/teardown]], [[leo/qp/pricing-formula]], [[leo/integrations/dialpad-hubspot]], [[leo/concepts/ops-lifecycle]]
+- Pages updated: [[leo/overview]], [[leo/index]], [[leo/hot]]
+- Scope: gunner-ops (in prod on masterdb, go-live ~2026-06-26), QP quote-wizard rebuild, ops↔masterdb B-lite/RLS contract, two Dialpad↔HubSpot Lambdas. Linked to canonical [[gunnerteam/masterdb-architecture]] / [[shared/vendors/dialpad]] rather than duplicating.
+- Excluded: non-Gunner content (DragonScale/SEO/plugin-dev). Did not write into other sections or root index/hot.
+- Flagged: ops_app DB password + JWT and the v1 asphalt-calc DB creds need rotation → Secrets Manager (values not copied).
+
 ## [2026-06-19] lint | Wiki health check
 - Type: lint
 - Location: wiki/meta/lint-report-2026-06-19.md
