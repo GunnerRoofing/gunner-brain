@@ -7,7 +7,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v294 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-prompt-1500: 90-day gt_location_history prune wired (scheduler.js + EventBridge cron 08:00 UTC daily). Fixed null_resource routing-config shorthand bug (was no-op, now file://JSON). v294 live.
+- **Last session:** 2026-06-19 — cc-prompt-1503: idle_in_transaction_session_timeout=30000 on prod Aurora param group (was 86400000). Dynamic param, no reboot. Both clusters on custom groups already.
 - **OMP:** 16.0.7
 
 ## Process Rule
@@ -86,13 +86,8 @@ echo "v$VERSION"
 - Assistant-kb.js lock fix (cc-864)
 
 ## Pending
-- **`idle_in_transaction_session_timeout = 30000`** on RDS cluster param (pending-reboot)
 - **`COLIN_PNL_API_URL`**: unset until Colin implements `/jobs/:jobId/pnl/line-items`
-- **`REWARDS_ENABLED=false`**: set true when policy approved
-- **`gt_location_history` 90-day prune**: recurring EventBridge schedule
-- **`GUNNERCAM_POINTS_WEBHOOK_TOKEN`**: set real value in Lambda console
 - **Employee notice** (`employee-notice-points-location.md`): HR/legal/IT sign-off
-- **Terraform stash reconcile**: `stash@{0}`
 
 ## Key Facts
 - Gunner org ID: `69aad261-347c-44db-8e9e-6c25a8509aa3`
