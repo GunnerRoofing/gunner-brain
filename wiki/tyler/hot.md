@@ -8,7 +8,7 @@ updated: '2026-06-19'
 ## Current State
 - **Lambda:** v295 live (`gunnerteam-dev-api`, alias `live`, prod Aurora via RDS Proxy)
 - **iOS build:** BUILD SUCCEEDED — cc-1111–1126, cc-1400 committed to `main`
-- **Last session:** 2026-06-19 — cc-1602: CloudWatch alarms (lambda-errors, lambda-throttles, apigw-5xx, security-events) → SNS gunnerteam-dev-alerts → Lambda live → sendAlertEmail(). Log metric filter for [Migration] Unauthorized OR idle_in_transaction. No deploy — reused existing SNS handler. v295 unchanged.
+- **Last session:** 2026-06-19 — cc-1603: GitHub Actions CI live (syntax check, node --test, npm audit report-only). Unit tests pass; DB integration tests skip cleanly in CI via NO_DB guard. v295 unchanged. CI green on first push.
 - **OMP:** 16.0.7
 
 ## Process Rule
