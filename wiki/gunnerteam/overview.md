@@ -57,4 +57,6 @@ and the Lambda backend (`gunnerteam-api/`).
 - [[gunnerteam-project-structure]]
 - [[CONTRIBUTING]] — deploy workflow, branching rules, pre-deploy checklist
 - [[gamification-original-brief]] — original feature brief (implemented cc-603–712)
+- [[gunnerteam/soc2-technical-summary]] — current SOC 2 technical control posture (TSC-by-criteria)
+- [[gunnerteam/security-compliance-roadmap]] — org-wide security/compliance program roadmap (frameworks, SOC 2, MDM, SIEM, CMMC, CISO track)
 - [[../tyler/overview]]

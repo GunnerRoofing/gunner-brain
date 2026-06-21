@@ -26,6 +26,11 @@ current system state, then drill into the section you need.
 
 - [[tyler/overview]] — Tyler: IT / Ops.
 - [[gunnerteam/overview]] — Tyler: GunnerTeam iOS app + API.
+  - [[gunnerteam/system-security-plan]] — IT-SSP-001 (corporate IT boundary)
+  - [[gunnerteam/ssp-addendum-1-product-environment]] — IT-SSP-001-A1 DRAFT (product environment; APP-01…APP-09; pending sign-off)
+  - [[gunnerteam/soc2-accomplishments-2026-06]] — June 2026 implementation summary; reliability incidents; operating conventions
+  - [[gunnerteam/soc2-technical-summary]] — SOC 2 technical control posture by TSC (cc-21xx work; 2026-06-20)
+  - [[gunnerteam/security-compliance-roadmap]] — org-wide security/compliance roadmap (frameworks, SOC 2 process, Hexnode→Jamf, SIEM, CMMC, CISO cert track)
 - [[colin/overview]] — Colin: GunnerCam.
 - [[leo/overview]] — Leo: gunner-ops.
 - [[doug/overview]] — Doug: Lead Finder, Review Engine, Content Creator, WP Local Page Template.
@@ -45,6 +50,7 @@ Read by everyone; write with coordination.
 - `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-19]].
   - [[meta/session-2026-06-19-cc1500-1505-terraform-infra-hardening]] — 2026-06-19: Lambda env drift → Terraform (11 keys, COMPANYCAM_API_KEY restored, NOTION_TOKEN pruned); REWARDS_ENABLED=true for dev; daily 90-day location prune (EventBridge); stash@{0} dropped; Aurora idle_in_tx 24h→30s; iOS receipt phantom row + editable total. Lambda v291→v294. Fixed null_resource canary-routing no-op bug.
   - [[meta/session-2026-06-18-cc1111-1126-receipt-scanner-phase2]] — 2026-06-18: Receipt scanner phase 2 (cc-1111–1126 + cc-1400): 502 fix, Sales Tax/Freight lines, trailing-minus detection, dual-image best-of OCR (original preferred, B&W only when clearly better and not garbled), cleanDescription rewrite (segment-split/longest-wins), verify UI (category grouping, compact fee rows, Items vs Receipt total reconciliation, multi-line descriptions), Requests row icon contrast. Lambda v283→v291.
+  - [[meta/session-2026-06-19-cc1630-1634-alerting-terraform-ops]] — 2026-06-19: Google Chat alerts (await fix + ok_actions, v319); cc-1631 closed (DB clean); CLAUDE.md Lambda freeze + secret rules (cc-1632); regression probe 16/17 PASS (cc-1633); S3 WORM codified + VPC reconcile doc (cc-1634). OMP 16.1.6.
   - [[meta/session-2026-06-18-cc1100-1300-receipt-scanner-location-batch]] — 2026-06-18: Receipt scanner feature (VisionKit→ReceiptImageProcessor, Textract extract, commit+P&L push, verify screen, cc-1100–1110); location battery optimization + offline buffer + batch ingest (cc-1200–1202); address geocoding on PMLocationView (cc-1300). Lambda v279→v283.
   - [[meta/session-2026-06-18-wiki-lint-all-fixed]] — 2026-06-18: Wiki lint pass — 227 pages, 13 issues found and all fixed (3 dead links, 3 stale Lambda versions, 3 index gaps, 2 structural, 2 orphans, 2 frontmatter gaps). Deploy recipe corrected in aws-environment.md.
   - [[meta/session-2026-06-18-cc864-871-lockfix-ping-consent]] — 2026-06-18: Audit_log 12-min lock root cause (NodeJsExit + stranded Proxy txn, cc-864); silent-push debug chain (cc-865–870); /validate missing location_consent → device consent=false fixed (cc-867); PMLocationView 90s poll + map recenter + graceful fallback (cc-869); docs/gunnerteam-app-summary.md refreshed (cc-871). Lambda v275–v277 live.

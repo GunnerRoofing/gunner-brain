@@ -164,6 +164,12 @@ status: stable
 | Written IR plan (full) | Partial |
 | BCP documentation | Gap |
 
+## Addendum
+
+**IT-SSP-001-A1** (2026-06-18) extends this SSP to the GunnerTeam product environment (second in-scope boundary). See [[gunnerteam/ssp-addendum-1-product-environment]].
+
+Controls APP-01…APP-09 are implemented and verified. Addendum is DRAFT — pending the same sign-off chain as this document (Tyler, Eric, Eddie, Andrew).
+
 ## Approval & Sign-Off
 
 - AUP and SSP v1.0 presented to leadership 2026-03-18 (SEC-002) — pending formal signature as of that date

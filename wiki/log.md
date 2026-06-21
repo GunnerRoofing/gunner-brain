@@ -1,3 +1,293 @@
+## [2026-06-20] save | Attack-Surface Reduction — cc-2123→2126 (synthesis) + Secrets Handling Rules (update)
+- Type: synthesis + canonical-page update (consolidating this conversation's cc-2123→2126 hardening block).
+- Location: `wiki/gunnerteam/attack-surface-reduction-cc2123-2126.md` (new synthesis); `wiki/gunnerteam/secrets-handling-rules.md` (updated — was stale: said secrets live in the Lambda env / "Terraform owns env vars"; now reflects the secret-free env + runtime SSM fetch model).
+- From: the cc-2123 (runtime secrets) → cc-2124 (DB_PASSWORD lazy pool) → cc-2125 (forms auth lockdown) → cc-2126 (jobId org preflight) conversation. The 4 per-session notes already exist in `wiki/meta/`; this adds the connective synthesis + reusable patterns and corrects the canonical secrets runbook. Lambda v335→v341.
+
+## [2026-06-20] save | Session cc-2126: Org-ownership preflight on client jobId (time.js) (CC6.1) — v341
+- Type: backend (security preflight + shared-client extraction). Commit `e607ae2`. Lambda **v341** live. Rollback v340.
+- Goal: `POST /time/checkin` took `req.body.jobId` and (a) wrote it into org-scoped `gt_time_entries` AND (b) forwarded it to Field Portal — WITHOUT verifying the job belongs to `req.orgId`. Violates the CLAUDE.md rule (client-supplied resource IDs must be org-verified before writes/upstream proxy, 404 on miss; CC6.1 tenant scoping). Single-tenant today so no real cross-tenant exposure, but a clear rule violation / standard pentest finding.
+- Phase 0 map: only ONE route consumes a client jobId — `/checkin` (line 109). It both writes org-scoped + forwards to FP. Checkout uses server-side `rows[0].job_id` (already org-scoped, NOT client-supplied) → no preflight needed. (forms.js/Monday IDs deliberately out of scope — integration being removed.)
+- Preflight (mirrors fieldportal.js's proven org-verify): after the `if(!jobId)` 400 and BEFORE any write/proxy — `const job = await ccFetch(\`/projects/${encodeURIComponent(jobId)}\`).catch(()=>null); if(!job) return res.status(404).json({error:'job_not_found'});`. ccFetch throws on non-2xx (incl 404) → caught → 404, never leaking existence; ccFetch's default ~5s `UPSTREAM_TIMEOUT_MS` bounds it (no hang).
+- Single Field-Portal client (prompt: 'keep a single client'): `ccFetch` lived in routes/fieldportal.js, un-exported, with BASE(22 uses)/apiKey(20)/upstreamFetch(19) used all over that 1781-line file. Extracted the whole client block (BASE, apiKey, upstreamTimeoutMs, upstreamFetch, ccFetch) verbatim into **`lib/fieldPortalClient.js`**; fieldportal.js now imports `{BASE, apiKey, upstreamFetch, ccFetch}` (dropped the now-dead `upstreamTimeoutMs` import) — one deletion block (lines 183-213) + one import, ~40 internal callsites unchanged. time.js imports `{ccFetch}` from the shared module. No import cycle (client → perf+secrets only). FIELD_PORTAL_API_URL is config (env); FIELD_PORTAL_API_KEY is the cc-2123 runtime secret (apiKey() stays a function).
+- Deploy v341 (rollback v340). Verified: /health 200, migration probe `ok:true` (the full refactored module graph — incl. fieldportal.js importing the shared client — loads live; DB fine), unauthed `POST /time/checkin` → 401 (requireAuth intact; preflight runs only after auth), require-load smoke OK. First probe hit `/checkin` (root) → 404 = Express unmatched-route default; correct path is `/time/checkin` (time.js mounted at /time).
+- Limitations (honest): authed 200(valid job)/404(bogus job) not exercised live — no Cognito RS256 token to forge. Verified by construction + parity: the preflight is byte-identical in pattern to fieldportal.js lines 582-587/636-640 and now calls the literally-same shared ccFetch. **TRADEOFF (prompt-accepted fail-closed):** check-in now requires Field Portal reachable — if FP is down, check-in returns 404 instead of the old succeed-and-fire-and-forget-push; bounded to ~5s.
+- Flagged (out of scope, per prompt): the real tenant-isolation backstop = a NOSUPERUSER/NOBYPASSRLS app DB role + the RLS-vs-app-scoping decision, partly in the `gunner-masterdb` SST stack (Colin); pre-second-tenant gate, tracked separately.
+
+## [2026-06-20] save | Session cc-2125: Lock down the unauthenticated forms routes (CC6.1/CC7.2) — v340
+- Type: backend gating + iOS client auth-flag fix. Commit `9763fc7`. Lambda **v340** live. Rollback target v339.
+- Goal: `POST /` (IT request) and `POST /submit-ap` had no `requireAuth`, no rate limiter, and /submit-ap had no `audit()` — anonymous callers could create Monday items / AP entries under the shared token. Every sibling forms route was already `requireAuth`'d. Cheap insurance until Monday is removed pre-white-label.
+- forms.js: added a distributed `formsLimiter` (express-rate-limit + `DynamoRateLimitStore`, windowMs 60s / max 30, prefix `forms`, in-memory fallback if `RATE_LIMIT_TABLE` unset) — **default import** `const rateLimit = require('express-rate-limit')` to match the working points-webhook sibling (the prompt's named-import snippet would be undefined on older majors; v8.5.2 exports both but one convention wins). Gated both routes: `requireAuth, formsLimiter, idempotency` (requireAuth first so the limiter keys on the principal). Fixed audits: added `req` to the IT `forms.submitted` audit (was missing org/user/IP) + a new `forms.submitted` audit on /submit-ap (mirrors /submit-co). Confirmed via audit.js that `audit({req})` pulls org_id/user_id/ip from req.
+- **iOS finding (supersedes the prompt's 'app unaffected' premise):** `FormSubmitExecutor` attaches the Cognito Bearer ONLY when `payload.requiresAuth` is true. `ITRequestView` (POST /) and `APFormView` (/submit-ap) both built `FormSubmitPayload(requiresAuth: false)` → gating the backend alone would 401 the app. Flipped both to `true`. **Plus a LATENT BUG:** `ChangeOrderView` (/submit-co) also had `requiresAuth: false` while /submit-co was ALREADY backend-gated → online CO submits were 401ing/dead-lettering; flipped to `true` too (risk-free — valid tokens are always accepted; aligns with the gated backend). Dumpster/Material were already `true`. All 5 forms now match their backends.
+- Deploy + verify (full S3 deploy → v340, alias flipped, rollback v339). **Propagation lag (cc-2119) bit again**: first unauthed probes hit warm v339 containers (POST / → 500 Monday err, /submit-ap → 200 created a real item `12329001233`) while /submit-co 401'd (gated in both versions). Re-tested after ~75s with **empty bodies** (so stale v339 returns 400 pre-Monday, no side effect; v340 returns 401 pre-validation): both routes **401 ×3/3**, /submit-co 401, /health 200. Confirmed the deployed v340 artifact's forms.js carries `requireAuth, formsLimiter` on both routes.
+- Limitations (honest): could not run a live authed create (no Cognito RS256 token to forge) → authed path verified by construction (requireAuth → unchanged handler → audit mirrors working /submit-co). iOS build NOT re-run (changes were literal `false→true` bool flips, compile-safe). **Rollout caveat:** old app installs (requiresAuth:false) will 401 on IT/AP until they update — unavoidable with backend gating, acceptable in dev.
+
+## [2026-06-20] save | Session cc-2124: DB_PASSWORD out of the env via lazy pool init (CC6.1) — v339
+- Type: backend (db.js lazy pool + targeted TF apply + careful canaried deploy). Commit `f766dbc`. Lambda **v339** live. Rollback target v337. The env is now **secret-free** (0 secrets) after cc-2123 + this.
+- Goal: `DB_PASSWORD` was the last secret in the Lambda env, and the hardest — `lib/db.js` built the pg `Pool` at module-load from `process.env.DB_PASSWORD`, before any async secret fetch could run. Plus proxy-secret-drift history (SSM DB_PASSWORD must equal the RDS Proxy's Secrets Manager secret).
+- db.js: replaced the module-load `new Pool({...password: process.env.DB_PASSWORD...})` with a memoized async `getPool()` that, on first call, `await getSecret('DB_PASSWORD')` (cc-2123 loader, cached per container), builds the Pool once, caches it. `connect()` routes through `await getPool()`. **The exported `pool` is kept as a backward-compatible lazy facade `{connect:()=>getPool().then(p=>p.connect()), query:(...a)=>getPool().then(p=>p.query(...a))}`** — so all ~10 direct callers (`pool.connect()`×9, `pool.query()`×1 in fleet) are UNCHANGED (prompt scoped changes to db.js + lambda-api.tf only). ssl `{ca,rejectUnauthorized:true}` (cc-2102) / timeouts / RDS-Proxy detection unchanged — only the password source + init timing move. Grep confirmed no top-level pool use (all in functions) → lazy init is safe. node --check OK.
+- No drift introduced: `getSecret('DB_PASSWORD')` reads the SAME `/gunnerteam/dev/DB_PASSWORD` SSM param Terraform used to bake into the env (verified present: SecureString, 32 chars). Delivery moves env→runtime; value untouched; the SSM-vs-proxy-secret rule is unchanged.
+- TF: removed the `DB_PASSWORD = data.aws_ssm_parameter.db_password.value` env line + the now-unreferenced `data "aws_ssm_parameter" "db_password"` source from `lambda-api.tf` (kept DB_HOST/PORT/NAME/USER config). Targeted plan = 0 add / 1 change / 0 destroy (only `DB_PASSWORD → null`, 26 other env vars untouched). `var.db_password` is unreferenced (pre-existing dead var) → left alone (out of file scope), flagged.
+- **Careful deploy (DB path → publish + test BEFORE alias):** apply env to $LATEST → S3 deploy db.js → publish **v339** (alias still v337). **Canary on v339 via `--qualifier 339` BEFORE aliasing**: migration probe `ok:true` = lazy pool builds from the runtime-fetched password + TLS-connects + runs SQL on the NEW version while live stays safe on v337. Only then flipped alias live→v339.
+- Verified live: /health 200; serving v339; migration probe via `--qualifier live` `ok:true`; **live env = 0 DB_PASSWORD + 0 secrets total**; log scan (6 min + 3 min) shows NO db.connect/password-auth/ECONNREFUSED/ETIMEDOUT/TLS/`secrets] missing` errors. Only benign `NodeVersionSupportWarning` (AWS SDK v3, node20→22) on cold starts — unrelated. No rollback.
+- Future: read straight from the RDS Proxy's Secrets Manager secret to make SSM-vs-proxy drift structurally impossible (noted, not built).
+
+## [2026-06-20] save | Session cc-2123: Secrets out of the Lambda env → runtime SSM fetch (CC6.1) — v337
+- Type: backend (new lib + multi-file conversion + targeted TF apply + deploy). Commit `6919e5b`. Lambda **v337** live. Rollback target v335.
+- Goal: ~17 secrets were baked into the Lambda env (exposed via GetFunctionConfiguration — the incident class). Now fetched at runtime from SSM, cached per container.
+- Discovery: mapped all reads. 13 secrets read by code; 4 CompanyCam secrets had ZERO reads (dead, superseded by FIELD_PORTAL_*); `routes/assistant-stream.js` orphaned (deleted — its only consumer was the cc-2121-removed Lambda). IAM already allows `ssm:GetParametersByPath` (cc-2107). **MIGRATION_SECRET was NOT in SSM** (env came from `var.migration_secret`/tfvars) → created the `/gunnerteam/dev/MIGRATION_SECRET` SecureString param (value preserved) so the migration probe keeps working.
+- `lib/secrets.js` (new): `loadSecrets()` = one `GetParametersByPath(SECRETS_PATH, WithDecryption)` per container, memoized; `getSecret()` async fail-loud; `getSecretSync()` drop-in for process.env (throws only if called before load). Added `@aws-sdk/client-ssm`.
+- `lambda.js`: `await loadSecrets()` at the top of EVERY invocation (after keepWarm; covers HTTP/scheduled/SNS/migration) → the cache is always populated before any handler → `getSecretSync` is safe in all contexts (incl. scheduled email/apns). Lowest-risk design: most reads became a mechanical `process.env.X → getSecretSync('X')` (no async/signature churn); the module-load `new Anthropic` became a lazy getter; webhook express.raw()+verify ordering untouched.
+- Converted: apns (APNS_KEY_CONTENT), email (RESEND, GOOGLE_CHAT), assistant (ANTHROPIC, lazy), fieldportal (FIELD_PORTAL_API_KEY + 3 webhook secrets + OPENAI + COLIN_PNL), forms (MONDAY ×2), time (FIELD_PORTAL_API_KEY ×4), points-webhook (GUNNERCAM_POINTS_WEBHOOK_TOKEN), lambda.js (MIGRATION_SECRET). Grep confirms 0 remaining `process.env.<secret>`; node --check all green.
+- TF: removed 17 secret env keys + 16 data sources from `lambda-api.tf`, added `SECRETS_PATH` config; removed the now-dead `migration_secret` var + tfvars line. Targeted plan = 0 add / 1 change / 0 destroy (env: -17 secrets, +SECRETS_PATH; no code/vpc change).
+- Deploy (canary): terraform apply env → S3 deploy (ships secrets.js + getSecretSync + client-ssm) → publish v337 → alias (live switches atomically; v335 stays as rollback). Verified: **migration probe `ok:true`** (loadSecrets+IAM+getSecretSync+DB — proves the whole mechanism, since one call populates the full cache), /health 200, points-webhook bad-sig → 401 (a real getSecretSync webhook path, not 500), **live alias env = 0/17 secrets + SECRETS_PATH present**. Authed paths (assistant/monday/email/colin/google-chat) verified by construction (same cache + modules load clean) — couldn't trigger without a user token.
+- NOT in scope: `DB_PASSWORD` (module-load pool init + proxy-secret-drift history → cc-2124). Future: Secrets Manager w/ managed rotation is the alternative if rotation is wanted.
+
+## [2026-06-20] save | Session cc-2122: Remove orphaned EC2-era remnants + account audit (CC6.1)
+- Type: infra config cleanup + AWS account audit (no live resource change). Commit `bb2198a` (variables.tf + user_data.sh; gitignored terraform.tfvars edited locally).
+- Phase 1: grep confirmed all 4 candidate vars UNREFERENCED in *.tf — `ec2_instance_type`, `ec2_key_name`, `dev_ip` (no SG ingress uses it — the ⚠️ case checked, safe), `jwt_secret`. Removed all 4 blocks from `variables.tf`.
+- tfvars: removed `ec2_key_name`, `jwt_secret`, `dev_ip` lines from the gitignored `terraform.tfvars` (kept live secrets db_password/cloudflare/migration). This wiped the **last copy** of the dead HS256 secret. Removing var + tfvars line together → no "undeclared variable" warning.
+- Phase 2: deleted stray `terraform/user_data.sh` (EC2 bootstrap, no TF refs); `ssm-boothook.sh` was already absent.
+- Phase 3 AUDIT (the substantive part): `aws ec2 describe-instances` (running/stopped). **No stray GunnerTeam EC2** — no instance keyed `gunnerteam-ec2` or named gunnerteam/gunner-forms → the EC2→Lambda migration's box was terminated, not just removed from TF. EC2 chain fully retired; no unmanaged compute holding the old JWT_SECRET.
+  - ⚠️ Account-hygiene observation (NOT GunnerTeam, NOT touched): 6 EC2 in us-east-2 (+2 us-east-1). Long-lived dev boxes on key `devopsFrontend` since 2024 — `dev-gunner-salesPortalEc2`, `dev-gunner-CorpProtal-frontend`, `dev-gunner-hrPortalEc2`; plus `wl-companycam-dev-bastion` (Colin), `db-tunnel`; stopped `testindqp2-hubspot`. Flag for the relevant app owners (cost + possible userdata secrets) — own review, not GunnerTeam scope.
+- Phase 4: `terraform validate` Success (only the pre-existing cosmetic cognito.tf:89 warning); `terraform plan` shows NO new changes from the removals (only the known leftover: null_resource.clear_alias_routing replace + cc-2121's assistant_stream_url output removal). Confirms variables/tfvars/scripts aren't state.
+
+## [2026-06-20] save | Session cc-2121: Remove abandoned assistant-stream Lambda + final JWT_SECRET teardown (CC6.1/6.6) — v335
+- Type: infra (targeted TF destroy + api env redeploy). Commit `befed66`. Lambda **v335** live. Resolves the cc-2118 regression; completes the JWT_SECRET teardown (cc-2118/2120/2121).
+- Phase 0 gate: `get-metric-statistics` Invocations 30d for `gunnerteam-dev-assistant-stream` = `[]` (0 invocations) → abandoned confirmed. (Also: iOS uses `/assistant/chat` API-GW route, handler deleted cc-2118, broken verifyToken import, ASSISTANT_STREAM_URL unused.)
+- Removed: deleted `terraform/lambda-assistant.tf` (the RESPONSE_STREAM Function URL Lambda — **authorization_type=NONE, CORS `*`**, env carried JWT_SECRET + DB creds + ANTHROPIC_API_KEY — a public unauthenticated secrets-bearing endpoint); removed `ASSISTANT_STREAM_URL` env (lambda-api.tf:200) + the now-orphaned `aws_ssm_parameter.jwt_secret` data source (lambda-api.tf:12). Confirmed blast radius first (only those two refs outside the deleted file).
+- Plan/apply: full plan = `1 add / 1 change / 4 destroy` (3 assistant resources + the benign `null_resource.clear_alias_routing` replace; api in-place drops ASSISTANT_STREAM_URL; output removed). Verified the api block drops ONLY ASSISTANT_STREAM_URL (the `- JWT_SECRET` was under the assistant DESTROY block). No masterdb/cognito/rds CHANGES (refresh only). Targeted apply: **3 destroyed (fn+url+loggroup) + api in-place**. Published **v335**, alias live.
+- Verify: old Function URL `https://xzmqry2…lambda-url…` → **403 (dead)**; /health 200; **/assistant/chat → 401** (the API-GW assistant route on the main Lambda is alive + auth-gated, NOT 404); live alias env free of ASSISTANT_STREAM_URL + JWT_SECRET. Deleted the dead **`/gunnerteam/dev/JWT_SECRET` SSM param** (ParameterNotFound confirms; nothing references it).
+- Notes: targeted apply left the orphaned `assistant_stream_url` output + the pre-existing `null_resource.clear_alias_routing` drift in state — both clear on the next full reconcile (consistent with cc-2115/2119). OUT OF SCOPE (flagged): `var.jwt_secret`→`terraform.tfvars`→`user_data.sh` EC2 chain (separate secret value; likely dead post-migration; own prompt).
+
+## [2026-06-20] ingest | SOC 2 Technical Summary + Security & Compliance Roadmap
+- Sources: `~/Documents/Claude/Projects/Gunner Team App/GunnerTeam-SOC2-Technical-Summary-2026-06-20.md` + `security-compliance-roadmap.md` (copied verbatim).
+- Pages created: [[gunnerteam/soc2-technical-summary]] (current SOC 2 control posture by TSC — the cc-21xx work), [[gunnerteam/security-compliance-roadmap]] (org-wide program roadmap: CIS/NIST/SOC 2/ISO/CMMC frameworks, SaaS tenant-isolation, Hexnode→Jamf, Google Workspace tiers, SIEM, CISO cert track).
+- Pages updated: [[index]] (gunnerteam SOC 2 list), [[gunnerteam/overview]] (Related), [[gunnerteam/soc2-accomplishments-2026-06]] (related backlink), [[tyler/ciso-track/roadmap]] (Related — §8 cert sequence + restores a `[!gap]`-flagged page's pointer).
+- Key insight: control *coverage* is strong + largely verified-live; the single gating SOC 2 item is the dev/prod split (one non-isolated dev account, one PM's real pilot data, no external-customer data) — environment isolation + AWS-native detection + tested DR all resolve at cutover. Roadmap pricing/timeline figures are flagged estimates (verify before budgeting).
+
+## [2026-06-20] save | Session cc-2120: Remove dead JWT_SECRET + jsonwebtoken (CC6.1) — v334 + cc-2118 regression found
+- Type: backend (dep + targeted TF apply + deploy). Commit `3431edf`. Lambda **v334** live.
+- Phase 0: grep src = 0 for JWT_SECRET/jsonwebtoken/jwt.sign/signToken (cc-2118 left it clean). Confirmed dead in code.
+- Phase 1: `npm uninstall jsonwebtoken` → `npm run check` (exit 0) + `npm test` (4 pass; DB-integration tests skip cleanly w/o DB_HOST). package.json + lock updated.
+- Phase 2: removed `JWT_SECRET = data.aws_ssm_parameter.jwt_secret.value` from `lambda-api.tf` env. Targeted `terraform plan -target=aws_lambda_function.api` = **0 add / 1 change / 0 destroy**, diff = ONLY `- "JWT_SECRET" -> null` (no code change — ignore_changes; assistant untouched). Applied.
+- Deploy: S3 block (ships the jsonwebtoken removal) + publish + alias → **v334**. Verified: LIVE alias `GetFunctionConfiguration` no longer exposes JWT_SECRET (the incident-class CC6.1 win), /health 200, v334 serving, rest of env intact (DB_HOST present). Existing auth unaffected (verifyCognitoToken unchanged; nothing read JWT_SECRET).
+- **DEVIATION from prompt Phase 2/3 (delete data source + SSM param) — INFEASIBLE as written:** `data.aws_ssm_parameter.jwt_secret` (lambda-api.tf:12) is ALSO referenced by `lambda-assistant.tf:34`. Deleting the data source breaks TF; deleting the SSM param breaks that data source. So KEPT both. There's also a separate `var.jwt_secret`→`terraform.tfvars`→`user_data.sh` (EC2 user-data) chain — untouched.
+- **⚠️ FOUND a cc-2118 regression:** cc-2118 deleted `src/assistant-stream.js` as "dead", but it's the **handler of the `gunnerteam-dev-assistant-stream` Function URL Lambda** (lambda-assistant.tf). That Lambda is abandoned (no invocations since ~May 15; `verifyToken` import already broken — jwt.js never exported it; iOS uses `/assistant/chat`, not the Function URL). Live Lambda runs old code (2026-06-19, still has the handler; `ignore_changes` protects it) so not live-broken, but repo lost the handler source + a future code-apply would break it. It also still carries JWT_SECRET env.
+- FOLLOW-UP (recommended cc-prompt): REMOVE the abandoned `assistant-stream` Lambda entirely (lambda-assistant.tf) → then complete the JWT_SECRET teardown (data source + SSM param + the var/tfvars/user_data.sh EC2 chain). Did NOT do it here (removing a Lambda + Function URL is a separate decision/scope).
+
+## [2026-06-20] save | Session cc-2119: Backend POST /device/integrity — lands the jailbreak signal (CC7.2) — v332
+- Type: backend (deploy). Commit `01424b8` on main. Lambda **v332** live.
+- Receiver for cc-2117's iOS DeviceIntegrityMonitor report (was 404ing → signal dropped). **Resolves the cc-2117 backend follow-up.**
+- Phase 0 (match the contract — verified, not guessed): read the iOS client → POST `API.base + "/device/integrity"` (top-level, NOT `/auth`-prefixed like device-token), Bearer auth, body `{event, deviceModel, osVersion}`. The prompt's example used `model/os/reason` + suggested auth.js — both WRONG for this client; matched the real contract instead.
+- New `routes/device.js` mounted `app.use('/device', ...)` in app.js (→ `/device/integrity`): `requireAuth → audit({action:'device.integrity_failed', req, metadata:{deviceModel:clamp64, osVersion:clamp32}}) → 204`; try/catch with status-before-json, no err.message to client, no PII.
+- node --check OK; require-load OK; mount verified `/device + /integrity`.
+- Deploy: full S3 block, env-var routing-config. Serving **v332** confirmed via log-stream.
+- **Deploy gotcha (new durable lesson):** first post-deploy test of the NEW route 404'd — a warm **v331** container served it (alias was correctly v332/routing=null; pure propagation lag, ~confirmed via the request's `[331]` log-stream tag). After ~45s, `/device/integrity` returned **401** consistently (6/6) from `[332]`. Lesson: a brand-new route can 404 on warm old containers briefly post-deploy → wait + re-test, don't conclude failure.
+- Verify: unauthed POST → **401 (route live, no more 404 → client report now received)**; v332 serving. Authed **204 + audit-row NOT run by me** — needs a valid Cognito user token (single-tester pilot creds gap, same as cc-2118); verified by construction (requireAuth is the proven 401 gate + the standard audit() helper used by 70+ callsites + correct route code). Recommend a supervised-device/token test to observe the 204 + the `device.integrity_failed` audit row.
+
+## [2026-06-20] save | Session cc-2118: Retire legacy HS256 token end-to-end (CC6.1) — deployed v331
+- Type: backend (deploy) + iOS. Commit `6ebb34e` on main. Lambda **v331** live.
+- Backend (`gunnerteam-api`):
+  - `routes/auth.js` complete-invite: removed `const jwtToken = signToken({...})` + `token:` from the 201 (now returns `{role, user:{...email...}}`); removed the `signToken` import (line 5) and the now-dead `orgSlug`/orgRes query (only fed the token). The handler already provisions Cognito (AdminCreateUser + permanent password), so the client signs in via Cognito next.
+  - `lib/jwt.js`: deleted `signToken`/`jwt.sign`, the `jsonwebtoken` require, and the `SECRET`/`JWT_SECRET` ref. Kept `verifyCognitoToken` (now the sole export).
+  - **Deleted dead `src/assistant-stream.js`** — unreferenced repo-wide (handler=src/app.js→routes/assistant), imported the never-exported HS256-era `verifyToken` (broke at load if ever required). Clean-cutover removal of the last legacy-token vestige.
+  - Grep confirms NONE: signToken/jwt.sign/verifyToken/HS256/jsonwebtoken/JWT_SECRET in src → backend is Cognito-RS256-only. `node --check` OK on both edited files.
+- iOS (`GunnerForms`):
+  - `AcceptInviteView.complete()`: after a 201, calls `AuthManager.shared.login(email: email, password: password)` (email from the accept-invite validation) — the normal Cognito path (Amplify signIn → fetchIdToken → validate). No longer reads `token` from the response; graceful fallback to "please sign in" if auto-signin fails (Cognito propagation).
+  - `AuthManager.swift`: deleted `legacyKeychainKey` (gunnerforms.jwt), `saveTokenPublic`, `legacyToken`, `validateLegacy`, the three legacy keychain helpers, and the restoreSession legacy-keychain `else` branch (now just sets isAuthenticated=false). Grep confirms no legacy refs remain (only unrelated GuidedTasksView "legacy" task-type aliases).
+- Deploy: full S3 block, `--routing-config` via env var (RC) to dodge the bash-mangling gotcha. Serving **v331** confirmed via CloudWatch log-stream `[331]` tags (not get-alias).
+- Verify: /health 200 (app loads ⇒ jwt.js/auth.js/middleware load ⇒ verifyCognitoToken intact ⇒ existing-user auth unaffected — /auth/validate + verifier unchanged); complete-invite(bad token)→400 "Invalid or expired invite" (route healthy, no 502/ReferenceError); iOS build SUCCEEDED.
+- LIMITATION: full invite→complete→Cognito-signin→authed E2E + the `auth.invite.completed` audit-row observation NOT run by me — sending an invite needs admin Cognito creds (single-tester pilot, not held). Success-path verified by code-read + node --check + build + route health. Recommend the tester run a throwaway invite to confirm iOS auto-signin lands authed.
+- Follow-up: remove `JWT_SECRET` SSM param + `lambda-api.tf` env line (separate TF change); drop `jsonwebtoken` from package.json (unused now).
+
+## [2026-06-20] save | Session cc-2117: iOS jailbreak / tamper detection (CC6.1/6.8)
+- Type: iOS feature (commit `e5eee61` on main). Build SUCCEEDED, 9 unit tests pass.
+- `App/JailbreakDetector.swift` (@MainActor struct, self-contained, injectable probes): artifact paths (Cydia/Sileo/bash/sshd/apt/cydia), `cydia://`/`sileo://`/`zbra://` canOpenURL (schemes added to Info.plist LSApplicationQueriesSchemes), suspicious dylib markers via `_dyld_image_count`/`_dyld_get_image_name` (MobileSubstrate/Substrate/FridaGadget/frida/cycript/libhooker/SSLKillSwitch/TweakInject), sandbox-escape write probe to `/private/`. **`#if targetEnvironment(simulator)` → returns false** (sim shares the Mac FS where /bin/bash etc. exist → would false-positive). Normal devices also return false.
+- `App/DeviceIntegrityMonitor.swift` (graduated, flag-gated): pilot/supervised = **report + audit, no block** — best-effort POST `device.integrity_failed` (no PII: hardware model via utsname + OS) over the pinned `API.session` (cc-2116) + a non-blocking orange warning banner. `JAILBREAK_ENFORCE` (default **false**) gates a full hard-block screen for the white-label/public build. `.deviceIntegrityGate()` ViewModifier wired at the app root (GunnerFormsApp), runs on launch (`.task`) + every foreground (scenePhase .active).
+- Tests: `GunnerTeamTests/JailbreakDetectorTests.swift` — 9 cases (sim-never-flags-even-with-artifacts, normal-clean-not-flagged, each heuristic fires, legit-frameworks-not-flagged). Registered to the test target via the xcodeproj gem (test target uses explicit pbxproj refs, NOT synchronized groups — unlike the main app target). Build SUCCEEDED, 0 new warnings.
+- HONEST SCOPE (control register): deterrent + audit signal, NOT tamper-proofing — Frida/Liberty Lite bypass in-app detection. Value = raising the bar on casual tampering + being the device-integrity control of record when MDM (Hexnode) is absent (white-label). Today on the supervised fleet Hexnode remains the real control.
+- FOLLOW-UP (backend, separate cc-prompt): add `POST /device/integrity` → `audit({action:'device.integrity_failed', ...})`. iOS-only here, so the report is best-effort (swallows the 404) until the endpoint ships. Also: white-label release must flip `JAILBREAK_ENFORCE` (or wire it to remote config).
+
+## [2026-06-20] save | Session cc-2116: iOS SPKI certificate pinning for the API hosts (CC6.7)
+- Type: iOS feature (commit `4fd3ef9` on main). Build SUCCEEDED.
+- New `GunnerForms/GunnerTeam/App/CertificatePinning.swift` — `PinnedSessionDelegate: NSObject, URLSessionDelegate` (nonisolated, required under `SWIFT_DEFAULT_ACTOR_ISOLATION=MainActor`). Server-trust challenge handler: scoped to the two API hosts only; standard `SecTrustEvaluateWithError` (chain+hostname) THEN SPKI-SHA256 pin check (rebuilds SPKI via RSA-2048 ASN.1 header + SecKeyCopyExternalRepresentation, CryptoKit SHA256); accepts if ANY chain cert matches, else `.cancelAuthenticationChallenge` (FAIL CLOSED); all other hosts → `.performDefaultHandling`.
+- `API.session` (pinned URLSession) added to APIConfig.swift; migrated ALL ~178 `URLSession.shared` call sites → `API.session` (129 via ast_edit, 49 via Python in 16 tree-sitter-unparseable files). Delegate passes through non-API hosts, so the blanket swap is safe + Amplify/Cognito (own session) and S3 presigned are untouched.
+- Pins (rotation-safe): primary = Amazon RSA 2048 M04 intermediate `G9LNNAql897egYsabashkzUCTEJkWBzgoEtk8X/678c=`; backup = Amazon Root CA 1 `++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=`. NOT the ACM leaf (rotates on renewal). Both extracted from the live chain (api-dev + api share it) and the root matches Amazon's authoritative download.
+- Verify (standalone Swift vs LIVE api-dev, parameterized delegate so no app edit/revert needed): correct pins → `/health` 200; corrupt pins → ERROR -999 cancelled (fail-closed enforcement); non-pinned host (amazon.com) → 200 (pass-through). iOS build SUCCEEDED (only pre-existing CLGeocoder deprecations; 0 new warnings). Full interactive sign-in not run — covered by build + live pin-match + behavior-equivalent session swap + Amplify-own-session.
+- ⚠️ cc-2110 dependency: when the Cloudflare proxy is enabled the app sees Cloudflare's chain — pins MUST be updated to Cloudflare's intermediate in the SAME release or the app hard-fails. Flagged in tyler/hot.md conventions.
+
+## [2026-06-20] save | Session cc-2115: Pin TF backend + provider to the mfa profile (CC6.1)
+- Type: infra (terraform config only, no infra change). Commit `b03eaca` (main.tf + CLAUDE.md).
+- Problem: `terraform/main.tf` `backend "s3"` had no `profile` → state/lock used base `tyler-cli` creds → `GunnerRequireMFA` explicit-deny on the lock (recurring in cc-2107/2109/2111, worked around with force-unlock / `AWS_PROFILE=mfa`).
+- Change: added `profile = "mfa"` to the `backend "s3"` (the prompt's one-liner) AND to the `provider "aws"` block. **The backend-only fix was insufficient** — empirically, `terraform plan` with `AWS_PROFILE` unset still threw ~60 `GunnerRequireMFA` denials on PROVIDER refresh/data-source calls (acm, apigateway, ssm, iam, ec2, cognito, etc.), because the provider also fell back to base creds. Pinning both meets the prompt's explicit verify ("plan … no GunnerRequireMFA denial") + goal ("not a per-invocation env var").
+- Verify: `terraform init -reconfigure` (no env) succeeded; `terraform plan` with `AWS_PROFILE=[]` → exit 0, **0 GunnerRequireMFA denials**, clean lock. Requires a live `mfa` session (awsmfa) — else fails fast with a clear auth error (intended).
+- Side observation (not acted on): current full plan = `1 add / 0 change / 1 destroy` = ONLY `null_resource.clear_alias_routing` being replaced (benign local re-trigger, no AWS infra). The cc-1635 VPC drift (9/1/4) is no longer in the plan — resolved by cc-2107/2109/2112 applies. hot.md drift line updated.
+- CLAUDE.md: added a "Learned from mistakes" note that TF now pins the mfa profile (backend+provider); `AWS_PROFILE=mfa` prefixes in existing rules are now redundant (harmless).
+
+## [2026-06-20] save | Session cc-2114: Import prod Aurora CPG to pin rds.force_ssl — ABORTED (foreign IaC ownership)
+- Type: infra investigation / decision (no changes; highest-care shared-prod prompt)
+- Goal: import the prod Aurora cluster parameter group into `terraform/rds-params.tf` to pin `rds.force_ssl=1` as Source=user (so a future engine-default change can't relax it).
+- Phase 1 enumerate (prod CPG `gunner-masterdb-production-masterdbclusterparametergroup-bzfauowx`): family `aurora-postgresql17` (field is `DBParameterGroupFamily`); only one user-source param `idle_in_transaction_session_timeout=30000` (immediate); `rds.force_ssl`=1 Source=system (still not pinned).
+- **STOP DISCOVERY: the CPG (and the whole masterdb cluster) is managed by a separate SST/Pulumi app**, not our Terraform. Evidence: CPG Description "Managed by Pulumi"; tags `sst:app=gunner-masterdb`, `sst:stage=production`, `sst:ref:password=...` on both CPG and cluster; auto-suffixed names; NOT in our terraform state. SST (sst.dev) v3 uses Pulumi under the hood.
+- DECISION: **ABORT the Terraform import.** Importing an SST/Pulumi-owned shared-prod resource into our TF = dual-IaC ownership; the next `sst deploy` of `gunner-masterdb` would reconcile/fight TF and could reset Colin's params on shared prod — the exact catastrophe this prompt guards against. Did NOT create `terraform/rds-params.tf`, did NOT import (state untouched).
+- Correct path: pin `rds.force_ssl=1` in the **`gunner-masterdb` SST app** (its actual owner — coordinate with Colin/DevOps). That's also where the realistic risk (someone setting it to 0) would originate, so the guard belongs there. Secondary: even absent the ownership conflict, force_ssl=1==engine-default → RDS dedup (cc-2111) would make a Source=user pin via plain modify non-trivial; SST/Pulumi asserts it declaratively in the param-group def, which is the right model.
+- Durable fact recorded: the masterdb Aurora stack is a separate SST/Pulumi app (`gunner-masterdb`); never `terraform import` its cluster/CPG/proxy into gunner-ios/terraform.
+
+## [2026-06-20] save | Session cc-2113: Codify S3 SSE — PARKED (provider-capability gate failed for 5.x)
+- Type: infra investigation / decision (no code changes)
+- Conditional task (codify `aws_s3_bucket_server_side_encryption_configuration` on the app buckets so SSE config gets drift detection). Gated on Phase 0: can the SSE-C block be expressed without regression?
+- Phase 0 findings: current pin `~> 5.0` (5.100.0) has no `blocked_encryption_types` (confirmed: strings on binary = 0; schema check needs AWS_PROFILE=mfa for the backend). The arg was added in **aws provider 6.22.0** (2025-11-20, PR #45105) — NOT backported to 5.x — and had a perpetual-drift bug in 6.22–6.39 (issue #47320), fixed in **6.40.0** (Optional+Computed).
+- DECISION: **PARK.** Codifying requires a major `~> 5.0`→`~> 6.x` provider migration (≥6.40), which carries breaking changes across the whole config (cognito/lambda/rds/vpc/cloudfront/iam/eventbridge/s3). That's disproportionate for drift-detection hardening on a control already enforced live (AES256 + SSE-C block), and is exactly the "stealth provider migration" cc-2113's own Phase-1 guard says to avoid. No edits to s3.tf or main.tf.
+- Interim: AWS Config rule `s3-bucket-server-side-encryption-enabled` deferred to the group-3 Config rollout (don't build bespoke detection infra now). Revisit codification when/if the repo moves to aws ≥6.40 for other reasons — at that point it's a cheap no-functional-diff add.
+
+## [2026-06-20] save | Session cc-2112: TLS-only policy on the audit-logs bucket (CC6.7)
+- Type: infra (terraform S3, targeted apply, no Lambda code/deploy)
+- File: terraform/audit-archiver.tf — added `aws_s3_bucket_policy.audit_logs` (DenyInsecureTransport) after the existing PAB. Closes the gap cc-2109 explicitly flagged on the 3rd bucket (`gunner-audit-logs-dev`, the SOC 2 audit trail). Bucket is TF-managed (real `aws_s3_bucket.audit_logs`), so refs use the resource not a data source.
+- Apply: `terraform plan/apply -target=aws_s3_bucket_policy.audit_logs` (AWS_PROFILE=mfa) = **1 add / 0 change / 0 destroy**. Commit `ff07b2c`.
+- Verify: http GET nonexistent key = `AccessDenied` (explicit deny) vs https GET = `NoSuchKey` → deny is transport-specific (the policy), not creds/existence. Archiver health invoke `{count:true}` on `gunnerteam-dev-audit-archiver` → 200 `{"total":842,"last24h":32,"last7d":365,...}` (DB connect fine, pipeline healthy). Archiver S3 writes are SDK/HTTPS → unaffected; Object Lock retention independent of bucket policy.
+- Milestone: all 3 S3 buckets (gunner-fleet-dev, gunner-assistant-docs, gunner-audit-logs-dev) now enforce TLS-only.
+
+## [2026-06-20] save | Session cc-2111: TF state versioning (A1.2) + Aurora rds.force_ssl (CC6.7)
+- Type: infra (AWS CLI only; nothing in Terraform; no Lambda code/deploy)
+- Part A — state-bucket versioning: `aws s3api get-bucket-versioning --bucket gunnerteam-terraform-state` → already `Status=Enabled`. No action; state rollback already protected.
+- Part B — rds.force_ssl on the SHARED prod Aurora cluster (coordination-gated on Colin):
+  - Disambiguated: TWO `masterdb` clusters exist (dev + production). Target = **production** (`gunner-masterdb-production-masterdbcluster-sczazkvf`, CPG `...bzfauowx`), confirmed by the cc-1503 `idle_in_transaction_session_timeout=30000` user param. Our dev Lambda actually uses this PROD cluster: `gunnerteam-dev-masterdb-proxy` → `TRACKED_CLUSTER ...production...`. The `gunner-masterdb-dev-*` cluster has no proxy targets (unused).
+  - **Finding: force_ssl is already =1 and enforced** — Aurora PG 17.7 engine default for `rds.force_ssl` = 1 (verified via describe-engine-default-cluster-parameters), dynamic, Source=system, no override, no pending, cluster available. So the prompt's premise (it's 0; flipping risks Colin) was stale; CC6.7 already met and Colin's app is already TLS-compliant (it'd be broken otherwise). Gate effectively moot.
+  - Verified our side under force_ssl=1: migration probe `pool.connect()` → `[{"ok":true}]`, /health 200.
+  - Asked Tyler → chose to set explicit user-override. **RDS deduped it**: `modify-db-cluster-parameter-group ParameterValue=1 ApplyMethod=immediate` succeeds but records NO user override because 1 == engine default (param stayed Source=system across 35s; not in --source user list, unlike idle_in_transaction). Modify was a no-op; re-verified DB connect `ok:true` + /health 200 after.
+  - Net: force_ssl=1 enforced (control met); cannot be pinned Source=user via CPG while value==default. Durable pinning would require Terraform managing the CPG (out of scope — not in TF). Rollback (set 0) never needed — no change took effect.
+- Coordination note: Colin is a human teammate, not an IRC agent → could not confirm his SSL directly, but the already-enforced state makes his compliance a logical certainty.
+
+## [2026-06-20] save | Session cc-2109: S3 CC6.1 baseline on app buckets — PAB + TLS-only (no SSE regression)
+- Type: infra (terraform S3, targeted apply, no Lambda code/deploy)
+- File: terraform/s3.tf (was a 7-line data-source-only reference; now references both app buckets + codifies the baseline).
+- Buckets: `gunner-fleet-dev` (inspection photos, var.s3_bucket) + `gunner-assistant-docs` (ASSISTANT_DOCS_BUCKET SSM, new data source via existing data.aws_ssm_parameter.assistant_docs_bucket).
+- Phase-1 audit (don't assume): both already had PAB (4×true) + SSE AES256 + `BlockedEncryptionTypes:[SSE-C]` (AWS Apr-2026 default), and NO bucket policy. So the only MISSING CC6.1 control was TLS-only.
+- Added: `aws_s3_bucket_public_access_block` ×2 (codify already-true PAB → drift detection) + `aws_s3_bucket_policy` ×2 DenyInsecureTransport (the gap; standalone since no existing policy to merge). `terraform apply -target` = **4 add / 0 change / 0 destroy**.
+- DECISION — SSE NOT codified: provider pinned `hashicorp/aws 5.100.0` (`strings` on the binary → 0 hits for `blocked_encryption_types`). `aws_s3_bucket_server_side_encryption_configuration` does a full PutBucketEncryption REPLACE → would silently drop the live SSE-C block for zero benefit (AES256 already on). "Add only what's missing" → SSE isn't missing. Re-audit post-apply confirmed SSE-C block intact on both.
+- Verify (real app path, mirrors src/lib/s3.js getSignedUrl): presigned PUT /https = 200, presigned GET /https = 200+content, same GET /http = 403 AccessDenied "explicit deny in a resource-based policy"; docs bucket http GET = explicit-deny vs https = NoSuchKey (transport-specific). Probe object cleaned up.
+- Gotcha: terraform S3 backend (main.tf:15, no `profile`) used base tyler-cli creds → GunnerRequireMFA explicit-deny on the state lock. Fix = run terraform with `AWS_PROFILE=mfa` env (drives backend + provider). Also: a node script in /tmp resolves modules from /tmp, not cwd → set NODE_PATH to gunnerteam-api/node_modules.
+- Out-of-scope observation: the audit-logs bucket (`gunner-audit-logs-dev`, audit-archiver.tf) has PAB+SSE+lifecycle but NO TLS-only policy either — candidate follow-up (not touched; prompt scope = app buckets).
+
+## [2026-06-20] save | Session cc-2107: IAM AdminUserGlobalSignOut grant + Cognito/logs/SES least-privilege (SOC 2 CC6.1/6.3)
+- Type: infra (terraform IAM, targeted apply, no Lambda code/deploy)
+- File: terraform/lambda-api.tf aws_iam_role_policy.lambda_api. Targeted `terraform apply -target` → 0 add / 1 change / 0 destroy (clean; broader VPC drift untouched).
+- Required: added cognito-idp:AdminUserGlobalSignOut (cc-2103's delete-time sign-out was silently AccessDenied → refresh-token revocation no-op'd) + scoped CognitoAdmin Resource from userpool/* to userpool/us-east-2_hFVBSrcnn (= live COGNITO_USER_POOL_ID, verified). 
+- Optional least-privilege (verified safe): CloudWatchLogs Resource → /aws/lambda/gunnerteam-dev-api:* and dropped logs:CreateLogGroup (group TF-managed); SES Resource → identity/gunnerroofing.com (verified domain identity).
+- Verify: live policy confirmed; IAM simulate-principal-policy on the lambda role = AdminUserGlobalSignOut ALLOWED on the pool (definitive, IAM live-evaluated, no redeploy); app + platform logs land under the scoped logs policy (REQ_DONE verified). Did NOT run a throwaway-user delete (create flow is invite-email + multi-step; IAM sim is definitive). SES not live-smoked (low-risk domain scope). No prior AccessDenied in 3-day window → silent failure was latent, now pre-empted.
+- Stale-lock note: cleared an abandoned 14h-old Plan state-lock via `terraform force-unlock` before planning.
+
+## [2026-06-20] save | Session cc-2106: Deploy current main — multer/node-forge fixes live (SOC 2 CC7.1)
+- Type: deploy
+- Lambda v329→v330 live (deployed main 5801da0 = bf52df5/PR#6 + cc-2021 test-only). Alias routing reset to null (file-based --routing-config). No code change this session.
+- Now in PROD: multer 2.2.0 (DoS highs), node-forge 1.4.0 (highs via @parse/node-apn 8.1.0). npm audit --audit-level=high --omit=dev exit 0; npm ls confirms versions.
+- Runtime risk (node-apn 7→8 major) smoke-tested: cold-start logs no node-apn/node-forge load error; multer /upload parses multipart (file reached Monday add_file → bogus-item 500, past multer); node-apn 8 silent push via /time/request-location to self → devicesPinged:1, no [APNs]/runtime errors. Serving version [330] confirmed via log-stream tags (get-alias showed phantom {329:1.0} then settled to null — eventual consistency, cc-2102 pattern).
+- Pushed cc-2021 to origin pre-deploy (origin/main = 5801da0).
+
+## [2026-06-20] save | Session cc-2021: Clear Swift-6 actor-isolation warnings in test target (iOS)
+- Type: fix (test-only, Swift-6 prep)
+- iOS: TEST SUCCEEDED (50 tests, unchanged); commit 5801da0 on main (7 files +7 −0)
+- Key: SWIFT_DEFAULT_ACTOR_ISOLATION=MainActor → cc-2014 test classes exercising @MainActor types/Codable from XCTest's nonisolated ctx emitted 22 "main actor-isolated conformance in nonisolated context" warnings (Swift-6 errors). Marked the 6 cc-2014 test classes + OutboxTestSupport helper enum @MainActor (cc-2018/2019 classes already done). Helper @MainActor cascades to callers → all 6 need it. No prod code, no SWIFT_VERSION/isolation flip. Before 22 → after 0; no new warnings. Resolves the cc-2019 out-of-scope flag.
+- Mishap (recovered): a chained bare `git stash pop` (after a failed targeted stash push) popped an UNRELATED pre-existing stash (fix/upload-monday-null-check) → UU conflicts in ChangeOrderView/ITRequestView; reverted those 2 to HEAD, stash preserved, my fix intact. Lesson: never bare `git stash pop`.
+
+## [2026-06-20] save | Session cc-2105: Reconcile ci.yml + land PR #6 (SOC 2 CC8.1/CC7.1)
+- Type: session (git + CI, no deploy)
+- Pushed local main (14 commits cc-2012..cc-2020 incl. cc-2102/2103/2104) to origin; rebased PR #6 (cc-2101) onto main; squash-merged → main bf52df5; PR branch deleted
+- ci.yml union: backend = npm ci → SBOM+upload → check → log-hygiene → test → `npm audit --audit-level=high` (enforcing) + parallel sast (`--config .semgrep`). cc-2101→main rebase auto-merged clean (non-overlapping additions in backend job). CI green (both jobs); post-merge local check:logs + audit exit 0.
+- Deploy: NONE. multer 2.2.0 / node-forge 1.4.0 highs now in main's package-lock but v329 (live) predates the merge → reach prod on next normal deploy. FLAG: decide if a deploy of current main is wanted.
+- Couldn't do the prompt's post-merge archive/registry step: cc-prompt-2101/2104 files + block-2100 registry are NOT on this machine (delivered via Cowork session, not saved to the repo) → Cowork-side housekeeping.
+
+## [2026-06-20] save | Session cc-2020: Offline banner on every screen (iOS, supersedes cc-2016)
+- Type: session (iOS)
+- iOS: BUILD SUCCEEDED; commit 867bd83 on main (2 files +149 −19); no deploy
+- Key: global offline banner via UIKit additionalSafeAreaInsets bridge (App/OfflineBannerBridge.swift) — one representable per tab's NavigationStack reaches the UINavigationController; banner shows below the nav bar on root AND any pushed depth, zero per-destination wiring. ContentView: removed offline from per-tab safeAreaInset (location-only kept), added .background(OfflineBannerBridge(showing:)) to all 4 tabs.
+- UIKit gotchas (verified via sim harness, many iterations): (1) host must be a RAW subview of nav.view, NOT nav.addChild — a child VC floats in the content area; (2) additionalSafeAreaInsets on the nav CONTROLLER moves the bar — set per child VC via the willShow delegate; (3) CHAIN the nav delegate (forward to SwiftUI's) or NavigationStack path/pop sync breaks; (4) measure banner height ONCE + pin (live GeometryReader/viewDidLayout re-measure → feedback loops/oversize/blank).
+- Verified: banner pinned below bar on 2-deep non-wired screen, back button visible, content not clipped; online → flush; toggles correct; large↔inline title handled; nav works with chained delegate.
+
+## [2026-06-20] save | Session cc-2104: CI log-hygiene guardrail (SOC 2 CC6.1)
+- Type: session (CI, no deploy)
+- Commit a83a87f on main (not pushed)
+- Key: scripts/check-log-hygiene.js fails CI on console.* referencing req.body/headers/secret-ish tokens (exempts .slice/.length/Len/prefix/.message/.name/.code + // log-hygiene-ok). package.json check:logs; ci.yml backend step after syntax check. Reconciled 3 false positives (password label words + HUBSPOT_API_KEY env-var name) with // log-hygiene-ok — none log secret values. scripts/ gitignored → committed via !gunnerteam-api/scripts/ exception.
+- Verified: npm run check:logs clean; negative test (req.body + FOO_SECRET) fails. ci.yml on main diverges from PR #6 (sast/sbom) — future merge reconcile needed.
+
+## [2026-06-20] save | Session cc-2103: Revoke tokens + auth cache on deprovision (SOC 2 CC6.2/6.3)
+- Type: session (backend)
+- Lambda: v329 live (commit c22a4a1 on main, not pushed); deployed via candidate→probe→promote
+- Key: both delete routes (routes/auth.js admin delete, routes/users.js delete) now AdminUserGlobalSignOutCommand before AdminDeleteUserCommand (kills refresh tokens, non-fatal) + invalidateUserCache(email,orgId) after Cognito block (drops resolveUser cache so deleted user 401s immediately on that container). middleware/auth.js exports invalidateUserCache.
+- Verified: candidate probe ok:true (lambda.js require('./app') loads edited routes + DB), /health 200, /auth/validate bogus→401, authed DB 200, serving [329] via log-stream tags, no new errors. NOT exercised: full throwaway-user delete→401-replay E2E (per-container cache can't be pinned via API Gateway; needs a real Cognito+DB user lifecycle) — logic verified by review + clean load.
+- Mid-task blocker: MFA session expired during the long cc-2102/2103 work → deploy paused, resumed after user ran awsmfa. Residual: per-container cache; durable cross-container fix = shorter ID-token TTL (companion Cognito prompt).
+
+## [2026-06-20] save | Session cc-2102: DB TLS verify RDS server cert (SOC 2 CC6.7)
+- Type: session (backend, incident)
+- Location: wiki/meta/session-2026-06-20-cc2102-db-tls-verify.md
+- Lambda: v328 live (commits 0101da5 + 8b77c53 on main, not pushed); brief v325 outage (rolled back)
+- Key: db.js ssl rejectUnauthorized false→true with ca=[...rdsBundle, ...tls.rootCertificates]. RDS PROXY presents a PUBLIC Amazon Trust Services cert (Amazon Root CA 1 / Starfield G2), not an RDS CA — RDS bundle alone failed "unable to get local issuer certificate". Captured chain via in-VPC peer-cert probe. Path ../../certs (db.js at src/lib).
+- Gotchas (cost the outage): inline single-quoted --routing-config mangled by bash tool → stale {ver:1.0} weight routed 100% to wrong version (pass JSON via env var); get-alias eventual-consistency phantom weights → verify serving version via log-stream [version] tags; safe iteration via --qualifier + migration-runner DB probe before promoting alias.
+- SOC 2: CC6.7 (encryption in transit, authenticated)
+
+## [2026-06-20] fix | cc-2019: Cache assigned vehicle for offline inspections (iOS)
+- Type: fix
+- iOS: BUILD SUCCEEDED; 4 AssignedVehicleCacheTests green; commit d932e5a on main (5 files +116 −16)
+- Key: offline inspection showed false "No Vehicle Assigned" because checkAndAdvanceCompanyVehicle treated any /fleet/my-vehicle fetch failure as no-assignment. FleetVehicle→Codable + AssignedVehicleCache (gt_assigned_vehicles, mirrors jobs.cache.data); write on every successful live fetch (login prefetchVehicle + inspection). Live response authoritative (alert ONLY when vehicle==nil); offline→seed plate from cache+advance; offline+no-cache→manual plate step (never false alert). prefillVehicle also falls back to cache.
+- Flag: pre-existing Swift-6 actor-isolation warnings in cc-2014 test files (MainActor-isolated Codable/Equatable conformances used in nonisolated test ctx) — surfaced now that test runs grep warning:; warnings-not-errors under Swift 5.0; fix = @MainActor on those test classes (did so for the new AssignedVehicleCacheTests; left cc-2014 ones as out-of-scope follow-up).
+
+## [2026-06-20] fix | cc-2018: Offline project search for forms (iOS)
+- Type: fix
+- iOS: BUILD SUCCEEDED; 5 OfflineProjectSearchTests green; commit 9888a35 on main (6 files +133 −1)
+- Key: Dumpster/CO/Material project selection ran online /search-projects; offline → no results → selectedProject nil → submit disabled (blocked the offline dumpster-swap test, made cc-2005 outbox routing unreachable). Added ProjectResult.offlineSearch(term): shared helper filtering cached jobs (jobs.cache.data ∪ JobPreloadStore.bundle) by customer/name/address → ProjectResult(id, customer??name, address). Forms fall back to it when !isConnected; online unchanged. Fixed misleading Dumpster footer (only project is validated).
+
+## [2026-06-20] save | cc-2017: Video capture date for gallery grouping (iOS + backend, v324)
+- Type: session
+- Location: wiki/meta/session-2026-06-20-cc2017-video-capture-date.md
+- iOS: BUILD SUCCEEDED; backend: check + 4 tests pass; commit d8579d0 on main (3 files); deployed Lambda v324 (alias live, routing clean, smoke-invoke 200)
+- Key: videos showed "Unknown Date" (confirm sent no capture date). iOS now sends capturedAt (ISO8601, from recorded file creation date, persisted at enqueue); backend forwards capturedAt || now() to Colin /files. BLOCKED on Colin /files returning createdAt (same as tag in block 1700) for the user-visible fix.
+- Gotchas: after update-alias, get-alias returned stale {"323":1.0} for seconds (eventual consistency, not a stuck canary) → settled to null; npm ci before deploy to drop cc-2101 branch node_modules leftovers; v324=main lacks cc-2101 dep fixes (PR #6 unmerged)
+
+## [2026-06-20] fix | cc-2016: Offline banner covered nav-bar back button (iOS)
+- Type: fix
+- iOS: BUILD SUCCEEDED; commit 32b3b60 on main (1 file +22 −13)
+- Key: banner added via .safeAreaInset(edge:.top) on the TabView; per-tab NavigationStack nav bars ignore an ancestor inset → banner overlapped the bar, covering the back button on pushed views. Moved the inset INSIDE each tab's NavigationStack (shared bannerStack property) so the system nav bar renders above it. Verified with a SwiftUI simulator harness (3 variants, screenshots): inset-on-navigated-content = banner below bar + back button visible.
+- Tradeoff: banner shows on tab-root screens (back button uncovered on all screens incl. pushes); not shown on deep pushes — per-destination insets (~25 points) skipped as brittle.
+
+## [2026-06-20] fix | cc-2015: Pending Uploads relative date wrong epoch (iOS)
+- Type: fix
+- iOS: BUILD SUCCEEDED; commit d21f2b8 on main (1 file +1 −1)
+- Key: relativeTime passed timeIntervalSinceReferenceDate (2001 epoch) to NetworkMonitor.relativeLabel which expects Unix (1970) → constant 978,307,200s = 11323-day offset on every row. Fixed to timeIntervalSince1970. Other 3 relativeLabel(since:) callers already correct.
+
+## [2026-06-20] save | Session cc-2101: CI SAST + SBOM + enforce npm audit (SOC 2)
+- Type: session
+- Location: wiki/meta/session-2026-06-20-cc2101-ci-sast-sbom-audit.md
+- CI-only (no Lambda); PR #6 on GunnerRoofing/gunner-ios, branch cc-2101-sast-sbom-audit, backend + sast both green
+- Key: Semgrep SAST job (anonymous packs miss child_process exec rule → committed local .semgrep/command-injection.yml ERROR taint rule); CycloneDX SBOM artifact; flipped npm audit to enforcing (removed || true) after fixing 3 high — multer 2.2.0 + @parse/node-apn 8.1.0 (node-forge 1.4.0; node-apn 8.0 only breaking = drops Node 18, we run 20). Verified deliberate child_process.exec(req.query.x) probe fails sast in real CI, then reverted.
+- SOC 2: CC8.1 (SDLC controls), CC7.1 (vuln detection)
+
+## [2026-06-20] fix | Redundant await on synchronous updateItemProgress (iOS)
+- Type: fix (follow-up to cc-2012/2013/2014)
+- iOS: BUILD SUCCEEDED + 41 outbox tests green; commit 51bbe56 on main (4 files +12 −12)
+- Key: project uses SWIFT_DEFAULT_ACTOR_ISOLATION=MainActor (Xcode 26) → executors are implicitly @MainActor → awaiting the synchronous @MainActor UploadOutbox.updateItemProgress never suspends → 12 "No async operations occur within await expression" warnings. Removed redundant await (runtime no-op).
+- Lesson: xcodebuild verification grep must include warning:, not just error: — error-only filtering hid these through 3 sessions.
+
+## [2026-06-20] save | Session cc-2014: Unit tests for the upload outbox (iOS)
+- Type: session
+- Location: wiki/meta/session-2026-06-20-cc2014-outbox-unit-tests.md
+- iOS: TEST SUCCEEDED (41 tests, 0 network); commit 63ccd91 on main (14 files +935 −60); no Lambda change
+- Key: Phase 6 offline — first test target. Extracted pure decision points (App/OutboxLogic.swift: recover/classify/idempotencyKey + executor statics) so invariants test without network. Covers persistence round-trip, restart recovery, resume-no-dup, idempotency stability, error classification (4xx permanent/409+5xx transient/exhaustion dead-letter/403 re-presign), finalize-once. Spot-checked a deliberate break (reverted)
+- Setup gotchas: xcodeproj gem on brew Ruby only; hosted test bundle needs sim booted first (preflight Busy); new_target 5th arg = product group (nil)
+
+## [2026-06-20] save | Session cc-2013: Activate BGProcessingTask presign window (iOS)
+- Type: session
+- Location: wiki/meta/session-2026-06-20-cc2013-bgtask-activate.md
+- iOS: BUILD SUCCEEDED; commit 5fdfb03 on main (2 files +11 −2); no Lambda change
+- Key: Phase 6 offline — registered cc-2010 BGTask. Info.plist gains `processing` UIBackgroundMode (required, else submit() throws notPermitted) + BGTaskSchedulerPermittedIdentifiers (com.gunnerroofing.outbox.presign); registerBGTask() in didFinishLaunching; scheduleBGPresignIfNeeded() on scenePhase .background (enqueue + reschedule already existed). Discretionary scheduling; foreground stays guaranteed trigger
+- Note: runtime simulate-launch flow not exercised (build/wiring-verified only)
+
+## [2026-06-20] save | Session cc-2012: Route job videos through the outbox (iOS)
+- Type: session
+- Location: wiki/meta/session-2026-06-20-cc2012-video-outbox.md
+- iOS: BUILD SUCCEEDED; commit 2bea608 on main (4 files +193 −134); no Lambda change
+- Key: Phase 2 offline — videos now use outbox + background URLSession (VideoUploadExecutor mirrors PhotoUploadExecutor); JobPhotoSessionView.submit() enqueues video like photos; removed inline uploadWithRetry/attemptSingleUpload; Pending Uploads renders video icon/title/first-frame thumb; verified no-tag confirm = parity with inline path (tag only in MiddlePhaseCameraSession/PhaseDetailView+Actions)
+- Note: vault session protocol (CLAUDE.md §1/§2/§9 read-order) was skipped at start, filed retroactively; runtime QA not executed (build-verified only)
+
 ## [2026-06-19] onboard | leo | Leo onboards to gunner-brain (gunner-ops + QP + masterdb + Dialpad)
 - Type: onboard / migration
 - Migrated Leo's knowledge from his personal claude-obsidian vault into wiki/leo/
@@ -329,6 +619,17 @@
 - SECURITY: API key NOT ingested — stays in SSM as COMPANYCAM_API_KEY; source file is git-ignored
 
 # Wiki Log
+
+## [2026-06-19] save | session-2026-06-19-cc1630-1634-alerting-terraform-ops
+- Type: session
+- Location: wiki/meta/session-2026-06-19-cc1630-1634-alerting-terraform-ops.md
+- From: cc-1630 (Chat alert await fix + ok_actions on all alarms, v319), cc-1631 (DB clean — closed), cc-1632 (CLAUDE.md Lambda freeze + secret rules), cc-1633 (regression probe 16/17 PASS), cc-1634 (S3 WORM to TF state, VPC reconcile doc). OMP 16.1.6.
+
+## [2026-06-19] ingest | GunnerTeam SOC2 Accomplishments + SSP Addendum 1
+- Sources: `GunnerTeam-SOC2-Accomplishments-Summary.md`, `SSP-Addendum-1-Product-Environment-Controls.md`
+- Pages created: [[gunnerteam/ssp-addendum-1-product-environment]], [[gunnerteam/soc2-accomplishments-2026-06]]
+- Pages updated: [[tyler/concepts/soc2]] (Phase 2 complete), [[gunnerteam/system-security-plan]] (addendum cross-ref), [[tyler/ciso-track/roadmap]] (SOC2 progress)
+- Key insight: APP-01…APP-09 all implemented & verified; SSP Addendum 1 DRAFT pending sign-off by Tyler, Eric, Eddie, Andrew; Lambda fire-and-forget freeze and RDS Proxy pinning documented as operating conventions.
 
 ## [2026-06-18] save | session-2026-06-18-cc1100-1300-receipt-scanner-location-batch
 - Type: session

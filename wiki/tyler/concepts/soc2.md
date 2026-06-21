@@ -53,7 +53,26 @@ SOC 2 readiness is an active initiative tied to the federal market expansion str
 
 Full report: `/Users/tyler.suffern/Documents/Claude/Projects/Gunner Team App/compliance-audit-2026-05-15.md`
 
-### Phase 2 — Open
+### Phase 2 — SOC 2 product-environment controls (2026-06-18–19)
+
+Controls APP-01…APP-09 implemented and verified. Full register: [[gunnerteam/ssp-addendum-1-product-environment]]. Session summary: [[gunnerteam/soc2-accomplishments-2026-06]].
+
+| Control | What | Status |
+|---|---|---|
+| APP-01 Location retention | Daily EventBridge prune of `gt_location_history` > 90 days | ✅ |
+| APP-02 Monitoring & alerting | CloudWatch → SNS → email + Google Chat; ok_actions wired | ✅ |
+| APP-03 CI / SDLC | GitHub Actions: syntax, tests, `npm audit`; no deploy creds in CI | ✅ |
+| APP-04 Auth IaC | Cognito under Terraform (`prevent_destroy`; clean plan) | ✅ |
+| APP-05 Brute-force at scale | DynamoDB shared rate-limit store (cross-instance) | ✅ |
+| APP-06/08 Audit archival | Fixed archiver + WORM S3 Object Lock (6 mo hot / 7 yr cold) | ✅ |
+| APP-07 Audit coverage | Single `audit()` writer; standard in `CLAUDE.md` | ✅ |
+| APP-09 Credential drift | SSM DB creds reconciled to RDS Proxy secret | ✅ |
+
+**Two production incidents resolved:** API Gateway 0/0 throttle + VPC ejection (cc-1614/1615); RDS Proxy exhaustion from `resolveUser` pinning + fire-and-forget freeze (cc-1628/1629/1631).
+
+**Key operating conventions:** de-pin rule (`query()` not `queryWithTenant` for hot reads), Lambda freeze rule (`await` all async before handler resolves), safe 5-step env-change flow (cc-1621).
+
+### Phase 2 — Open findings (pre-cc-1601)
 
 | Priority | Finding | File:Line | Status |
 |---------|---------|-----------|--------|
