@@ -1,3 +1,10 @@
+## [2026-06-21] ingest | colin | GunnerCam knowledge base — 28 notes into wiki/colin/
+- Type: ingest + synthesis (multi-agent). Owner: colin.
+- Distilled one month of Codex + Claude Code build sessions (2026-05-21 → 2026-06-21, 266 sessions → 1,521 nuggets) into 28 GunnerCam reference notes.
+- Location: `wiki/colin/` (+ `index.md`, `hot.md`, `overview.md` refreshed). Secrets scrubbed; no raw transcripts copied here.
+- Team integration points: outbound external API consumed by GunnerTeam iOS ([[colin/external-api-integration]]); shared `gunner-masterdb` core with gunner-ops ([[colin/masterdb-sync]]).
+- Source: personal `claude-obsidian` vault `wiki/wl-companycam/` (full session catalog + transcripts kept local, not synced here).
+
 ## [2026-06-20] save | Attack-Surface Reduction — cc-2123→2126 (synthesis) + Secrets Handling Rules (update)
 - Type: synthesis + canonical-page update (consolidating this conversation's cc-2123→2126 hardening block).
 - Location: `wiki/gunnerteam/attack-surface-reduction-cc2123-2126.md` (new synthesis); `wiki/gunnerteam/secrets-handling-rules.md` (updated — was stale: said secrets live in the Lambda env / "Terraform owns env vars"; now reflects the secret-free env + runtime SSM fetch model).
