@@ -4,7 +4,7 @@ owner: tyler
 app: GunnerTeam iOS
 created: 2026-06-10T00:00:00.000Z
 status: active
-updated: '2026-06-18'
+updated: '2026-06-22'
 ---
 
 # GunnerTeam iOS — Section Overview
@@ -59,4 +59,5 @@ and the Lambda backend (`gunnerteam-api/`).
 - [[gamification-original-brief]] — original feature brief (implemented cc-603–712)
 - [[gunnerteam/soc2-technical-summary]] — current SOC 2 technical control posture (TSC-by-criteria)
 - [[gunnerteam/security-compliance-roadmap]] — org-wide security/compliance program roadmap (frameworks, SOC 2, MDM, SIEM, CMMC, CISO track)
+- [[gunnerteam/voip-softphone-research]] — in-app softphone (voice+SMS/MMS) platform research; Telnyx recommended over Twilio/Amazon Connect as a Dialpad replacement
 - [[../tyler/overview]]

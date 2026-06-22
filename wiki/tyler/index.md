@@ -4,6 +4,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 ## Gunner Operations
 
+| [[meta/session-2026-06-22-cc2133-2135-hygiene-key-voip]] | cc-2133–2135 + VOIP ingest: read-only account hygiene sweep (8 public Function URLs / 8 IAM static-key users / 8 untagged EC2 — 0 GunnerTeam), `gunner-fleet-worker-dev` key deactivated (delete after soak), A4 fieldportal diagnostic (we forward the user's own email at role=user, 0 projects — not our bug), VOIP/softphone research ingested |
 | [[meta/session-2026-06-10-cc279-288-customer-photos-debug]] | cc-279–288: customer photo upload debug — PayloadTooLargeError root cause (Express 100kb→20mb), photoObj unwrap, source field null, Lambda v139; UI polish (haptics, photo cell hit area, Customer badge) |
 | [[meta/session-2026-06-02-cc87-89-91-phase-workflow-models]] | cc-87, 89–91: CompletedTasksSheet, PhaseWorkflowModels (data layer), JobGuidedView, PhaseDetailView+PhaseItemGridCell |
 | [[meta/session-2026-06-02-cc82-86-guided-tasks-complete]] | cc-82–86: highAlert tasks, GuidedJobsListView, list/grid toggle, TaskDetailSheet+uncheck, in-app task creation (v108) |
@@ -45,6 +46,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[gunner/hubspot-leads-project]] | HubSpot Lead object buildout — lead stages, deal stages, QP sync, round robin, open to-do list |
 | [[gunner/hubspot-salesperson-sop]] | HubSpot Sales Workspace SOP — salesperson guide for Leads, Deals, Tasks, Schedule tabs (IT-SOP-HUB-002) |
 | [[gunner/dialpad-hubspot-integration]] | Dialpad → HubSpot integration architecture — webhook receiver design, call/SMS logging flows, open items |
+| [[gunnerteam/voip-softphone-research]] | In-app softphone (voice+SMS/MMS) platform research — Telnyx recommended over Twilio/Amazon Connect as a Dialpad replacement; CallKit/PushKit is the biggest risk; CT all-party recording consent + per-tenant 10DLC gating |
 | [[gunner/lead-assignment-automation]] | Round-robin lead assignment — Dialpad availability check, 5-min call window, manager escalation; scripts in `_system/lead-assignment/` |
 | [[gunner/chrome-policy]] | Chrome Enterprise policy export (2026-04-14) — CIS gap analysis; Safe Browsing + HTTPS-Only closed; DevTools + DoH open |
 | [[gunner/gunner-forms-app]] | Gunner Team iOS app — fleet management, vehicle inspections, maintenance tracking, CompanyCam integration, announcements, native forms; Express API on EC2 |

@@ -14,6 +14,7 @@ related:
   - "[[vendors/hubspot]]"
   - "[[vendors/monday]]"
   - "[[gunner/hubspot-leads-project]]"
+  - "[[gunnerteam/voip-softphone-research]]"
 ---
 
 # Dialpad → HubSpot Integration Architecture
@@ -25,6 +26,9 @@ The native Dialpad HubSpot integration is unreliable — calls and texts do not 
 **Goal:** Every Dialpad call and SMS logs automatically to the correct HubSpot contact AND the associated deal timeline.
 
 **Status:** Architecture designed, API references filed. Build not started as of 2026-04-16.
+
+> [!note] Update (2026-06): full Dialpad replacement under research
+> A later, broader initiative researches replacing Dialpad entirely with an **in-app softphone** (voice + SMS/MMS on one business-card number) on Telnyx — see [[gunnerteam/voip-softphone-research]]. That doc supersedes the brief "Why Not Amazon Connect" note below with an AWS-verbatim disqualification (shared voice+SMS number is unsupported). Relationship: **this webhook bridge is the near-term call/SMS logging fix; the softphone is the strategic replacement.**
 
 ---
 
