@@ -5,8 +5,9 @@
 5.  Get materials list from Leo app to be a pre-install task and then also go into material shortage list
 6. Sell back iPhones to get an Android
 7. HubSpot Leads repairs
-8. Gunner CRM
-9. Window/Door measure feature for app
-10. Gunner VoIP
-11. GunnerTeam for subs
-12. SubPortal
+8. Dialpad SMS DB
+9. Gunner CRM
+10. Window/Door measure feature for app
+11. Gunner VoIP
+12. GunnerTeam for subs
+13. SubPortal
