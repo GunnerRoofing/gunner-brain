@@ -1,3 +1,10 @@
+## 2026-06-22 ingest | B1 SOC 2 CC6 Least-Privilege DB Roles evidence doc
+- Source: cc-2142 `gunnerteam_app` grant audit + B1 control evidence (pasted)
+- Summary: [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]
+- Pages created: [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]
+- Pages updated: [[gunnerteam/masterdb-developer-handoff]] (migration head g7→k12, B1 chain), [[tyler/hot]] (B1 blockers + gunner-ops direct-connect finding)
+- Key insight: `gunnerteam_app` role is provisioned on dev with correct grants (k11+k12); cutover is gated on Colin adding `app` to Aurora `custom_variable_classes` for the GUC, k12 deploy (expired MFA), and password set — plus `crew_members` has no FORCE RLS (pre-existing gap, tracked for remediation).
+
 ## [2026-06-22] save | tyler | Session cc-2133–2135 + VOIP ingest
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-22-cc2133-2135-hygiene-key-voip.md

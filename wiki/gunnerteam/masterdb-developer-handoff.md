@@ -2,7 +2,7 @@
 type: source
 title: "masterdb Developer Handoff"
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-06-22
 tags:
   - masterdb
   - handoff
@@ -26,6 +26,34 @@ Operational reference for the masterdb API. Read [[gunner/masterdb-architecture]
 
 ---
 
+## Operating & Change-Control Rules
+
+> **As of 2026-06-22:** masterdb is now **Tyler-owned** (from Leo) and the GitHub repo is
+> **private**. `main` (Leo's real history) is the source of truth. The canonical, committed copy
+> of these rules lives in the repo's **`CONTRIBUTING.md`**; Claude Code also reads them from a
+> local (gitignored) `CLAUDE.md`. Keep all three in sync when the rules change.
+
+These apply to everyone who touches the repo — they keep it auditable and SOC 2-defensible:
+
+1. **Git is the source of truth.** Every task ends with a commit + `git push origin main`. Work
+   from `origin/main`, never a stale local clone or side branch. Never deploy uncommitted code;
+   never let the deployed Lambda drift *ahead* of `main` (hand-rolled zip deploys make this easy).
+2. **Alembic only, never direct-to-DB.** All schema/DDL — **and role/grant provisioning** — go in
+   Alembic migrations, applied via the throwaway migration-Lambda (delete it after).
+3. **FORCE RLS is the crown jewel.** Every table is `FORCE ROW LEVEL SECURITY` on
+   `app.current_org_id`; no role bypasses it. `users` has no `org_id` (EXISTS into
+   `user_organizations`) → generate ids app-side, don't rely on `RETURNING` under `NOBYPASSRLS`.
+4. **Least-privilege roles, one per app.** Apps connect as a `NOSUPERUSER NOBYPASSRLS` role
+   (e.g. `gunnerteam_app`), never master. Proxy callers use a role-default GUC; direct callers use
+   per-request `SET LOCAL`.
+5. **No secrets in the repo.** Passwords/keys set out-of-band, stored in Secrets Manager.
+6. **Coordinate before changing shared infra** — QP / LEO / COLIN / GunnerTeam share this cluster.
+
+See [[GunnerMasterDB-SOC2-Roadmap-2026-06-22]] for the phased hardening plan.
+See [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]] for the `gunnerteam_app` role evidence and grant matrix.
+
+---
+
 ## Live Resources
 
 | Resource | Value |
@@ -38,9 +66,9 @@ Operational reference for the masterdb API. Read [[gunner/masterdb-architecture]
 | VPC | `vpc-0eb66556f100c7b3c` |
 | Subnets | `subnet-019439fa03909a5d1` (us-east-2a), `subnet-01bc93fe6f0755921` (us-east-2b) |
 | Security group | `sg-0d9435eab950f73d1` |
-| Git repo | Ask Leonard |
+| Git repo | `GunnerRoofing/gunner-masterdb` (**private**) — `main` is source of truth (head `j10_service_client_prefix_auth`) |
 
-> Secrets live outside the repo. Ask Leonard for DB credentials.
+> Secrets live outside the repo (Secrets Manager). DB credentials are not in git.
 
 ---
 
@@ -170,7 +198,7 @@ To provision or rotate: ask Leonard.
 
 ## Migration State
 
-Current head: `g7_fix_c3d4_schema_drift`
+Current head: `k12_crew_members_delete_grant` (applied dev 2026-06-22; `k13` staged, not yet applied)
 
 | Revision | Description |
 |---|---|
@@ -189,6 +217,12 @@ Current head: `g7_fix_c3d4_schema_drift`
 | `e5_add_service_clients` | service_clients table |
 | `f6_service_clients_rls` | service_clients RLS |
 | `g7_fix_c3d4_schema_drift` | fix c3d4 dual-schema, TEXT→JSONB, parallel columns |
+| `h8_register_gunner_ops_app` | gunner-ops app + 5 roles |
+| `i9_register_masterdb_admin` | master-db-admin slug (tightens admin allowlist) |
+| `j10_service_client_prefix_auth` | api_key_prefix + service_auth_lookup RLS policy |
+| `k11_provision_gunnerteam_app` | **B1** — `gunnerteam_app` role, grants, `gt_*` ownership, users INSERT policy |
+| `k12_crew_members_delete_grant` | **B1 fix** — `crew_members` DELETE grant (cc-2142 audit) |
+| `k13_least_priv_trim` | (staged, not applied) — revoke 4 over-granted tables |
 
 > Always run `alembic upgrade head` in the migration Lambda — never directly against the DB.
 
