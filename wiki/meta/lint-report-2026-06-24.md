@@ -12,109 +12,144 @@ status: stable
 # Lint Report: 2026-06-24
 
 ## Summary
-- Pages scanned: 304
-- Real issues found: 18
-- False positives filtered: ~350 (path-style wikilinks that Obsidian resolves natively)
-- Auto-fixed: 0 (awaiting review)
-- Needs review: 18
-
-> **Note on methodology:** The raw scan flagged 371 dead links and 264 orphans. The vast majority are **path-style links** (`[[colin/aws-infra]]`, `[[gunner/environment]]`) that DO resolve in Obsidian — the vault uses path-style linking extensively and those pages exist. Confirmed via filesystem check. Only genuinely broken links are listed below.
+- Pages scanned: 318 (all vault notes)
+- Issues found: 32
+- Auto-fixed: 0 (per skill — report first, ask before fixing)
+- Needs review: 32
 
 ---
 
-## Dead Links (confirmed broken)
+## Dead Links (1 confirmed)
 
-### Genuine missing pages
-- `[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]` referenced in [[gunnerteam/masterdb-developer-handoff]] — page never created. The B1 evidence doc exists at [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]] but the roadmap page is separate and missing. **Action:** remove or replace the link.
-
-### Index.md syntax issues
-- `[[hot.md]]` in index.md — `.md` extension shouldn't appear in wikilinks. Should be just `[[hot]]`.
-- `[[log.md]]` in index.md — same issue.
-
-### Path-prefix mismatch (gunner/ vs gunnerteam/)
-Multiple gunnerteam pages use `[[gunner/xxx]]` prefix (old naming) instead of `[[gunnerteam/xxx]]`. Found in: `environment.md`, `brand-colors.md`, `claude-session-onboarding.md`, `lead-assignment-automation.md`, `completed-projects.md`. Pages exist under `gunnerteam/` — links just use wrong prefix. Obsidian may still resolve these by filename, but it's fragile.
-
-**Affected links:**
-- `[[gunner/environment]]` → should be `[[gunnerteam/environment]]` (or stem-only `[[environment]]`)
-- `[[gunner/brand-colors]]` → `[[gunnerteam/brand-colors]]`
-- `[[gunner/aws-environment]]` → `[[gunnerteam/aws-environment]]`
-- `[[gunner/claude-team-setup]]` → `[[gunnerteam/claude-team-setup]]`
-- `[[gunner/completed-projects]]` → `[[gunnerteam/completed-projects]]`
+| Link | Referenced In | Status |
+|---|---|---|
+| `[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]` | `gunnerteam/masterdb-developer-handoff.md` | Page never created. Likely intended to point to `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`. |
 
 ---
 
-## Orphan Pages (confirmed — no inbound links)
+## Stale Index Entries (2)
 
-Path-style link confusion inflates this count heavily. Genuine orphans in Tyler's section:
-
-- [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]] — created this session, not yet linked from masterdb-developer-handoff beyond the broken `GunnerMasterDB-SOC2-Roadmap` link
-- [[gunnerteam/voip-softphone-research]] — ingested 2026-06-22, referenced only in tyler/hot.md (not a wikilink)
-- [[gunnerteam/dialpad-hubspot-integration]] — referenced in lead-assignment-automation.md as `[[gunner/dialpad-hubspot-integration]]` (wrong prefix = broken inbound)
-- [[tyler/meta/session-2026-06-24-cc2136-2700-b1-bugfixes-firebase]] — just created, linked only from tyler/hot.md
-
-Most of the 264 "orphans" in colin/, doug/, leo/ sections are reachable via path-style links from their respective overview/index pages — not truly orphaned.
-
----
-
-## Frontmatter Gaps (Tyler/gunnerteam sections only)
-
-| Page | Missing fields |
+| Index Entry | Issue |
 |---|---|
-| [[gunnerteam/overview]] | title, tags |
-| [[tyler/overview]] | title, tags, updated |
-| [[tyler/hot]] | title, created, status, tags |
-| [[tyler/index]] | no frontmatter at all |
-| [[tyler/Memory]] | title |
-| [[gunnerteam/CHANGE_MANAGEMENT_POLICY]] | title |
-| [[gunnerteam/CLAUDE_CODE_RULES_ONBOARDING]] | title, updated |
-| [[gunnerteam/CONTRIBUTING]] | title |
-| [[gunnerteam/POSTMORTEM-2026-06-15]] | title |
-| [[gunnerteam/employee-notice-points-location]] | title |
-| [[gunnerteam/git-source-of-truth-policy]] | title |
-| [[tyler/meta/session-2026-06-22-cc2133-2135-hygiene-key-voip]] | title |
-| [[tyler/meta/session-2026-06-24-cc2136-2700-b1-bugfixes-firebase]] | status |
+| `[[meta/lint-report-2026-06-19]]` in `wiki/index.md` | Superseded — `lint-report-2026-06-24` is current. Update to point to today's report. |
+| `wiki/meta/dashboard.md` references `[[meta/lint/lint-report-2026-06-13]]` as "latest" | Wrong subfolder path (`lint/`) AND stale date. Current reports live flat at `meta/lint-report-YYYY-MM-DD.md`. |
 
 ---
 
-## Duplicate Filenames
+## Stale Claims (4)
 
-These are intentional by design (per-section hot/index/overview). No action needed except awareness:
-- `hot`: wiki/hot.md, tyler/hot.md, colin/hot.md, leo/hot.md, doug/hot.md
-- `index`: same pattern
-- `overview`: same pattern
-
-**Genuinely ambiguous duplicates** (could cause wikilink resolution issues):
-- `system-security-plan`: exists at `gunnerteam/` AND `tyler/summaries/` — two different documents
-- `dialpad`: exists at `colin/dialpad.md` AND `shared/vendors/dialpad.md`
-- `quote-portal`: `leo/apps/` AND `shared/vendors/`
-- `incident-response`: `tyler/runbooks/` AND `tyler/concepts/`
-
-For these, always use path-style links to be unambiguous.
+| Page | Claim | Correction |
+|---|---|---|
+| `tyler/hot.md` | Section heading `## Key features as of v359 (2026-06-24)` | Live Lambda is v368, not v359. Heading is 9 versions stale. |
+| `gunnerteam/aws-environment.md` | `Live version: v294` hardcoded in table | 74 versions stale. Should say "see [[tyler/hot]] for current" or be removed. |
+| `gunnerteam/masterdb-developer-handoff.md` | Migration head shown as `k12` | Prod Alembic head is `p16_gt_app_rls` (applied cc-2150, 2026-06-24). |
+| `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` | Status "IN PROGRESS", GUC blocker listed as open | GUC approach was **retired** (p16 role-scoped policies implemented, cc-2151). Status should be PROD-PROVISIONED or reflect the actual current state. |
 
 ---
 
-## Stale Claims
+## Orphan Pages (4 — no confirmed inbound wikilinks)
 
-- [[gunnerteam/masterdb-developer-handoff]]: Migration head shown as `k12_crew_members_delete_grant` but **prod is now at `p16_gt_app_rls`** (applied 2026-06-24, cc-2150). The table in the developer handoff shows through k13 but not o15, p16.
-- [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]: Status says "IN PROGRESS" and lists GUC as blocked. **GUC approach was abandoned in cc-2151** — p16 role-scoped policies are the actual implementation. Evidence doc needs update.
-- [[tyler/hot]]: "What's Live (v319)" section at the bottom is very stale — v359 is live.
-
----
-
-## Missing Cross-References
-
-- [[gunnerteam/masterdb-developer-handoff]] mentions `p16_gt_app_rls` in the migration chain but doesn't link to [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]].
-- tyler/hot.md references `[[tyler/meta/session-2026-06-24-cc2136-2700-b1-bugfixes-firebase]]` as text but the B1 evidence doc `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]` isn't wikilinked from the hot cache properly.
+| Page | Notes |
+|---|---|
+| `gunnerteam/querywithtenant-diag-2026-06-24.md` | Just created this session. Referenced from session note but no index/overview link. Suggest: link from `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` evidence table. |
+| `gunnerteam/voip-softphone-research.md` | Referenced in `tyler/hot.md` and `log.md` as text but no clean `[[wikilink]]`. Suggest: add `[[gunnerteam/voip-softphone-research]]` to hot.md or overview. |
+| `gunnerteam/dialpad-hubspot-integration.md` | Inbound links use old `[[gunner/dialpad-hubspot-integration]]` prefix → Obsidian resolves by filename so functionally works, but path-style resolution may fail. Cross-linked to `voip-softphone-research.md`. |
+| `tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover.md` | New session note. Linked from `tyler/hot.md` but not from `tyler/index.md` or vault `wiki/index.md`. Suggest: add to `tyler/index.md` session table. |
 
 ---
 
-## Recommended Actions (priority order)
+## Fragile Wrong-Prefix Links (widespread — ~10 files)
 
-1. **Fix the two stale content issues** (b1-soc2 evidence doc + masterdb-developer-handoff prod head) — these affect SOC 2 evidence accuracy.
-2. **Fix `[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]`** dead link in masterdb-developer-handoff — replace with `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`.
-3. **Fix `[[hot.md]]`/`[[log.md]]`** in index.md — remove `.md` extension.
-4. **Add status field** to the new session note (minor).
-5. **The `gunner/xxx` prefix links** — low urgency since Obsidian resolves by filename, but worth cleaning.
-6. **tyler/hot.md "What's Live (v319)" section** — either delete or update to v359.
+Multiple pages use the old `[[gunner/xxx]]` prefix instead of current `[[gunnerteam/xxx]]` or `[[tyler/xxx]]`. Obsidian resolves by filename so they mostly work, but path-style resolvers and any vault tooling that checks strict paths will fail.
 
-Safe to auto-fix items 2, 3, 4. Items 1 and 5–6 need human review first.
+Affected files using `[[gunner/...]]`:
+- `gunnerteam/aws-environment.md` → `[[gunner/environment]]`, `[[gunner/gunnerteam-project-structure]]`, `[[gunner/gunnerteam-api-aws-migration]]`, `[[gunner/masterdb-architecture]]`
+- `tyler/concepts/cis-ig1.md` → `[[gunner/system-security-plan]]`
+- `tyler/concepts/cmmc.md` → `[[gunner/federal-market]]`
+- `tyler/concepts/soc2.md` → `[[gunner/app-inventory]]`, `[[gunner/system-security-plan]]`
+- `gunnerteam/dialpad-hubspot-integration.md` → `[[gunner/hubspot-leads-project]]`
+
+These are **safe to update** to the canonical `[[tyler/xxx]]` or `[[gunnerteam/xxx]]` paths since filenames are unique and both link forms resolve to the same page in Obsidian.
+
+---
+
+## Missing Cross-References (3)
+
+| Entity | Mentioned Without Link In |
+|---|---|
+| `querywithtenant-diag-2026-06-24` | `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` evidence table — diagnostic exists but isn't linked |
+| `session-2026-06-24-cc1800-2157` | `tyler/index.md` session table — new session note not yet added |
+| `gunnerteam/masterdb-developer-handoff.md` | `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` references it correctly; `masterdb-developer-handoff.md` references a dead link (`[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]`) instead of the actual evidence page |
+
+---
+
+## Frontmatter Gaps (15 pages)
+
+### Missing ALL frontmatter
+| Page | Notes |
+|---|---|
+| `wiki/log.md` | Append-only log — intentional? But missing type/created/updated/tags entirely. |
+| `wiki/tyler/index.md` | Tyler's page catalog — no frontmatter block at all. |
+
+### Missing `title`
+| Page |
+|---|
+| `wiki/hot.md` |
+| `wiki/tyler/hot.md` |
+| `wiki/tyler/Memory.md` |
+| `wiki/gunnerteam/CHANGE_MANAGEMENT_POLICY.md` |
+| `wiki/gunnerteam/CLAUDE_CODE_RULES_ONBOARDING.md` (also missing `updated`) |
+| `wiki/gunnerteam/CONTRIBUTING.md` |
+| `wiki/gunnerteam/POSTMORTEM-2026-06-15.md` |
+| `wiki/gunnerteam/employee-notice-points-location.md` |
+| `wiki/gunnerteam/git-source-of-truth-policy.md` |
+| `wiki/tyler/meta/session-2026-06-22-cc2133-2135-hygiene-key-voip.md` |
+
+### Missing `status` / `created` / `tags`
+| Page | Missing |
+|---|---|
+| `wiki/hot.md` | status, created, tags |
+| `wiki/tyler/hot.md` | status, created, tags |
+| `wiki/index.md` | created |
+| `wiki/meta/dashboard.md` | created |
+| `wiki/tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover.md` | status |
+
+---
+
+## Empty / Placeholder Sections (3)
+
+| Page | Section | Issue |
+|---|---|---|
+| `wiki/hot.md` | `## Leo` | Contains only `_Leo: add your current state here_` placeholder — no real content |
+| `wiki/hot.md` | `## Open Questions Across Apps` | Contains only `_Empty._` placeholder |
+| `wiki/meta/dashboard.md` | `## Open Questions` | Dataview query targets `wiki/tyler/questions/` which may not exist |
+
+---
+
+## Layout / Structure Issues (2)
+
+| Issue | Detail |
+|---|---|
+| `meta/lint/` subfolder vs flat `meta/` | Older lint reports (`lint-report-2026-06-13.md`, `lint-report-2026-06-10.md`) live in `wiki/meta/lint/` but current reports (2026-06-19, 2026-06-24) are flat at `wiki/meta/lint-report-*.md`. Dashboard references the old subfolder path. Standardise on flat. |
+| `wiki/meta/dashboard.md` stale | Last updated 2026-06-13. Dataview "last lint" block references 2026-06-13 report. Update `updated` date and lint reference. |
+
+---
+
+## Safe to Auto-Fix (awaiting approval)
+
+1. **Frontmatter `title` additions** — add `title` field to 10 gunnerteam/tyler pages that are missing it (derive from filename/H1)
+2. **Fix dead link** in `masterdb-developer-handoff.md` — replace `[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]` with `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`
+3. **Update `tyler/hot.md` section heading** — `Key features as of v359` → `Key features as of v368`
+4. **Update `wiki/index.md`** — replace `[[meta/lint-report-2026-06-19]]` with `[[meta/lint-report-2026-06-24]]`
+5. **Update `wiki/meta/dashboard.md`** — fix lint reference and updated date
+6. **Add session note to `tyler/index.md`** — add `session-2026-06-24-cc1800-2157-llm-engine-b1-cutover` row
+7. **Link `querywithtenant-diag-2026-06-24`** from `b1-soc2-cc6-least-privilege-db-roles.md`
+
+## Needs Review Before Fixing
+
+1. **Stale content in `b1-soc2-cc6-least-privilege-db-roles.md`** — status and GUC section need rewrite; human should approve the wording
+2. **Stale content in `aws-environment.md`** — v294 → remove or redirect; may affect other references
+3. **Stale `masterdb-developer-handoff.md` migration chain** — k12 → p16 update; confirm correct head
+4. **Orphan `voip-softphone-research.md` and `dialpad-hubspot-integration.md`** — confirm still relevant before adding inbound links
+5. **Wrong-prefix `[[gunner/xxx]]` links** — safe technically but confirm page paths before bulk-rewriting
+6. **`wiki/log.md` frontmatter** — the log is append-only; adding frontmatter changes the format; confirm intentional

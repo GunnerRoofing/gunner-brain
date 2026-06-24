@@ -1,7 +1,7 @@
 ---
 type: meta
 title: Dashboard
-updated: '2026-06-13'
+updated: '2026-06-24'
 tags:
   - meta
 status: active
