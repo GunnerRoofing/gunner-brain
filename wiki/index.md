@@ -1,11 +1,12 @@
 ---
 type: index
-updated: '2026-06-18'
+updated: '2026-06-24'
 owner: vault
 status: stable
 tags:
   - index
   - vault
+created: '2026-04-10'
 ---
 
 # gunner-brain — Master Index
@@ -47,7 +48,8 @@ Read by everyone; write with coordination.
 
 ## Meta
 
-- `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-19]].
+- `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-24]].
+  - [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] — 2026-06-24: LLM engine (lib/llm.js, /assistant/run, Bedrock, assessTier, quote_advisor, service-key auth cc-1800–1806) + B1 cutover chain (Cognito tenantId mismatch, resolveUser fix, Tyler admin role cc-2152–2157).
   - [[meta/session-2026-06-19-cc1500-1505-terraform-infra-hardening]] — 2026-06-19: Lambda env drift → Terraform (11 keys, COMPANYCAM_API_KEY restored, NOTION_TOKEN pruned); REWARDS_ENABLED=true for dev; daily 90-day location prune (EventBridge); stash@{0} dropped; Aurora idle_in_tx 24h→30s; iOS receipt phantom row + editable total. Lambda v291→v294. Fixed null_resource canary-routing no-op bug.
   - [[meta/session-2026-06-18-cc1111-1126-receipt-scanner-phase2]] — 2026-06-18: Receipt scanner phase 2 (cc-1111–1126 + cc-1400): 502 fix, Sales Tax/Freight lines, trailing-minus detection, dual-image best-of OCR (original preferred, B&W only when clearly better and not garbled), cleanDescription rewrite (segment-split/longest-wins), verify UI (category grouping, compact fee rows, Items vs Receipt total reconciliation, multi-line descriptions), Requests row icon contrast. Lambda v283→v291.
   - [[meta/session-2026-06-19-cc1630-1634-alerting-terraform-ops]] — 2026-06-19: Google Chat alerts (await fix + ok_actions, v319); cc-1631 closed (DB clean); CLAUDE.md Lambda freeze + secret rules (cc-1632); regression probe 16/17 PASS (cc-1633); S3 WORM codified + VPC reconcile doc (cc-1634). OMP 16.1.6.

@@ -9,7 +9,7 @@ status: active
 
 # Wiki Dashboard
 
-**Last lint:** [[meta/lint/lint-report-2026-06-13]] (2026-06-13) — 31 issues, 0 auto-fixed
+**Last lint:** [[meta/lint-report-2026-06-24]] (2026-06-24) — 32 issues
 
 ## Recent Activity
 ```dataview
@@ -32,5 +32,7 @@ LIST FROM "wiki/tyler/questions" WHERE answer_quality = "draft" SORT created DES
 ```
 
 ## Lint History
-- [[meta/lint/lint-report-2026-06-13]] — 2026-06-13: 31 issues (6 orphans, 13 dead links, 2 root strays, 10 frontmatter gaps)
+- [[meta/lint-report-2026-06-24]] — 2026-06-24: 32 issues (1 dead link, 4 stale claims, 4 orphans, 15 frontmatter gaps, fragile prefix links)
+- [[meta/lint-report-2026-06-19]] — 2026-06-19
+- [[meta/lint/lint-report-2026-06-13]] — 2026-06-13: 31 issues
 - [[meta/lint/lint-report-2026-06-10]] — 2026-06-10

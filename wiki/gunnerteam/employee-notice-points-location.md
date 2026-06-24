@@ -11,6 +11,7 @@ tags:
   - compliance
   - employee-notice
   - soc2
+title: Employee Notice — Points & Location
 ---
 
 # GunnerTeam App — Employee Notice & Acknowledgment

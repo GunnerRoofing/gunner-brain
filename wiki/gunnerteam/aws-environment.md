@@ -8,13 +8,11 @@ tags:
   - infrastructure
 status: stable
 created: 2026-04-23T00:00:00.000Z
-updated: '2026-06-18'
+updated: '2026-06-24'
 sources: []
 related:
-  - '[[gunner/environment]]'
-  - '[[gunner/gunnerteam-project-structure]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/masterdb-architecture]]'
+  - '[[tyler/hot]]'
+  - '[[gunnerteam/masterdb-developer-handoff]]'
 ---
 
 # AWS Environment — GunnerTeam
@@ -29,7 +27,7 @@ The GunnerTeam backend runs a Lambda-first architecture in **us-east-2**. The Ex
 |----------|-------|
 | Lambda function | `gunnerteam-dev-api` |
 | Alias | `live` |
-| Live version | `v294` (see [[tyler/hot]] for current before deploying) |
+| Live version | see [[tyler/hot]] for current — do not hardcode here |
 | API Gateway host | `k5h2n0rog9.execute-api.us-east-2.amazonaws.com` |
 | Public hostname | `api.team.gunnerroofing.com` |
 | DNS | Cloudflare proxy (orange cloud) → API Gateway |

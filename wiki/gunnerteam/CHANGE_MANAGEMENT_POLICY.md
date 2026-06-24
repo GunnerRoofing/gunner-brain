@@ -9,6 +9,7 @@ tags:
   - soc2
   - change-management
   - process
+title: Change Management Policy
 ---
 
 # Change-Management Policy — GunnerTeam

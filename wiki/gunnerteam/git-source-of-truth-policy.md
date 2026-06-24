@@ -11,6 +11,7 @@ tags:
   - git
   - policy
   - soc2
+title: Git Source of Truth Policy
 ---
 
 # Git is the Source of Truth — Deploy Policy

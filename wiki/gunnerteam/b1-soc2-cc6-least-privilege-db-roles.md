@@ -25,7 +25,7 @@ related:
 # B1 — SOC 2 CC6.1/CC6.3/CC6.6: Least-Privilege DB Roles (masterdb)
 
 **Control owner:** Tyler Suffern · **Date:** 2026-06-22
-**Status:** PROD PROVISIONED — role live on production cluster; p16 role-scoped policies provide org context (GUC approach retired); cutover (cc-2137) pending proxy secret update.
+**Status:** CUTOVER IN PROGRESS — v368 live as `gunnerteam_app`; DB_PASSWORD flipped; Cognito `custom:tenantId` corrected for all 6 users; Tyler `gt-admin` role inserted. Pending: Tyler fresh iOS login to confirm B1 complete. Rollback anchors held until confirmed.
 **TSC:** CC6.1 (logical access — least privilege) · CC6.3 (role-based access / segregation) · CC6.6 (boundary — RLS tenant isolation)
 
 ---
@@ -63,7 +63,8 @@ Before B1, applications connected as the Aurora master role, which carries `BYPA
 | Grant audit | cc-2142 (`gunnerteam_app-grant-audit-2026-06-22`) | Backend table-usage matrix vs. granted privileges; one missing + four extra identified and remediated |
 | Cutover procedure | `cc-prompt-2137-b1-cutover-gunnerteam-side.md` | GunnerTeam credential swap + canary plan |
 | Verification plan | `b1-verification-plan-2026-06-22.md` | Role attributes, ownership counts, cross-tenant 0-row probe, pinning metric |
-| Post-cutover RLS proof | *(to capture at cutover)* | Wrong-org context → 0 rows on a FORCE-RLS table; `gunnerteam_app` reads own-org rows only |
+| queryWithTenant diagnostic | [[gunnerteam/querywithtenant-diag-2026-06-24]] | cc-2156: SET LOCAL works, validate query returns 1 row, root cause was Cognito tenantId mismatch |
+| Post-cutover RLS proof | *(to capture after iOS verify)* | Wrong-org context → 0 rows on a FORCE-RLS table; `gunnerteam_app` reads own-org rows only |
 
 ### Grant Matrix (as of k12)
 
@@ -97,8 +98,12 @@ Before B1, applications connected as the Aurora master role, which carries `BYPA
 - ✅ **p16 role-scoped RLS policies** — org context without GUC/SET/pinning; validated on dev + prod.
 - ✅ `gunnerteam_app` password set on prod (cc-2152); in Keeper. `ops_app` password reset (cc-2153); Keeper-shared to Leo.
 - ✅ GUC approach **retired** — `_provision_gunnerteam_app_guc` marked ABANDONED in migrate.py.
-- ⏳ **Proxy secret** — Colin must update `gunnerteam-dev-masterdb-proxy` Secrets Manager secret with `gunnerteam_app` password before the proxy can authenticate the role.
-- ⏳ **cc-2137 credential swap** — SSM `DB_USER` / `DB_PASSWORD` swap; canary + rollback mandatory; master role untouched.
+- ✅ **Proxy wired (cc-2154)** — `gunterteam-app-masterdb-proxy` secret created; proxy auth = [master, gunterteam_app]; resource policy grants proxy role read.
+- ✅ **Cognito fix (cc-2157)** — all 6 users' `custom:tenantId` updated from `69aad261` (old dev org) to `7d6db1bb` (prod masterdb org).
+- ✅ **Tyler admin role** — `user_app_roles` entry inserted: Tyler → `gt-admin` for gunner-team app + prod org.
+- ✅ **Credential swap in progress** — v368 live (`DB_USER=gunterteam_app`, `DB_PASSWORD=gunterteam_app pw`). Existing tokens (old tenantId, 8h TTL) will 401 until users sign out + back in.
+- ⏳ **iOS verification** — Tyler fresh login required to confirm B1 complete. See [[gunnerteam/querywithtenant-diag-2026-06-24]] for root-cause diagnostic.
+- ⏳ **Fold proxy grant into Pulumi IaC** — proxy role currently granted via Secrets Manager resource policy (IAM identity-policy path blocked during cc-2154). Reconcile during masterdb Pulumi IaC work.
 
 ---
 

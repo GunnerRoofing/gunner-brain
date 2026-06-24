@@ -1,10 +1,14 @@
 ---
 type: reference
 owner: tyler
-created: 2026-06-11
-updated: 2026-06-11
-tags: [meta, memory, persistent]
+created: 2026-06-11T00:00:00.000Z
+updated: 2026-06-11T00:00:00.000Z
+tags:
+  - meta
+  - memory
+  - persistent
 status: active
+title: Tyler Memory
 ---
 
 # Persistent Memory — Tyler Suffern

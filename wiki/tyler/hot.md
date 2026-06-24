@@ -65,7 +65,7 @@ echo "v$VERSION"
 
 ## What's Live (v368)
 
-### Key features as of v359 (2026-06-24)
+### Key features as of v368 (2026-06-24)
 - **Dumpster email (cc-2600–2604):** Monday PM board vendor lookup → SES to vendor + CC procurement@. Reply-To = procurement. `DUMPSTER_VENDOR_EMAIL_OVERRIDE` SSM for testing (currently active: tyler.suffern@).
 - **Photo upload OOM fixes (cc-2401–2404):** autoreleasepool in submit(), camera stop on .reviewing, renderComposite + 4 resize helpers use `fmt.scale = src.scale`.
 - **photos/confirm fix (cc-2405–2407):** replaced swapped-arg `upstreamFetch` (1ms timeout bug) with `ccFetch`; adds `contentType`+`byteSize` to payload.

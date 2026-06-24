@@ -9,6 +9,7 @@ tags:
   - deploy
   - git
   - contributing
+title: Contributing Guide
 ---
 
 # Contributing & Deploy Workflow — GunnerTeam

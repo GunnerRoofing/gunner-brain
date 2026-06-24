@@ -9,6 +9,8 @@ tags:
   - security
   - deploy
   - onboarding
+title: Claude Code Rules — Onboarding Pack
+updated: '2026-06-24'
 ---
 # Claude Code Rules — Onboarding Pack
 

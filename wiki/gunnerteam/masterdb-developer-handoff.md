@@ -222,7 +222,10 @@ Current head: `p16_gt_app_rls` (applied dev + prod 2026-06-24; k11→p16 full ch
 | `j10_service_client_prefix_auth` | api_key_prefix + service_auth_lookup RLS policy |
 | `k11_provision_gunnerteam_app` | **B1** — `gunnerteam_app` role, grants, `gt_*` ownership, users INSERT policy |
 | `k12_crew_members_delete_grant` | **B1 fix** — `crew_members` DELETE grant (cc-2142 audit) |
-| `k13_least_priv_trim` | (staged, not applied) — revoke 4 over-granted tables |
+| `k13_least_priv_trim` | **B1** — revoke 4 over-granted tables (contacts, services, org_services, service_clients) |
+| `n14_ops_app_track` | Track ops_app provisioning in Alembic; drop ELSE ALTER ROLE (Aurora blocks NOSUPERUSER change on existing role) |
+| `o15_merge` | Merge revision (k13 + n14 were parallel heads off k12) |
+| `p16_gt_app_rls` | **B1** — role-scoped RLS policies for `gunnerteam_app` — org context without GUC/SET/pinning |
 
 > Always run `alembic upgrade head` in the migration Lambda — never directly against the DB.
 

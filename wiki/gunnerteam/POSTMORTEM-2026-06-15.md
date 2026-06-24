@@ -12,6 +12,7 @@ tags:
   - rds-proxy
   - deploy
   - process
+title: Postmortem 2026-06-15
 ---
 # Incident Postmortem — GunnerTeam app outage & masterdb slowness (2026-06-15)
 

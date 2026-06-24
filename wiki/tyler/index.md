@@ -1,9 +1,21 @@
+---
+type: index
+title: Tyler Wiki Index
+owner: tyler
+created: '2026-05-22'
+updated: '2026-06-24'
+status: stable
+tags:
+  - index
+  - tyler
+---
 # Wiki Index
 
 Maintained by Claude. Updated on every ingest. Read this first when answering queries to find relevant pages.
 
 ## Gunner Operations
 
+| [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] | cc-1800–1806 (LLM engine: lib/llm.js, /assistant/run, Bedrock, assessTier, quote_advisor, service-key auth) + cc-2152–2157 (B1 cutover chain: proxy, Cognito tenantId mismatch root cause, resolveUser fix, Tyler admin role) |
 | [[meta/session-2026-06-22-cc2133-2135-hygiene-key-voip]] | cc-2133–2135 + VOIP ingest: read-only account hygiene sweep (8 public Function URLs / 8 IAM static-key users / 8 untagged EC2 — 0 GunnerTeam), `gunner-fleet-worker-dev` key deactivated (delete after soak), A4 fieldportal diagnostic (we forward the user's own email at role=user, 0 projects — not our bug), VOIP/softphone research ingested |
 | [[meta/session-2026-06-10-cc279-288-customer-photos-debug]] | cc-279–288: customer photo upload debug — PayloadTooLargeError root cause (Express 100kb→20mb), photoObj unwrap, source field null, Lambda v139; UI polish (haptics, photo cell hit area, Customer badge) |
 | [[meta/session-2026-06-02-cc87-89-91-phase-workflow-models]] | cc-87, 89–91: CompletedTasksSheet, PhaseWorkflowModels (data layer), JobGuidedView, PhaseDetailView+PhaseItemGridCell |
@@ -173,7 +185,9 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 | Page | Description |
 |------|-------------|
-| [[meta/lint/lint-report-2026-06-13]] | Lint report 2026-06-13 — most recent timestamped report |
+| [[meta/lint-report-2026-06-24]] | Lint report 2026-06-24 — 32 issues (current) |
+| [[meta/lint-report-2026-06-18]] | Lint report 2026-06-18 — 13 issues |
+| [[meta/lint/lint-report-2026-06-13]] | Lint report 2026-06-13 — 31 issues |
 | [[meta/lint-report-2026-06-18]] | Lint report 2026-06-18 — 227 pages, 13 issues (3 dead links, 3 stale claims, 3 index gaps, 2 structural, 2 orphans, 2 frontmatter gaps) |
 | [[meta/session-2026-06-08-cc167-233-ios-tab-markup-themes]] | Session 2026-06-08 — cc-167–233: 4-tab architecture, PhotoMarkupEditor UIKit inset fix, ThemeManager Gunner teal, 360 photo capture, scroll-aware titles, Lambda v127, OMP 15.10.4 |
 | [[meta/session-2026-06-04-cc148-193-ios-co-fixes]] | Session 2026-06-04 — cc-148–193: guided job overhaul, CO flow, home screen redesign, FAB, Lambda v119 |
