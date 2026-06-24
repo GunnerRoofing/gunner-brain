@@ -1282,6 +1282,11 @@ All wiki pages updated: `status:` field added (stable/developing by type); `rela
 - autoresearch program.md customized for IT/security/CISO domains
 - lint-report stays at wiki/lint-report.md with timestamped copies to wiki/meta/
 
+## [2026-06-24] save | Session — LLM Engine + B1 Cutover Root-Cause Chain
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover.md
+- From: cc-1800–1806 (LLM/assistant engine, Bedrock, task dispatch, service keys) + cc-2152–2157+ (B1 gunterteam_app cutover — proxy, Cognito org-ID mismatch, resolveUser diagnostic, role fix)
+
 ## [2026-04-14] ingest | 9 new documents — CIS benchmarks, NIST CSF 2.0, CMMC Assessment Guide
 
 **Sources ingested (moved to raw-sources/study/):**

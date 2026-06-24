@@ -6,10 +6,13 @@ updated: '2026-06-22'
 # Tyler Hot Cache — 2026-06-24
 
 ## Current State
-- **Lambda:** **v359 live** (`gunnerteam-dev-api`, alias `live`, RoutingConfig null). Includes: cc-2136 complete-invite app UUID, dumpster email feature (cc-2600–2604), photo upload OOM fixes (cc-2401–2404), photos/confirm payload fix (cc-2407). Deploy recipe below is current.
-- **iOS build:** BUILD SUCCEEDED — **Firebase Crashlytics added** (cc-2700, commit `5977edb`). Username-only context, no Analytics. Tests: 59 in GunnerTeamTests (unchanged).
-- **Last session (2026-06-24):** [[tyler/meta/session-2026-06-24-cc2136-2700-b1-bugfixes-firebase]] — B1 prod provisioning (k11→p16 on prod cluster), photo OOM bug chain, dumpster email feature, Firebase Crashlytics. See session note for full details.
-- **🔐 B1 masterdb — PROD provisioned (cc-2150/2151/2152):** `gunnerteam_app` role on production cluster (`sczazkvf`) with k11→p16 applied. Role-scoped RLS policies (p16) provide org context — no GUC (Aurora blocks `ALTER ROLE SET` for custom GUCs on rds_superuser). Password set. **Gates before cc-2137:** (1) proxy secret must be updated with `gunnerteam_app` password (Colin), (2) SSM cred swap in cc-2137 itself. `ops_app` password also reset (cc-2153), in Keeper → Leo for gunner-ops swap.
+- **Lambda:** **v368 live** (`gunnerteam-dev-api`, alias `live`, RoutingConfig null). Includes: LLM engine (cc-1801–1806), B1 cutover in progress (DB_USER=gunterteam_app, DB_PASSWORD=gunterteam_app — **pending Tyler fresh iOS login to confirm**). See [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] for full details.
+- **iOS build:** BUILD SUCCEEDED — **Firebase Crashlytics added** (cc-2700, commit `5977edb`). **cc-1800**: session freshness 4h→30m + scenePhase foreground reset (commit `73f902e`). Tests: 59 in GunnerTeamTests (unchanged).
+- **Last session (2026-06-24):** [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] — LLM/assistant engine (cc-1800–1806) + B1 cutover root-cause chain (cc-2152–2157).
+- **⚠️ B1 CUTOVER IN PROGRESS — verify before unset:** `live=v368`, `DB_USER=gunterteam_app`, `DB_PASSWORD=gunterteam_app pw` in SSM. All 6 Cognito users updated `custom:tenantId=7d6db1bb`. Tyler has `gt-admin` in `user_app_roles`. resolveUser diagnostic GREEN. **Existing tokens (old `69aad261` tenantId, 8h TTL) will 401 — all users must sign out + back in.** Once Tyler fresh login works → confirm B1 done, unset rollback anchors. Rollback: `update-alias live→$PRIOR` + `ssm put DB_PASSWORD=$MPW`.
+- **🤖 LLM engine live (cc-1801–1806, v368):** `lib/llm.js` provider-agnostic (`LLM_PROVIDER=bedrock`, Converse API). `POST /assistant/run`: qa/summarize/draft/classify/score/extract tasks + `quote_advisor` (Sonnet, fixed tier). `assessTier()` Haiku pre-flight for auto-tier on `/run`. `/chat` pinned to Haiku (1 call). Service-key dual-auth (`gtsk_` prefix) + `allowed_tasks` scope for QP. Bedrock model: `us.anthropic.claude-sonnet-4-6` (smart), `us.anthropic.claude-haiku-4-5-20251001-v1:0` (fast).
+- **🔑 CRITICAL ORG ID CORRECTION:** `GUNNERCAM_POINTS_ORG_ID = 69aad261` is the webhook-filter SSM param — **NOT** the masterdb `organizations.id`. The prod masterdb gunner org ID is **`7d6db1bb-fc40-4063-9b08-a39e4ba95fb5`** (from `SELECT id FROM organizations WHERE slug='gunner'` on sczazkvf). All auth lookups use `7d6db1bb`. Update any references that incorrectly treat `69aad261` as the masterdb org ID.
+- **🔐 B1 masterdb — PROD provisioned (cc-2150/2151/2152):** `gunnerteam_app` role on production cluster (`sczazkvf`) with k11→p16 applied. Role-scoped RLS policies (p16) provide org context — no GUC (Aurora blocks `ALTER ROLE SET` for custom GUCs on rds_superuser). Password set. Proxy wired (cc-2154). `ops_app` password reset (cc-2153), in Keeper → Leo for gunner-ops swap.
 - **⚠️ masterdb two-cluster topology (cc-2147):** masterdb migrate Lambda → **dev cluster** (`kdsmbssw`). GunnerTeam Lambda → **prod cluster** (`sczazkvf`) via `gunnerteam-dev-masterdb-proxy`. Alembic head on dev: `p16_gt_app_rls`. Alembic head on prod: `p16_gt_app_rls` (applied cc-2150). masterdb API Lambda also hits dev — Colin's `/v1/integrations/*` reads have been hitting dev data. Separate fix needed.
 - **🐛 photos/confirm 1ms timeout (cc-2405/2406 — FIXED):** `upstreamFetch(url, opts, intEnv(...), 'label')` had args 3+4 swapped → `timeoutMs='fieldportal photo confirm'` → NaN → 1ms → AbortError → 500. Every MiddlePhaseCameraSession upload failed. Fixed by replacing with `ccFetch`. Root cause of Windows B+C in cc-2500 alarm diagnosis.
 - **📧 Dumpster email live (cc-2600–2604, v359):** Vendor lookup via Monday PM board (BoardRelationValue inline fragment required) → SES to vendor + CC procurement@. Reply-To = procurement. `DUMPSTER_VENDOR_EMAIL_OVERRIDE` SSM param for testing (active: tyler.suffern@). Optimistic success (no polling). Human-readable date format.
@@ -60,7 +63,7 @@ echo "v$VERSION"
 3. `AWS_PROFILE=mfa terraform apply -target=aws_lambda_function.api`
 4. Publish version + update alias (deploy recipe steps 5–7)
 
-## What's Live (v359)
+## What's Live (v368)
 
 ### Key features as of v359 (2026-06-24)
 - **Dumpster email (cc-2600–2604):** Monday PM board vendor lookup → SES to vendor + CC procurement@. Reply-To = procurement. `DUMPSTER_VENDOR_EMAIL_OVERRIDE` SSM for testing (currently active: tyler.suffern@).
@@ -119,7 +122,8 @@ echo "v$VERSION"
 - **Terraform stash reconcile:** `stash@{0}`
 
 ## Key Facts
-- Gunner org ID: `69aad261-347c-44db-8e9e-6c25a8509aa3`
+- GUNNERCAM_POINTS_ORG_ID (SSM webhook param): `69aad261-347c-44db-8e9e-6c25a8509aa3`
+- **Masterdb prod gunner org ID** (`organizations WHERE slug='gunner'`): **`7d6db1bb-fc40-4063-9b08-a39e4ba95fb5`** ← use this for auth/DB queries
 - MFA ARN: `arn:aws:iam::980921733684:mfa/tylerMFA`; base profile `default`; mfa profile `mfa`
 - Deploy bucket: `gunnerteam-lambda-deploy-useast2`, key `gunnerteam-deploy.zip`
 - Migration secret: `gunner-migrate-2026`; invoke with `--qualifier <version>`
