@@ -60,19 +60,15 @@ echo "v$VERSION"
 3. `AWS_PROFILE=mfa terraform apply -target=aws_lambda_function.api`
 4. Publish version + update alias (deploy recipe steps 5–7)
 
-## What's Live (v319)
+## What's Live (v359)
 
-### Alerting (cc-1630)
-- **Email:** `admin@gunnerroofing.com` only (tyler.suffern removed)
-- **Google Chat:** `GOOGLE_CHAT_WEBHOOK_URL` wired; `await postToGoogleChat(...)` (fixed freeze bug)
-- **Timestamps:** Eastern time via `fmtET` in email + Chat
-- **ok_actions:** all 4 alarms wired → RESOLVED fires to both channels
-- **CloudWatch link:** IAM Identity Center SSO deep link
-
-### Backend — receipt scanner (v283)
-- `POST /fieldportal/jobs/:jobId/receipt/extract`: Textract AnalyzeExpense; unit-price model
-- `POST /fieldportal/jobs/:jobId/receipt/commit`: `gt_receipts` + `gt_receipt_line_items`
-- `POST /time/location-batch`: offline-buffered breadcrumbs with client `recorded_at`
+### Key features as of v359 (2026-06-24)
+- **Dumpster email (cc-2600–2604):** Monday PM board vendor lookup → SES to vendor + CC procurement@. Reply-To = procurement. `DUMPSTER_VENDOR_EMAIL_OVERRIDE` SSM for testing (currently active: tyler.suffern@).
+- **Photo upload OOM fixes (cc-2401–2404):** autoreleasepool in submit(), camera stop on .reviewing, renderComposite + 4 resize helpers use `fmt.scale = src.scale`.
+- **photos/confirm fix (cc-2405–2407):** replaced swapped-arg `upstreamFetch` (1ms timeout bug) with `ccFetch`; adds `contentType`+`byteSize` to payload.
+- **Receipt PDF deferred (cc-2700):** Colin file registration happens at commit, not at scan.
+- **Alerting:** `admin@gunnerroofing.com`, Google Chat, Eastern timestamps, ok_actions on all 4 alarms.
+- **Firebase Crashlytics (iOS, `5977edb`):** username-only context, no Analytics.
 
 ### Backend — location consent (v277+)
 - `POST /auth/validate` returns `location_consent`

@@ -49,7 +49,7 @@ These apply to everyone who touches the repo — they keep it auditable and SOC 
 5. **No secrets in the repo.** Passwords/keys set out-of-band, stored in Secrets Manager.
 6. **Coordinate before changing shared infra** — QP / LEO / COLIN / GunnerTeam share this cluster.
 
-See [[GunnerMasterDB-SOC2-Roadmap-2026-06-22]] for the phased hardening plan.
+See [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]] for the phased hardening plan.
 See [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]] for the `gunnerteam_app` role evidence and grant matrix.
 
 ---
@@ -198,7 +198,7 @@ To provision or rotate: ask Leonard.
 
 ## Migration State
 
-Current head: `k12_crew_members_delete_grant` (applied dev 2026-06-22; `k13` staged, not yet applied)
+Current head: `p16_gt_app_rls` (applied dev + prod 2026-06-24; k11→p16 full chain deployed)
 
 | Revision | Description |
 |---|---|

@@ -2,8 +2,8 @@
 type: soc2-evidence
 title: 'B1 — SOC 2 CC6.1/CC6.3/CC6.6: Least-Privilege DB Roles (masterdb)'
 created: '2026-06-22'
-updated: '2026-06-22'
-status: in-progress
+updated: '2026-06-24'
+status: prod-provisioned
 control_owner: Tyler Suffern
 tsc:
   - CC6.1
@@ -25,7 +25,7 @@ related:
 # B1 — SOC 2 CC6.1/CC6.3/CC6.6: Least-Privilege DB Roles (masterdb)
 
 **Control owner:** Tyler Suffern · **Date:** 2026-06-22
-**Status:** IN PROGRESS — role provisioned on dev; org-context (GUC) and production cutover pending (§5).
+**Status:** PROD PROVISIONED — role live on production cluster; p16 role-scoped policies provide org context (GUC approach retired); cutover (cc-2137) pending proxy secret update.
 **TSC:** CC6.1 (logical access — least privilege) · CC6.3 (role-based access / segregation) · CC6.6 (boundary — RLS tenant isolation)
 
 ---
@@ -46,7 +46,7 @@ Before B1, applications connected as the Aurora master role, which carries `BYPA
 
 - **Dedicated role** `gunnerteam_app`, created `NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE` (Alembic revision `k11_provision_gunnerteam_app`, commit `176bef5`). Fully subject to FORCE RLS.
 - **Least-privilege grants** scoped to exactly the shared identity/auth tables the GunnerTeam backend uses (verified by cc-2142 grant audit — see §4). The application's own `gt_*` tables are owned by the role (full DML via ownership).
-- **Tenant scoping at login** via a role-default GUC (`ALTER ROLE … SET app.current_org_id = <gunner org>`), so every query is org-scoped without per-request configuration and without RDS Proxy connection pinning. GunnerTeam is single-org by design — a static role default is correct here. *(GUC step currently blocked — see §5.)*
+- **Tenant scoping via role-scoped RLS policies (p16_gt_app_rls)** — `ALTER ROLE … SET app.current_org_id` is blocked on Aurora PG 17 (rds_superuser cannot set role-level defaults for unregistered custom GUCs, confirmed cc-2148 after 3 approaches). Resolution: 19 permissive `gunnerteam_app_org` policies hardcode the gunner org_id (resolved by slug at migration time, never hardcoded in SQL text) into each FORCE-RLS table's predicate. OR-combined with the existing `org_isolation` policy — no other role's access changes. No `SET LOCAL`, no proxy pinning. Validated on dev and prod: `SET ROLE gunnerteam_app` with zero session setup returns real rows from all FORCE-RLS tables.
 - **Change control:** role + grants + table ownership are provisioned **in Alembic (in source control)**, not out-of-band — reproducible and auditable. Committed to `main` (`176bef5`), deployed == committed (live reconciled to `main` in the same change, cc-2138).
 - **Reversible:** the migration's `downgrade()` cleanly returns table ownership and drops the role; the master role is untouched throughout, so cutover rollback is a credential re-point.
 
@@ -90,12 +90,15 @@ Before B1, applications connected as the Aurora master role, which carries `BYPA
 
 ## 5. Current Status & Residual Items
 
-- ✅ `gunnerteam_app` provisioned on dev; 17 `gt_*` tables reassigned; `users` INSERT policy in place.
-- ✅ `crew_members` DELETE grant added (k12, cc-2142 fix).
-- ⏳ **Role-default GUC not yet active** — Aurora PG 17 blocks `ALTER ROLE … SET` of the unregistered `app.*` GUC. Requires Colin to add `app` to `custom_variable_classes` in the Aurora parameter group + cluster reboot. Until then, cutover does not proceed (documented blocker, not a silent gap). Invoke `provision_gunnerteam_app_guc` migrate-Lambda action after the reboot.
-- ⏳ **k12 not yet applied to dev** — MFA session expired during cc-2142 deploy. Apply before the cutover window.
-- ⏳ **k13 (least-priv trim)** not yet applied — planned post-cutover after a fresh scan confirms no new backend usage.
-- ⏳ **Production cutover pending** a coordinated window; control is implemented on dev only.
+- ✅ `gunnerteam_app` provisioned on **production cluster** (`sczazkvf`); k11→p16 applied (cc-2150, 2026-06-24).
+- ✅ 37 `gt_*` tables reassigned to `gunnerteam_app` on prod (all tables, not just the 17 on dev).
+- ✅ `users` INSERT policy in place (`gunnerteam_app_user_insert`).
+- ✅ `crew_members` DELETE grant (k12), k13 least-priv trim, n14 ops_app track, o15 merge revision all applied.
+- ✅ **p16 role-scoped RLS policies** — org context without GUC/SET/pinning; validated on dev + prod.
+- ✅ `gunnerteam_app` password set on prod (cc-2152); in Keeper. `ops_app` password reset (cc-2153); Keeper-shared to Leo.
+- ✅ GUC approach **retired** — `_provision_gunnerteam_app_guc` marked ABANDONED in migrate.py.
+- ⏳ **Proxy secret** — Colin must update `gunnerteam-dev-masterdb-proxy` Secrets Manager secret with `gunnerteam_app` password before the proxy can authenticate the role.
+- ⏳ **cc-2137 credential swap** — SSM `DB_USER` / `DB_PASSWORD` swap; canary + rollback mandatory; master role untouched.
 
 ---
 
@@ -109,7 +112,7 @@ Before B1, applications connected as the Aurora master role, which carries `BYPA
 
 | App | Role | Connection | Org context | Status |
 |---|---|---|---|---|
-| GunnerTeam | `gunnerteam_app` | RDS Proxy | Role-default GUC (single-org) | In progress (this doc) |
+| GunnerTeam | `gunnerteam_app` | RDS Proxy | p16 role-scoped RLS policies | Prod provisioned; cutover (cc-2137) pending proxy secret |
 | gunner-ops | `ops_app` | Direct (confirmed cc-2144) | Per-request `SET LOCAL` (multi-tenant-ready) | Planned cc-2141 |
 | WL-CompanyCam | `wl_companycam_app` | RDS Proxy | TBD | Planned |
 | QP | `qp_app` | TBD | TBD | On hold per app owner |

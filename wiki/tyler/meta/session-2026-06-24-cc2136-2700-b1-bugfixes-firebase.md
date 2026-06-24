@@ -19,6 +19,7 @@ related:
   - '[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]'
   - '[[gunnerteam/masterdb-developer-handoff]]'
   - '[[tyler/hot]]'
+status: stable
 ---
 
 # Session 2026-06-24: B1 Prod Provisioning, Photo OOM Fixes, Dumpster Email, Firebase

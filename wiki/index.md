@@ -10,7 +10,7 @@ tags:
 
 # gunner-brain — Master Index
 
-Shared knowledge base for the Gunner Roofing engineering team. Start at [[hot.md]] for
+Shared knowledge base for the Gunner Roofing engineering team. Start at [[hot]] for
 current system state, then drill into the section you need.
 
 ## Team
@@ -65,7 +65,7 @@ Read by everyone; write with coordination.
   - [[meta/session-2026-06-11-cc299-338-perf-polish-prod-infra]] — 2026-06-11: Perf sprint (ETag, cursor, N+1), prod Aurora seed, fleet time tracking.
   - [[meta/session-2026-06-10-omp-config-plugin-claudemd-merge]] — 2026-06-10: OMP config fixes, plugin refresh (aws-serverless, context7, stripe), CLAUDE.md merge from old vault.
   - [[meta/session-2026-06-10-save-skill-test]] — 2026-06-10: Save skill workflow test.
-- [[log.md]] — append-only activity log across all sections.
+- [[log]] — append-only activity log across all sections.
 
 ## How This Vault Works
 

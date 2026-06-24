@@ -19,6 +19,7 @@ related:
   - '[[gunnerteam/dialpad-hubspot-integration]]'
   - '[[gunnerteam/aws-environment]]'
   - '[[tyler/hot]]'
+title: 'Session 2026-06-22: cc2133-2135 Hygiene Key VOIP'
 ---
 
 # Session 2026-06-22 — cc-2133→2135 account hygiene + A4 diagnostic + VOIP ingest
