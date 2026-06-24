@@ -1,3 +1,9 @@
+## 2026-06-24 save | Session — B1 prod provisioning, photo OOM fixes, dumpster email, Firebase
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-24-cc2136-2700-b1-bugfixes-firebase.md
+- From: ~30 cc-prompts across masterdb B1, iOS photo bugs, dumpster email feature, Crashlytics
+- Key insight: Aurora PG 17 rds_superuser cannot ALTER ROLE SET for custom GUCs — role-scoped RLS policies (p16) are the correct replacement; masterdb migrate Lambda was hitting dev cluster, not prod (two-cluster topology finding).
+
 ## 2026-06-22 ingest | B1 SOC 2 CC6 Least-Privilege DB Roles evidence doc
 - Source: cc-2142 `gunnerteam_app` grant audit + B1 control evidence (pasted)
 - Summary: [[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]
