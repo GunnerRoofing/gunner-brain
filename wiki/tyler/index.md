@@ -15,6 +15,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 ## Gunner Operations
 
+| [[tyler/meta/session-2026-06-25-bedrock-billing-qp-key-org-reconcile]] | cc-1807 half-flip recovery + atomic-role guardrail; cc-1808 QP draft key live (200/403); Bedrock INVALID_PAYMENT_INSTRUMENT → LLM_PROVIDER=anthropic bridge (v371); cc-2901 two-org RLS reconcile (69aad261 real / 7d6db1bb shell, Colin p17/p18) |
 | [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] | cc-1800–1806 (LLM engine: lib/llm.js, /assistant/run, Bedrock, assessTier, quote_advisor, service-key auth) + cc-2152–2157 (B1 cutover chain: proxy, Cognito tenantId mismatch root cause, resolveUser fix, Tyler admin role) |
 | [[meta/session-2026-06-22-cc2133-2135-hygiene-key-voip]] | cc-2133–2135 + VOIP ingest: read-only account hygiene sweep (8 public Function URLs / 8 IAM static-key users / 8 untagged EC2 — 0 GunnerTeam), `gunner-fleet-worker-dev` key deactivated (delete after soak), A4 fieldportal diagnostic (we forward the user's own email at role=user, 0 projects — not our bug), VOIP/softphone research ingested |
 | [[meta/session-2026-06-10-cc279-288-customer-photos-debug]] | cc-279–288: customer photo upload debug — PayloadTooLargeError root cause (Express 100kb→20mb), photoObj unwrap, source field null, Lambda v139; UI polish (haptics, photo cell hit area, Customer badge) |
