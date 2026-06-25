@@ -65,7 +65,9 @@ The `_sql` in-VPC admin path (MIGRATION_SECRET-gated) is how service-key rows ge
 
 **Bridge decision:** flipped `LLM_PROVIDER=anthropic` (v371) to unblock Leo while billing is sorted. Only the low-sensitivity `draft` task is live (`quote_advisor` customer-pricing path isn't wired). Verified: `draft → 200` (`model: claude-haiku-4-5-20251001`), `extract → 403`. `ANTHROPIC_MODEL_SMART/FAST` unset → llm.js defaults `claude-sonnet-4-6`/`claude-haiku-4-5` (valid Anthropic API names).
 
-**Revert path (one-line, when Eddie fixes the card):** `ssm put LLM_PROVIDER=bedrock` → `terraform apply -target=aws_lambda_function.api` → publish → alias. In-account Bedrock posture is still the end state; Anthropic is the temporary bridge.
+**RESOLVED same session — back on Bedrock (v372).** The card kept bouncing because it was added to the *management* account `661095510147` only; the fix was cause #2 — a consolidated **member** account needs its **own** payment instrument for Marketplace. Once Visa `••5127` was set as default directly on `980921733684`, the failed payments had left the agreements broken (Haiku → `NOT_AVAILABLE`, Sonnet → `ERROR`), so they had to be **re-created** (`create-foundation-model-agreement`). After re-trigger: Haiku `AVAILABLE` immediately, Sonnet `PENDING → AVAILABLE` in ~40s. Then flipped `LLM_PROVIDER=bedrock` → v372. Verified: draft → 200, `model: us.anthropic.claude-haiku-4-5-20251001-v1:0` (inference-profile id = in-account Bedrock). Anthropic bridge retired.
+
+**Discipline that held throughout:** never flipped until `get-foundation-model-availability` showed **both** models `AVAILABLE` — checked the gate 3 times across the saga, held on Anthropic each time the card hadn't resolved, so Leo never lost the working path. Lesson: `agreementAvailability.status` is the authoritative gate; `ERROR`+`INVALID_PAYMENT_INSTRUMENT` = card not valid for the account, `PENDING` = finalizing (wait), `AVAILABLE` = go. Failed payments drop the agreement (`NOT_AVAILABLE`) — re-create it after the card is fixed.
 
 **Container-drain technique** (used twice this arc): provider is version-baked, but to force warm containers off old code — `delete-provisioned-concurrency-config --qualifier live` → `put-function-concurrency --reserved-concurrent-executions 0` → wait ~12s → `delete-function-concurrency`. Next request cold-starts fresh. (DB_PASSWORD is runtime-SSM-cached per container, so this is also the flush for stale-secret containers.)
 
@@ -111,4 +113,4 @@ GunnerTeam's `DB_HOST` → proxy → targets **only `gunner-masterdb-production-
 ---
 
 ## Lambda version trail
-v367 (cc-1806 service-key, promoted the half-flip) → v369 (cc-1807 DB_USER revert) → v370 (Bedrock direct model IDs, abandoned) → **v371 (LLM_PROVIDER=anthropic bridge, current live)**.
+v367 (cc-1806 service-key, promoted the half-flip) → v369 (cc-1807 DB_USER revert) → v370 (Bedrock direct model IDs, abandoned) → v371 (LLM_PROVIDER=anthropic bridge) → **v372 (LLM_PROVIDER=bedrock, card resolved, current live)**.

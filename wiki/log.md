@@ -1285,7 +1285,7 @@ All wiki pages updated: `status:` field added (stable/developing by type); `rela
 ## [2026-06-25] save | Session — Bedrock Billing Block, QP Key, B1 Org-Reconcile Prep
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-25-bedrock-billing-qp-key-org-reconcile.md
-- From: cc-1807 (half-flip recovery + atomic-role-flip guardrail), cc-1808 (QP draft key verified), Bedrock INVALID_PAYMENT_INSTRUMENT block → LLM_PROVIDER=anthropic bridge (v371), cc-2901 two-org RLS reconcile diagnostic (69aad261 real vs 7d6db1bb shell; Colin p17/p18 plan)
+- From: cc-1807 (half-flip recovery + atomic-role-flip guardrail), cc-1808 (QP draft key verified), Bedrock INVALID_PAYMENT_INSTRUMENT block → LLM_PROVIDER=anthropic bridge (v371) → RESOLVED: card on member acct 980921733684 → re-created agreements → flipped back to bedrock (v372, in-account), cc-2901 two-org RLS reconcile diagnostic (69aad261 real vs 7d6db1bb shell; Colin p17/p18 plan)
 
 ## [2026-06-24] save | Session — LLM Engine + B1 Cutover Root-Cause Chain
 - Type: session
