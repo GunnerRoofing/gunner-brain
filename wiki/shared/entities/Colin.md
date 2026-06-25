@@ -1,24 +1,22 @@
 ---
 type: entity
-title: "Colin"
-created: 2026-06-09
-updated: 2026-06-09
+title: Colin Wong
+created: 2026-06-09T00:00:00.000Z
+updated: '2026-06-25'
 tags:
   - entity
   - people
   - integration
-status: stub
+status: active
 related:
-  - "[[vendors/companycam]]"
-  - "[[gunner/masterdb-developer-handoff]]"
-  - "[[gunner/gunnerteam-project-structure]]"
+  - '[[vendors/companycam]]'
+  - '[[gunner/masterdb-developer-handoff]]'
+  - '[[gunner/gunnerteam-project-structure]]'
 ---
 
-# Colin
+# Colin Wong
 
-> [!gap] This is a stub page. Expand with full name, role title, and contact when available.
-
-Colin is the developer and owner of GunnerCam / ColinCam — the CompanyCam-based phase documentation system used by Gunner Roofing. He maintains the external API that the GunnerTeam iOS app integrates against for job photos, phase items, and field tasks.
+Colin Wong is the developer and owner of GunnerCam / ColinCam — the CompanyCam-based phase documentation system used by Gunner Roofing. He maintains the external API that the GunnerTeam iOS app integrates against for job photos, phase items, and field tasks.
 
 ## Key Responsibilities
 
