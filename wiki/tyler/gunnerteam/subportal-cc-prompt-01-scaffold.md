@@ -13,8 +13,8 @@ tags:
   - security
 status: active
 related:
-  - '[[gunner/masterdb-architecture]]'
-  - '[[gunner/secure-coding-guide]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
+  - '[[gunnerteam/secure-coding-guide]]'
   - '[[concepts/soc2]]'
 ---
 # Subcontractor Portal — cc-prompt-01 Scaffold Spec

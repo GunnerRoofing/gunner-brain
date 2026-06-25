@@ -13,16 +13,16 @@ tags:
   - deployment
 status: stable
 related:
-  - "[[gunner/masterdb-architecture]]"
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/aws-environment]]"
+  - "[[tyler/masterdb/masterdb-architecture]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[gunnerteam/aws-environment]]"
 sources:
   - "handoff masterdb.md (raw source — not in vault)"
 ---
 
 # masterdb Developer Handoff
 
-Operational reference for the masterdb API. Read [[gunner/masterdb-architecture]] for strategic context first.
+Operational reference for the masterdb API. Read [[tyler/masterdb/masterdb-architecture]] for strategic context first.
 
 ---
 

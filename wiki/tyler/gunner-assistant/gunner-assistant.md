@@ -6,7 +6,7 @@ created: 2026-04-16
 updated: 2026-04-16
 sources: []
 related:
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[vendors/hubspot]]"
 status: developing
 ---
@@ -28,7 +28,7 @@ A proposed AI-powered roofing knowledge base for Gunner field employees. Goal: e
 
 ### Option 2 — Custom App via Claude API (Most Control)
 
-- Add a "Gunner Assistant" tab to the [[gunner/gunner-forms-app|GunnerForms app]]
+- Add a "Gunner Assistant" tab to the [[gunnerteam/gunner-forms-app|GunnerForms app]]
 - App sends employee questions to Claude API with roofing PDF context injected via RAG
 - System prompt restricts answers to roofing topics only
 - Gunner-branded, scoped experience
@@ -85,5 +85,5 @@ HubSpot Breeze AI is oriented around CRM data (deals, contacts, tickets) — not
 
 ## Related
 
-- [[gunner/gunner-forms-app]] — GunnerForms iOS app; planned host for Gunner Assistant tab
+- [[gunnerteam/gunner-forms-app]] — GunnerForms iOS app; planned host for Gunner Assistant tab
 - [[vendors/hubspot]] — HubSpot AI evaluated and rejected for this use case

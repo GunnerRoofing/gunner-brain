@@ -11,10 +11,10 @@ tags:
   - reference
 status: stable
 related:
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/aws-environment]]'
-  - '[[gunner/masterdb-architecture]]'
-  - '[[gunner/secure-coding-guide]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[gunnerteam/aws-environment]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
+  - '[[gunnerteam/secure-coding-guide]]'
 sources: []
 ---
 
@@ -88,4 +88,4 @@ Express.js app deployed as an AWS Lambda function. Source lives under `gunnertea
 
 ## Deployment
 
-The backend is a single Lambda function (`gunnerteam-dev-api`, alias `live`) fronted by API Gateway and Cloudflare. See [[gunner/aws-environment]] for the full deploy sequence, migration invocation, and infrastructure details.
+The backend is a single Lambda function (`gunnerteam-dev-api`, alias `live`) fronted by API Gateway and Cloudflare. See [[gunnerteam/aws-environment]] for the full deploy sequence, migration invocation, and infrastructure details.

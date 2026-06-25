@@ -2,7 +2,7 @@
 - Type: meta
 - Location: wiki/meta/lint-report-2026-06-24.md
 - Pages scanned: 304, real issues: 18 (371 raw dead links filtered to ~8 genuine; 264 raw orphans mostly path-style false positives)
-- Fixed: `[[hot.md]]`/`[[log.md]]` → `[[hot]]`/`[[log]]` in index.md; dead `[[GunnerMasterDB-SOC2-Roadmap]]` link → b1 evidence page; b1 evidence doc updated to reflect prod completion (p16 live, GUC retired); masterdb-developer-handoff head updated k12→p16; tyler/hot "What's Live v319" → v359 summary; 3 frontmatter gaps patched.
+- Fixed: `[[hot.md]]`/`[[log.md]]` → `[[hot]]`/`[[log]]` in index.md; dead `[[tyler/masterdb/soc2-roadmap]]` link → b1 evidence page; b1 evidence doc updated to reflect prod completion (p16 live, GUC retired); masterdb-developer-handoff head updated k12→p16; tyler/hot "What's Live v319" → v359 summary; 3 frontmatter gaps patched.
 - Also: DumpsterSwapView `itemId → _` Swift warning fixed (`8d918bc`).
 
 ## 2026-06-24 save | Session — B1 prod provisioning, photo OOM fixes, dumpster email, Firebase

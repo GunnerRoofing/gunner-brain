@@ -13,9 +13,9 @@ tags:
   - frontend
 status: active
 related:
-  - '[[gunner/subportal-cc-prompt-01-scaffold]]'
-  - '[[gunner/masterdb-architecture]]'
-  - '[[gunner/secure-coding-guide]]'
+  - '[[tyler/gunnerteam/subportal-cc-prompt-01-scaffold]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
+  - '[[gunnerteam/secure-coding-guide]]'
 ---
 # Subcontractor Portal — cc-prompt-02 Frontend Scaffold
 

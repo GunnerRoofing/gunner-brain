@@ -3,7 +3,7 @@ type: index
 title: Tyler Wiki Index
 owner: tyler
 created: '2026-05-22'
-updated: '2026-06-24'
+updated: '2026-06-25'
 status: stable
 tags:
   - index
@@ -17,6 +17,18 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 | [[tyler/meta/session-2026-06-25-bedrock-billing-qp-key-org-reconcile]] | cc-1807 half-flip recovery + atomic-role guardrail; cc-1808 QP draft key live (200/403); Bedrock INVALID_PAYMENT_INSTRUMENT → LLM_PROVIDER=anthropic bridge (v371); cc-2901 two-org RLS reconcile (69aad261 real / 7d6db1bb shell, Colin p17/p18) |
 | [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] | cc-1800–1806 (LLM engine: lib/llm.js, /assistant/run, Bedrock, assessTier, quote_advisor, service-key auth) + cc-2152–2157 (B1 cutover chain: proxy, Cognito tenantId mismatch root cause, resolveUser fix, Tyler admin role) |
+| [[tyler/meta/session-2026-06-24-cc2136-2700-b1-bugfixes-firebase]] | cc-2136–2700: B1 prod provisioning (masterdb), photo OOM fixes, dumpster email, Firebase Crashlytics integration |
+| [[meta/session-2026-06-21-cc2201-keepwarm-db-connection]] | cc-2201: keepwarm DB connection — RDS Proxy keep-warm endpoint to prevent cold-start pool exhaustion |
+| [[meta/session-2026-06-20-cc2129-org-scope-ci-guard]] | cc-2129: org-scope CI guard — tenant isolation test suite + CI assertion (0 cross-tenant rows) |
+| [[meta/session-2026-06-20-cc2122-ec2-remnants-audit]] | cc-2122: EC2 remnants audit — Terraform import of lingering EC2/SG/EIP resources; clean state |
+| [[meta/session-2026-06-20-cc2119-device-integrity-endpoint]] | cc-2119: device integrity endpoint — jailbreak/integrity check API + audit log integration |
+| [[meta/session-2026-06-20-cc2115-tf-mfa-profile]] | cc-2115: Terraform MFA profile — `--profile mfa` wrapper for SOC 2 CC6.3 deploy gate |
+| [[meta/session-2026-06-20-cc2114-aurora-cpg-import-aborted]] | cc-2114: Aurora CPG import — aborted; SST/Pulumi state conflict; cluster stays manually managed |
+| [[meta/session-2026-06-20-cc2113-codify-sse-parked]] | cc-2113: codify SSE (parked) — SSE Lambda Terraform module scaffolded; parked pending SSE decision |
+| [[meta/session-2026-06-20-cc2112-audit-logs-tls]] | cc-2112: audit logs TLS — S3 audit log bucket + TLS-only policy + Terraform state wired |
+| [[meta/session-2026-06-20-cc2017-video-capture-date]] | cc-2017: video capture date — iOS VideoUploadExecutor capturedAt + backend confirm route fix; blocked on Colin /files createdAt |
+| [[meta/session-2026-06-20-cc2014-outbox-unit-tests]] | cc-2014: outbox unit tests — XCTest suite for offline outbox (BGTask, video outbox, retry logic) |
+| [[meta/session-2026-06-20-cc1700-ios-password-checker]] | cc-1700: iOS password checker — SwiftUI password strength indicator + Zod input validation wired |
 | [[meta/session-2026-06-22-cc2133-2135-hygiene-key-voip]] | cc-2133–2135 + VOIP ingest: read-only account hygiene sweep (8 public Function URLs / 8 IAM static-key users / 8 untagged EC2 — 0 GunnerTeam), `gunner-fleet-worker-dev` key deactivated (delete after soak), A4 fieldportal diagnostic (we forward the user's own email at role=user, 0 projects — not our bug), VOIP/softphone research ingested |
 | [[meta/session-2026-06-10-cc279-288-customer-photos-debug]] | cc-279–288: customer photo upload debug — PayloadTooLargeError root cause (Express 100kb→20mb), photoObj unwrap, source field null, Lambda v139; UI polish (haptics, photo cell hit area, Customer badge) |
 | [[meta/session-2026-06-02-cc87-89-91-phase-workflow-models]] | cc-87, 89–91: CompletedTasksSheet, PhaseWorkflowModels (data layer), JobGuidedView, PhaseDetailView+PhaseItemGridCell |
@@ -34,7 +46,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[meta/session-2026-05-22-cognito-auth-api-ios]] | cc-05+06: GunnerTeam API Cognito JWKS migration (410 login, requireAuth rewrite) + iOS Amplify auth (AuthManager rewrite, 53 callsites, forgot 2-step); user_devices NOT NULL fix deployed |
 | [[meta/session-2026-05-22-apns-backlog-fixes]] | APNs stale token fix, user_devices updated_at constraint, Lambda alias deploy pattern, cc-29 nav revert |
 | [[meta/session-2026-05-22-cc-prompt-26-27-announcements-omp]] | cc-26/27 hero image passthrough + static bg; announcements Post button + UUID decode fix; OMP full audit; repo cleanup |
-| [[gunner/gunnerteam-project-structure]] | GunnerTeam monorepo layout — API routes, Swift files, sizes, hotspots, CLAUDE.md rules reference |
+| [[tyler/gunnerteam/gunnerteam-project-structure]] | GunnerTeam monorepo layout — API routes, Swift files, sizes, hotspots, CLAUDE.md rules reference |
 | [[concepts/omp-tasks-subagents]] | OMP tasks/subagents — mental model, agent types, when to use, subagents bar behavior |
 | [[meta/session-2026-05-22-cc-prompt-25-colin-v2-api]] | cc-prompt-25: GunnerTask completedByEmail/completedAt added; companycam.js already correct; smoke test vs Colin's dev API passed |
 | [[meta/session-2026-05-22-project-folder-migration]] | Project folder migration — all Gunner projects moved to ~/Documents/Gunner/; GunnerTeam/docs, cc-prompts, subportal/backend/db/scripts all verified |
@@ -45,39 +57,39 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 | Page | Description |
 |------|-------------|
-| [[gunner/environment]] | Network topology, devices, SaaS stack, office locations, personnel — anchor page |
-| [[gunner/app-inventory]] | Full application inventory with SSO status and offboarding actions |
-| [[gunner/system-security-plan]] | SSP summary — roles, incident response, POAM, data recovery |
-| [[gunner/brand-colors]] | Gunner brand hex color palette |
-| [[gunner/federal-market]] | Federal contract strategy — CMMC, surety bonding, Davis-Bacon, target facilities |
-| [[gunner/completed-projects]] | Full completed IT project history — Stamford/NJ network, Keeper rollout, KnowBe4, Google Chat migration, VoIP audit |
-| [[gunner/it-decision-log]] | IT governance record — security decisions, config changes, vendor decisions, exceptions (IT-GOV-LOG-001) |
-| [[gunner/departmental-comms]] | Tool-to-use-case communications map — which tool for what by department |
-| [[gunner/gunner-forms-privacy-policy]] | GunnerForms iOS app public privacy policy — zero data collection, App Store required |
-| [[gunner/hubspot-workflow-designs]] | HubSpot workflow designs — lead rotation, owner sync, no-activity alerts for leads and deals |
-| [[gunner/hubspot-sales-pipeline]] | HubSpot stale deal management — reports and workflows for 120-day no-activity deals |
-| [[gunner/hubspot-leads-project]] | HubSpot Lead object buildout — lead stages, deal stages, QP sync, round robin, open to-do list |
-| [[gunner/hubspot-salesperson-sop]] | HubSpot Sales Workspace SOP — salesperson guide for Leads, Deals, Tasks, Schedule tabs (IT-SOP-HUB-002) |
-| [[gunner/dialpad-hubspot-integration]] | Dialpad → HubSpot integration architecture — webhook receiver design, call/SMS logging flows, open items |
+| [[gunnerteam/environment]] | Network topology, devices, SaaS stack, office locations, personnel — anchor page |
+| [[gunnerteam/app-inventory]] | Full application inventory with SSO status and offboarding actions |
+| [[gunnerteam/system-security-plan]] | SSP summary — roles, incident response, POAM, data recovery |
+| [[gunnerteam/brand-colors]] | Gunner brand hex color palette |
+| [[gunnerteam/federal-market]] | Federal contract strategy — CMMC, surety bonding, Davis-Bacon, target facilities |
+| [[gunnerteam/completed-projects]] | Full completed IT project history — Stamford/NJ network, Keeper rollout, KnowBe4, Google Chat migration, VoIP audit |
+| [[gunnerteam/it-decision-log]] | IT governance record — security decisions, config changes, vendor decisions, exceptions (IT-GOV-LOG-001) |
+| [[gunnerteam/departmental-comms]] | Tool-to-use-case communications map — which tool for what by department |
+| [[gunnerteam/gunner-forms-privacy-policy]] | GunnerForms iOS app public privacy policy — zero data collection, App Store required |
+| [[gunnerteam/hubspot-workflow-designs]] | HubSpot workflow designs — lead rotation, owner sync, no-activity alerts for leads and deals |
+| [[gunnerteam/hubspot-sales-pipeline]] | HubSpot stale deal management — reports and workflows for 120-day no-activity deals |
+| [[gunnerteam/hubspot-leads-project]] | HubSpot Lead object buildout — lead stages, deal stages, QP sync, round robin, open to-do list |
+| [[gunnerteam/hubspot-salesperson-sop]] | HubSpot Sales Workspace SOP — salesperson guide for Leads, Deals, Tasks, Schedule tabs (IT-SOP-HUB-002) |
+| [[gunnerteam/dialpad-hubspot-integration]] | Dialpad → HubSpot integration architecture — webhook receiver design, call/SMS logging flows, open items |
 | [[gunnerteam/voip-softphone-research]] | In-app softphone (voice+SMS/MMS) platform research — Telnyx recommended over Twilio/Amazon Connect as a Dialpad replacement; CallKit/PushKit is the biggest risk; CT all-party recording consent + per-tenant 10DLC gating |
-| [[gunner/lead-assignment-automation]] | Round-robin lead assignment — Dialpad availability check, 5-min call window, manager escalation; scripts in `_system/lead-assignment/` |
-| [[gunner/chrome-policy]] | Chrome Enterprise policy export (2026-04-14) — CIS gap analysis; Safe Browsing + HTTPS-Only closed; DevTools + DoH open |
-| [[gunner/gunner-forms-app]] | Gunner Team iOS app — fleet management, vehicle inspections, maintenance tracking, CompanyCam integration, announcements, native forms; Express API on EC2 |
-| [[gunner/software-suite]] | Full software suite overview — 8 platforms (QP, Ops Portal, GunnerCam, Sub Portal, Marketing, Customer App, Fleet, Global Users), white-label architecture, partner onboarding, urgent vs future features |
-| [[gunner/gunner-assistant]] | Gunner Assistant AI knowledge base — Claude Projects vs custom API+RAG options; decision pending boss approval |
-| [[gunner/claude-team-setup]] | Claude AI team setup — Claude.ai Team integrations (HubSpot ✅, GitHub ❌), Claude Code GitHub MCP setup |
-| [[gunner/claude-session-onboarding]] | Claude session onboarding prompt — paste at session start to prime vault context, skills, and stack |
-| [[gunner/aws-environment]] | AWS environment — EC2 api-user.php (HubSpot contact/deal creation from WordPress), Dev/Prod/QA/Staging accounts |
+| [[gunnerteam/lead-assignment-automation]] | Round-robin lead assignment — Dialpad availability check, 5-min call window, manager escalation; scripts in `_system/lead-assignment/` |
+| [[gunnerteam/chrome-policy]] | Chrome Enterprise policy export (2026-04-14) — CIS gap analysis; Safe Browsing + HTTPS-Only closed; DevTools + DoH open |
+| [[gunnerteam/gunner-forms-app]] | Gunner Team iOS app — fleet management, vehicle inspections, maintenance tracking, CompanyCam integration, announcements, native forms; Express API on EC2 |
+| [[gunnerteam/software-suite]] | Full software suite overview — 8 platforms (QP, Ops Portal, GunnerCam, Sub Portal, Marketing, Customer App, Fleet, Global Users), white-label architecture, partner onboarding, urgent vs future features |
+| [[tyler/gunner-assistant/gunner-assistant]] | Gunner Assistant AI knowledge base — Claude Projects vs custom API+RAG options; decision pending boss approval |
+| [[gunnerteam/claude-team-setup]] | Claude AI team setup — Claude.ai Team integrations (HubSpot ✅, GitHub ❌), Claude Code GitHub MCP setup |
+| [[gunnerteam/claude-session-onboarding]] | Claude session onboarding prompt — paste at session start to prime vault context, skills, and stack |
+| [[gunnerteam/aws-environment]] | AWS environment — EC2 api-user.php (HubSpot contact/deal creation from WordPress), Dev/Prod/QA/Staging accounts |
 | [[meta/session-2026-05-22-feature-sprint-and-reorg]] | Session 2026-05-22: cc-21 typed tasks, cc-22 hero bg, cc-23 color tokens, subportal frontend scaffold, folder reorg |
-| [[gunner/subportal-cc-prompt-02-frontend]] | Subportal React+Vite+Amplify+shadcn+MSW frontend — white-label CSS vars, contact-reveal audit pattern, mock dev workflow |
-| [[gunner/subportal-cc-prompt-01-scaffold]] | Subcontractor Portal backend scaffold spec — Python/Lambda/SQLAlchemy/SST v3, models, auth, search (8-cap), Leo webhook HMAC |
-| [[gunner/secure-coding-guide]] | OWASP Top 10 applied to Python/Lambda/Cognito/Aurora stack — pre-PR checklist, SOC 2 control map, Pydantic patterns |
-| [[gunner/secrets-handling-rules]] | Secrets handling rules — SSM retrieval order, credential categories, rotation policy, SOC 2 alignment |
-| [[gunner/gunnerteam-performance-standards]] | **REQUIRED READING** — GunnerTeam performance standards: query() vs queryWithTenant, N+1/LATERAL, pool max, indexes, onAppear guard, alias ARN rules |
-| [[gunner/masterdb-architecture]] | masterdb platform architecture — Python Lambda + Aurora + Cognito + SST; replaces HubSpot/Monday/CompanyCam; multi-schema multi-tenant |
-| [[gunner/masterdb-developer-handoff]] | masterdb developer handoff — live resources, tech stack, 13-table schema, API routes, deploy process, migration chain, tech debt |
-| [[gunner/gunnerteam-api-aws-migration]] | GunnerTeam API migration — Express.js + RDS PostgreSQL live on EC2 (3.134.224.29); multi-tenancy, Terraform IaC, SaaS/compliance roadmap |
-| [[gunner/tls-cutover-2026-05-14]] | TLS cutover 2026-05-14 — EC2 recreated, ALB + ACM TLS 1.3, HSTS, api.team.gunnerroofing.com canonical; open issues: SSM, SSH:22, Cloudflare token, pm2 wiring |
+| [[tyler/gunnerteam/subportal-cc-prompt-02-frontend]] | Subportal React+Vite+Amplify+shadcn+MSW frontend — white-label CSS vars, contact-reveal audit pattern, mock dev workflow |
+| [[tyler/gunnerteam/subportal-cc-prompt-01-scaffold]] | Subcontractor Portal backend scaffold spec — Python/Lambda/SQLAlchemy/SST v3, models, auth, search (8-cap), Leo webhook HMAC |
+| [[gunnerteam/secure-coding-guide]] | OWASP Top 10 applied to Python/Lambda/Cognito/Aurora stack — pre-PR checklist, SOC 2 control map, Pydantic patterns |
+| [[gunnerteam/secrets-handling-rules]] | Secrets handling rules — SSM retrieval order, credential categories, rotation policy, SOC 2 alignment |
+| [[tyler/gunnerteam/gunnerteam-performance-standards]] | **REQUIRED READING** — GunnerTeam performance standards: query() vs queryWithTenant, N+1/LATERAL, pool max, indexes, onAppear guard, alias ARN rules |
+| [[tyler/masterdb/masterdb-architecture]] | masterdb platform architecture — Python Lambda + Aurora + Cognito + SST; replaces HubSpot/Monday/CompanyCam; multi-schema multi-tenant |
+| [[tyler/masterdb/masterdb-developer-handoff]] | masterdb developer handoff — live resources, tech stack, 13-table schema, API routes, deploy process, migration chain, tech debt |
+| [[tyler/gunnerteam/gunnerteam-api-aws-migration]] | GunnerTeam API migration — Express.js + RDS PostgreSQL live on EC2 (3.134.224.29); multi-tenancy, Terraform IaC, SaaS/compliance roadmap |
+| [[gunnerteam/tls-cutover-2026-05-14]] | TLS cutover 2026-05-14 — EC2 recreated, ALB + ACM TLS 1.3, HSTS, api.team.gunnerroofing.com canonical; open issues: SSM, SSH:22, Cloudflare token, pm2 wiring |
 
 ## Questions & Troubleshooting
 
@@ -201,7 +213,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[meta/session-2026-05-26-cc-prompts-39-50-guided-tasks-camera]] | Session 2026-05-26 — cc-39–50: guided tasks camera rebuild, UIImagePickerController, shutter positioning |
 | [[meta/session-2026-05-21-masterdb-cutover-complete]] | Session 2026-05-21 — masterdb cutover complete: all 7 migrations applied, import succeeded |
 | [[meta/session-2026-05-22-ios-fixes-repo-cleanup]] | iOS fixes (hero image passthrough, announcements UUID bug), gunner-ios repo cleanup, Cognito auth smoke test |
-| [[gunner/subportal-cognito-auth]] | Subportal Cognito auth — pool live, SSM params, Tyler's user, adding future users, what was removed |
+| [[tyler/gunnerteam/subportal-cognito-auth]] | Subportal Cognito auth — pool live, SSM params, Tyler's user, adding future users, what was removed |
 | [[meta/omp-config-full-audit-2026-05-22]] | OMP config full schema audit — dead key removed, status bar redesigned (git+context_pct+cost), 9 new settings, dark-tokyo-night theme |
 | [[meta/omp-config-tuning-2026-05-22]] | OMP config tuning — task/commit model roles added, memory pipeline tuned for daily multi-session workflow |
 | [[meta/session-2026-05-19-omp-finalization]] | Session 2026-05-19 — ansi-dark theme fix, git branch cleanup (8 deleted, compliance merged), shell aliases, DB migration handoff doc |
@@ -270,3 +282,5 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[entities/Colin]] | Colin — GunnerCam/CompanyCam integration owner; phase API and 360 photo contract (stub) |
 | [[entities/Leonard]] | Leonard (aka Leo) — LeoPortal owner; holds masterdb repo/DB credentials |
 | [[entities/Ruchir]] | Ruchir — former developer; Quote Portal owner; no longer engaged as of 2026-06-09 |
+9 |
+|

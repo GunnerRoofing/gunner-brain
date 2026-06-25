@@ -23,7 +23,7 @@ status: stable
 
 | Link | Referenced In | Status |
 |---|---|---|
-| `[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]` | `gunnerteam/masterdb-developer-handoff.md` | Page never created. Likely intended to point to `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`. |
+| `[[tyler/masterdb/soc2-roadmap]]` | `gunnerteam/masterdb-developer-handoff.md` | Page never created. Likely intended to point to `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`. |
 
 ---
 
@@ -79,7 +79,7 @@ These are **safe to update** to the canonical `[[tyler/xxx]]` or `[[gunnerteam/x
 |---|---|
 | `querywithtenant-diag-2026-06-24` | `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` evidence table — diagnostic exists but isn't linked |
 | `session-2026-06-24-cc1800-2157` | `tyler/index.md` session table — new session note not yet added |
-| `gunnerteam/masterdb-developer-handoff.md` | `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` references it correctly; `masterdb-developer-handoff.md` references a dead link (`[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]`) instead of the actual evidence page |
+| `gunnerteam/masterdb-developer-handoff.md` | `gunnerteam/b1-soc2-cc6-least-privilege-db-roles.md` references it correctly; `masterdb-developer-handoff.md` references a dead link (`[[tyler/masterdb/soc2-roadmap]]`) instead of the actual evidence page |
 
 ---
 
@@ -138,7 +138,7 @@ These are **safe to update** to the canonical `[[tyler/xxx]]` or `[[gunnerteam/x
 ## Safe to Auto-Fix (awaiting approval)
 
 1. **Frontmatter `title` additions** — add `title` field to 10 gunnerteam/tyler pages that are missing it (derive from filename/H1)
-2. **Fix dead link** in `masterdb-developer-handoff.md` — replace `[[GunnerMasterDB-SOC2-Roadmap-2026-06-22]]` with `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`
+2. **Fix dead link** in `masterdb-developer-handoff.md` — replace `[[tyler/masterdb/soc2-roadmap]]` with `[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]`
 3. **Update `tyler/hot.md` section heading** — `Key features as of v359` → `Key features as of v368`
 4. **Update `wiki/index.md`** — replace `[[meta/lint-report-2026-06-19]]` with `[[meta/lint-report-2026-06-24]]`
 5. **Update `wiki/meta/dashboard.md`** — fix lint reference and updated date

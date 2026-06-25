@@ -13,7 +13,7 @@ tags:
 status: stable
 related:
   - '[[meta/session-2026-06-20-cc2128-isolation-test-suite]]'
-  - '[[gunnerteam/attack-surface-reduction-cc2123-2126]]'
+  - '[[tyler/gunnerteam/attack-surface-reduction-cc2123-2126]]'
   - '[[gunnerteam/soc2-technical-summary]]'
 ---
 

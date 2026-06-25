@@ -15,9 +15,9 @@ tags:
   - aurora
   - multi-tenancy
 related:
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/masterdb-developer-handoff]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[tyler/masterdb/masterdb-developer-handoff]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
 ---
 # masterdb Architecture
 

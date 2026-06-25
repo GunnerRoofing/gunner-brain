@@ -12,10 +12,10 @@ tags:
   - aws
   - sst
 related:
-  - '[[gunner/masterdb-architecture]]'
-  - '[[gunner/secure-coding-guide]]'
-  - '[[gunner/aws-environment]]'
-  - '[[gunner/subportal-cc-prompt-01-scaffold]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
+  - '[[gunnerteam/secure-coding-guide]]'
+  - '[[gunnerteam/aws-environment]]'
+  - '[[tyler/gunnerteam/subportal-cc-prompt-01-scaffold]]'
 ---
 
 # Subportal Cognito Auth

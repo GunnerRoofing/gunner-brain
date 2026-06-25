@@ -16,8 +16,8 @@ created: '2026-05-06'
 updated: '2026-05-07'
 sources: []
 related:
-  - '[[gunner/gunner-forms-app]]'
-  - '[[gunner/aws-environment]]'
+  - '[[gunnerteam/gunner-forms-app]]'
+  - '[[gunnerteam/aws-environment]]'
 status: in-progress
 ---
 
@@ -232,5 +232,5 @@ All iOS `URL(string:)` calls and curl tests must use the bare path. `{"error":"N
 
 ## Related
 
-- [[gunner/gunner-forms-app]] — iOS app; base URL will point to this Express server
-- [[gunner/aws-environment]] — existing AWS infrastructure context
+- [[gunnerteam/gunner-forms-app]] — iOS app; base URL will point to this Express server
+- [[gunnerteam/aws-environment]] — existing AWS infrastructure context

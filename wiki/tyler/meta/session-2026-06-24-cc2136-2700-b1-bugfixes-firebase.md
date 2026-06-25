@@ -16,8 +16,8 @@ tags:
   - photo-upload
   - bugfix
 related:
-  - '[[gunnerteam/b1-soc2-cc6-least-privilege-db-roles]]'
-  - '[[gunnerteam/masterdb-developer-handoff]]'
+  - '[[tyler/masterdb/b1-soc2-cc6-least-privilege-db-roles]]'
+  - '[[tyler/masterdb/masterdb-developer-handoff]]'
   - '[[tyler/hot]]'
 status: stable
 ---

@@ -12,9 +12,9 @@ tags:
   - required-reading
 status: evergreen
 related:
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/gunnerteam-project-structure]]"
-  - "[[gunner/secure-coding-guide]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[tyler/gunnerteam/gunnerteam-project-structure]]"
+  - "[[gunnerteam/secure-coding-guide]]"
 ---
 
 # GunnerTeam Performance Standards

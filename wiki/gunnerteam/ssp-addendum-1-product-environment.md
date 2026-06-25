@@ -17,8 +17,8 @@ related:
   - '[[gunnerteam/system-security-plan]]'
   - '[[gunnerteam/aws-environment]]'
   - '[[tyler/concepts/soc2]]'
-  - '[[shared/entities/Eric Recchia]]'
-  - '[[shared/entities/Tyler Suffern]]'
+  - '[[entities/Eric Recchia]]'
+  - '[[entities/Tyler Suffern]]'
 ---
 
 # SSP Addendum 1 — GunnerTeam Product Environment Controls
@@ -96,10 +96,10 @@ While verifying APP-01, the audit-log **retention control was found to have neve
 
 | Name | Role | Signature | Date |
 |---|---|---|---|
-| [[shared/entities/Tyler Suffern\|Tyler Suffern]] | System Administrator / ISSO | | |
-| [[shared/entities/Eric Recchia\|Eric Recchia]] | VP of Strategy / System Owner | | |
-| [[shared/entities/Eddie Prchal\|Eddie Prchal]] | Owner — Authorizing Official | | |
-| [[shared/entities/Andrew Prchal\|Andrew Prchal]] | Owner — Authorizing Official | | |
+| [[Tyler Suffern\|Tyler Suffern]] | System Administrator / ISSO | | |
+| [[Eric Recchia\|Eric Recchia]] | VP of Strategy / System Owner | | |
+| [[Eddie Prchal\|Eddie Prchal]] | Owner — Authorizing Official | | |
+| [[Andrew Prchal\|Andrew Prchal]] | Owner — Authorizing Official | | |
 
 *CONFIDENTIAL — Gunner Roofing LLC — IT Department — IT-SSP-001-A1 v0.1 DRAFT*
 
