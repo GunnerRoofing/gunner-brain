@@ -1,3 +1,15 @@
+## 2026-06-25 save | Session — masterdb CI gates, vault restructure, wiki lint
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-25-cc2908-ci-gates-vault-restructure-lint.md
+- From: cc-2908 CI gates (ruff+bandit+semgrep+pip-audit+SBOM, PR #3 open); vault restructure (12 project files → tyler/{gunner-assistant,masterdb,gunnerteam}/); lint 308 pages 23 auto-fixed, soc2-roadmap stub created
+
+## 2026-06-25 lint | Wiki health check + fixes
+- Type: meta
+- Location: wiki/meta/lint-report-2026-06-25.md
+- Pages scanned: 308, issues found: 35, auto-fixed: 23
+- Fixed: stale [[gunner/...]] in 9 moved files; 12 orphan sessions indexed; ssp-addendum backslash links; dead GunnerMasterDB-SOC2-Roadmap refs; cc2016 dead link removed
+- Created: wiki/tyler/masterdb/soc2-roadmap.md stub
+
 ## 2026-06-24 lint | Wiki health check + fixes
 - Type: meta
 - Location: wiki/meta/lint-report-2026-06-24.md
