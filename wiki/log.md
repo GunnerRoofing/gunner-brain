@@ -1,3 +1,8 @@
+## 2026-06-26 save | Session — cc-2807–2809: Dialpad updated_at + monitoring
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-26-cc2807-2809-dialpad-updated-at-monitoring.md
+- From: cc-2807 (masterdb p21 `updated_at` + cursor indexes), cc-2808 (rate limit + updated_at touches + dialpad-health task, Lambda v389), cc-2809 (Terraform 4-alarm event-loss monitoring + PutMetricData IAM + hourly EventBridge health schedule, Lambda v390)
+
 ## 2026-06-25 save | Session — masterdb CI gates, vault restructure, wiki lint
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-25-cc2908-ci-gates-vault-restructure-lint.md
