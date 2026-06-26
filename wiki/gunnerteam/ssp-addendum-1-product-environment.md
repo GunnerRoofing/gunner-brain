@@ -96,10 +96,10 @@ While verifying APP-01, the audit-log **retention control was found to have neve
 
 | Name | Role | Signature | Date |
 |---|---|---|---|
-| [[Tyler Suffern\|Tyler Suffern]] | System Administrator / ISSO | | |
-| [[Eric Recchia\|Eric Recchia]] | VP of Strategy / System Owner | | |
-| [[Eddie Prchal\|Eddie Prchal]] | Owner — Authorizing Official | | |
-| [[Andrew Prchal\|Andrew Prchal]] | Owner — Authorizing Official | | |
+| [[entities/Tyler Suffern|Tyler Suffern]] | System Administrator / ISSO | | |
+| [[entities/Eric Recchia|Eric Recchia]] | VP of Strategy / System Owner | | |
+| [[entities/Eddie Prchal|Eddie Prchal]] | Owner — Authorizing Official | | |
+| [[entities/Andrew Prchal|Andrew Prchal]] | Owner — Authorizing Official | | |
 
 *CONFIDENTIAL — Gunner Roofing LLC — IT Department — IT-SSP-001-A1 v0.1 DRAFT*
 

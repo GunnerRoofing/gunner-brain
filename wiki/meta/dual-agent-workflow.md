@@ -6,8 +6,8 @@ created: 2026-05-11
 updated: 2026-05-11
 sources: [Current Session]
 related:
-  - "[[CLAUDE.md]]"
-  - "[[Memory.md]]"
+  - "`CLAUDE.md`"
+  - "[[Memory]]"
   - "[[wiki/hot.md]]"
 status: stable
 ---
