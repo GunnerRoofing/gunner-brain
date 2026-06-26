@@ -3,6 +3,11 @@
 - Location: wiki/tyler/meta/session-2026-06-26-cc2807-2809-dialpad-updated-at-monitoring.md
 - From: cc-2807 (masterdb p21 `updated_at` + cursor indexes), cc-2808 (rate limit + updated_at touches + dialpad-health task, Lambda v389), cc-2809 (Terraform 4-alarm event-loss monitoring + PutMetricData IAM + hourly EventBridge health schedule, Lambda v390)
 
+## 2026-06-26 save | Session — masterdb Phase 4: TLS, alerting, IAM least-priv
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-26-cc2918-2921-masterdb-phase4-tls-iam.md
+- From: cc-2918 Phase 4 verification sweep; cc-2919 verify-full TLS PR#8; cc-2920 auth/RLS/connect alarms; cc-2921 IAM tightened (SecretsManager removed, subnet/namespace conditions)
+
 ## 2026-06-26 save | Session — CI fixes, crew_members RLS to prod, IAM key audit
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-26-cc2912-2917-ci-fixes-rls-iam.md

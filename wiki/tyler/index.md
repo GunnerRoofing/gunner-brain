@@ -15,6 +15,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 
 ## Gunner Operations
 
+| [[tyler/meta/session-2026-06-26-cc2918-2921-masterdb-phase4-tls-iam]] | cc-2918: Phase 4 verification (encryption✅ PITR✅ TLS-gaps); cc-2919: db/session.py verify-full TLS + bundled RDS CA (TLSv1.3 in-VPC confirmed, PR#8); cc-2920: auth/RLS/connect metric-filter alarms live; cc-2921: IAM tightened (SecretsManager removed, subnet+namespace conditions, archiver logs scoped) |
 | [[tyler/meta/session-2026-06-26-cc2912-2917-ci-fixes-rls-iam]] | cc-2912: PR#5 CI green (ruff+bandit+semgrep fixes); cc-2913: q1 crew_members RLS applied to prod (throwaway Lambda, prod VPC); cc-2915: PR#7 closed redundant; cc-2916/2917: IAM key inventory — leads-finder-dk = Tyler's 2nd admin key, spare-macbook-runner never-used |
 | [[tyler/meta/session-2026-06-25-cc2908-ci-gates-vault-restructure-lint]] | cc-2908: masterdb CI gates (ruff+bandit+semgrep+pip-audit+SBOM, PR #3); vault project restructure (gunner-assistant/masterdb/gunnerteam → tyler/); lint 308 pages, 23 auto-fixed |
 | [[tyler/meta/session-2026-06-25-bedrock-billing-qp-key-org-reconcile]] | cc-1807 half-flip recovery + atomic-role guardrail; cc-1808 QP draft key live (200/403); Bedrock INVALID_PAYMENT_INSTRUMENT → LLM_PROVIDER=anthropic bridge (v371); cc-2901 two-org RLS reconcile (69aad261 real / 7d6db1bb shell, Colin p17/p18) |
