@@ -1,3 +1,8 @@
+## [2026-06-29] save | Gunner Platform Overview
+- Type: synthesis
+- Location: wiki/shared/gunner-platform-overview.md
+- From: conversation compiling cross-team ecosystem map for infrastructure onboarding (GunnerTeam iOS, GunnerCam, gunner-ops, Doug's tools, QP, Eddie's window quoting tool, Eric's Gunner Notes, shared AWS/Aurora infra)
+
 ## 2026-06-29 save | Session — cc-3100 + cc-3102: Weather feature (OpenWeather foundation + NWS default)
 - Type: session
 - Location: wiki/gunnerteam/meta/session-2026-06-29-cc3100-3102-nws-weather-provider.md

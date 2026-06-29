@@ -40,6 +40,7 @@ current system state, then drill into the section you need.
 
 Read by everyone; write with coordination.
 
+- [[shared/gunner-platform-overview]] — high-level map of every application and shared infrastructure; written for infrastructure onboarding (as of 2026-06-29).
 - [[shared/api-contracts/README]] — cross-app API & event contracts (one file per integration).
 - [[shared/decisions/README]] — architecture decision records (ADRs).
 - [[shared/architecture/README]] — architecture diagrams and high-level design docs.
