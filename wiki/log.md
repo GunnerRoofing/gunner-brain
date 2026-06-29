@@ -3,6 +3,11 @@
 - Location: wiki/tyler/meta/session-2026-06-26-cc2807-2809-dialpad-updated-at-monitoring.md
 - From: cc-2807 (masterdb p21 `updated_at` + cursor indexes), cc-2808 (rate limit + updated_at touches + dialpad-health task, Lambda v389), cc-2809 (Terraform 4-alarm event-loss monitoring + PutMetricData IAM + hourly EventBridge health schedule, Lambda v390)
 
+## 2026-06-26 save | Session — Dialpad full capture: dp_events, lossless ingest, recordings bucket
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-26-cc2810-2812-dialpad-full-capture.md
+- From: cc-2810 p22 prod (dp_events + dp_calls cols); cc-2811 lossless raw write (v391); cc-2812 recordings bucket + IAM (v392)
+
 ## 2026-06-26 save | Session — masterdb Phase 4: TLS, alerting, IAM least-priv
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-26-cc2918-2921-masterdb-phase4-tls-iam.md
