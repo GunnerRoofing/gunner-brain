@@ -1,3 +1,8 @@
+## 2026-06-29 save | Session — cc-3100 + cc-3102: Weather feature (OpenWeather foundation + NWS default)
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-06-29-cc3100-3102-nws-weather-provider.md
+- From: cc-3100 (lib/weather stack, OpenWeather One Call 3.0, GET /weather/job/:jobId, Lambda v400); cc-3102 (contract.js eventToKind, nws.js 3-request flow + caches, flip WEATHER_PROVIDER=nws, 28/28 unit tests, Lambda v403)
+
 ## 2026-06-26 save | Session — cc-2807–2809: Dialpad updated_at + monitoring
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-26-cc2807-2809-dialpad-updated-at-monitoring.md

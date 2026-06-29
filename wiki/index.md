@@ -49,6 +49,7 @@ Read by everyone; write with coordination.
 ## Meta
 
 - `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-24]].
+  - [[gunnerteam/meta/session-2026-06-29-cc3100-3102-nws-weather-provider]] — 2026-06-29: Weather feature foundation (cc-3100 OpenWeather stack + route) + NWS provider + flip default (cc-3102). Lambda v400→v403. Free, no-key weather for CT/NJ jobs via api.weather.gov.
   - [[tyler/meta/session-2026-06-26-cc2807-2809-dialpad-updated-at-monitoring]] — 2026-06-26: Dialpad consumer-polling cursor (p21 `updated_at` + indexes, masterdb), app-side `updated_at` touches + `dialpad-health` task + CloudWatch metric (cc-2808), Terraform 4-alarm event-loss monitoring + PutMetricData IAM + hourly health schedule (cc-2809). Lambda v390.
   - [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] — 2026-06-24: LLM engine (lib/llm.js, /assistant/run, Bedrock, assessTier, quote_advisor, service-key auth cc-1800–1806) + B1 cutover chain (Cognito tenantId mismatch, resolveUser fix, Tyler admin role cc-2152–2157).
   - [[meta/session-2026-06-19-cc1500-1505-terraform-infra-hardening]] — 2026-06-19: Lambda env drift → Terraform (11 keys, COMPANYCAM_API_KEY restored, NOTION_TOKEN pruned); REWARDS_ENABLED=true for dev; daily 90-day location prune (EventBridge); stash@{0} dropped; Aurora idle_in_tx 24h→30s; iOS receipt phantom row + editable total. Lambda v291→v294. Fixed null_resource canary-routing no-op bug.
