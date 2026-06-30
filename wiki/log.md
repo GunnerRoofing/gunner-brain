@@ -1,3 +1,8 @@
+## [2026-06-30] save | Session — comms-admin full stack + iOS fixes + masterdb migrations
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-29-cc2820-3002-comms-admin-full-stack.md
+- From: gunner-comms-admin repo built end-to-end (cc-01 scaffold → cc-02 auth+audit → cc-03 REST reads → cc-04 gated media → cc-05 React frontend → cc-07 monitoring); iOS cc-3000 UploadOutbox race fix, cc-3001 black thumbnails, cc-3002 discard escape; gunnerteam-api cc-2205 crew webhook + cc-2820 enrich updated_at; masterdb cc-2821 crm_activities.external_number + migration-graph CI guard PR #14; cc-2206 sub key provisioning plan
+
 ## [2026-06-29] save | Gunner Platform Overview
 - Type: synthesis
 - Location: wiki/shared/gunner-platform-overview.md

@@ -50,6 +50,7 @@ Read by everyone; write with coordination.
 ## Meta
 
 - `meta/` — session notes (from `/save`) and lint reports (from `/lint`). Latest: [[meta/lint-report-2026-06-24]].
+  - [[tyler/meta/session-2026-06-29-cc2820-3002-comms-admin-full-stack]] — 2026-06-29/30: comms-admin full stack (cc-01–07, cc-2206 provisioning); iOS fixes (cc-3000/3001/3002 UploadOutbox race/black-thumbnails/discard); masterdb cc-2821 crm_activities.external_number + migration-graph CI guard PR #14; cc-2820 enrich updated_at; cc-2205 crew webhook. Lambda v404→v405.
   - [[gunnerteam/meta/session-2026-06-29-cc3100-3102-nws-weather-provider]] — 2026-06-29: Weather feature foundation (cc-3100 OpenWeather stack + route) + NWS provider + flip default (cc-3102). Lambda v400→v403. Free, no-key weather for CT/NJ jobs via api.weather.gov.
   - [[tyler/meta/session-2026-06-26-cc2807-2809-dialpad-updated-at-monitoring]] — 2026-06-26: Dialpad consumer-polling cursor (p21 `updated_at` + indexes, masterdb), app-side `updated_at` touches + `dialpad-health` task + CloudWatch metric (cc-2808), Terraform 4-alarm event-loss monitoring + PutMetricData IAM + hourly health schedule (cc-2809). Lambda v390.
   - [[tyler/meta/session-2026-06-24-cc1800-2157-llm-engine-b1-cutover]] — 2026-06-24: LLM engine (lib/llm.js, /assistant/run, Bedrock, assessTier, quote_advisor, service-key auth cc-1800–1806) + B1 cutover chain (Cognito tenantId mismatch, resolveUser fix, Tyler admin role cc-2152–2157).

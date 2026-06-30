@@ -23,8 +23,8 @@ session. For app-specific detail, see your own section's `hot.md`
 - **iOS:** BUILD SUCCEEDED through cc-1801/cc-1128
 - **Active:** Dialpad event-loss monitoring (4 CW alarms → SNS, cc-2809); `updated_at` consumer cursor on `dp_sms_messages`/`dp_calls` (masterdb p21, cc-2807); `dialpad-health` task emitting `DialpadRowsLastHour` hourly Mon–Fri (cc-2808)
 - **Weather (cc-3100/3102):** `GET /weather/job/:jobId` live. Provider=NWS (free, no key). `WEATHER_API_KEY` SSM not provisioned (only needed to revert to OpenWeather). `windGustMph` null until forecastGridData wired. `evaluate.js` (cc-3101) is the next consumer.
-- **Recent (2026-06-29):** cc-3000 (UploadOutbox index-after-await race fix → iOS BUILD SUCCEEDED, test passing); cc-2820 (dialpad enrich worker now bumps `updated_at` on both transcript + recording UPDATEs); cc-2205 (project.crew.assigned webhook → sub push notifications); platform overview filed at [[shared/gunner-platform-overview]]
-- **Pending:** Colin points smoke-test; Colin P&L line-item confirm; employee notice HR/legal/IT sign-off; cc-2809 silence alarm live verification at next business-hour tick; cc-3101 evaluate.js; Eddie window quoting + Eric Gunner Notes infra TBD
+- **Recent (2026-06-30):** comms-admin full stack built (cc-01→cc-07); iOS cc-3000/3001/3002 (UploadOutbox race, black thumbnails, discard escape — all tests passing, BUILD SUCCEEDED); cc-2820 enrich updated_at v405; cc-2821 crm_activities.external_number applied to prod masterdb; migration-graph CI guard PR #14 open on gunner-masterdb; session filed at [[tyler/meta/session-2026-06-29-cc2820-3002-comms-admin-full-stack]]
+- **Pending:** cc-2206 sub key provisioning (Tyler paste from Keeper + run verification script); comms-admin deploy blocked on Colin VPC subnet/SG values + DB SSM params; add `migration-graph` to main branch-protection required checks (repo admin); Colin points smoke-test; cc-2809 silence alarm live verification; cc-3101 evaluate.js
 
 ---
 
