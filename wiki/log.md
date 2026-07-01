@@ -8,6 +8,21 @@
 - Location: wiki/gunnerteam/meta/session-2026-06-30-cc2211-3201-whitelabel-audit-flush.md
 - From: gunnerteam-api cc-2211 (de-hardcode invite email + join push via resolveOrgName, v418); cc-2212 (reset email + shared email.js FROM/`<title>` parameterization + buildFrom header-injection safety + invite/reset deep-link pages, v420); cc-3201 (audit flush-before-freeze — AsyncLocalStorage per-request queue in audit-context.js bounded by AUDIT_FLUSH_TIMEOUT_MS, wraps lambda.js dispatch, SOC 2 CC7.2, v421); + read-only comms_admin_ro topology investigation (belongs on PROD sczazkvf; dev-named proxy fronts prod cluster). 22/22 unit tests. Commits de4965a/1e7ae8a/48fe55b, origin/main 0/0.
 
+## [2026-06-30] save | Session — cc-3101/3103: dangerous-weather alert engine + read endpoints
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-06-30-cc3101-3103-weather-danger-engine.md
+- From: gunnerteam-api cc-3101 (lib/weather/evaluate.js danger-only classifier — NWS Warnings + accum/gust thresholds, normal→[]; weather-sweep two-leg scheduler crew+job-site; APNs critical sound/interruptionLevel; FORCE-RLS gt_weather_alerts upsert with null-source open-row-guard dedup + ended_at close-out; getJobWeather forwards accum; provider flipped openweather→nws via terraform; v416, d3eb7d2) + cc-3103 (GET /weather/alerts/active ops poll with gtsk_ service-key allowed_tasks scope + rate-limit + audit; GET /weather/job/:jobId repurposed to per-job badge; templates POST /service-keys mints gtsk_-prefixed keys; v417, b9d95a1). Verified via secret-gated fixture seam + live API Gateway. Deps: cc-3100/3102 NWS provider, cc-3104 contract.
+
+## [2026-06-30] save | Session — cc-08/09: comms-admin DB TLS (verify-ca) + real Python packaging
+- Type: session
+- Location: wiki/tyler/meta/session-2026-06-30-cc08-09-comms-admin-tls-packaging.md
+- From: gunner-comms-admin (SST/Pulumi + Python 3.12 Lambda) cc-08 — db.py sslmode verify-full→verify-ca; the real DB blocker was RDS **Proxy** presenting an Amazon-Trust-Services PUBLIC-CA cert → certs/proxy-ca-bundle.pem (RDS regional + certifi public roots); brought the never-deployed dev stage to /health db:ok by clearing a cascade (cert-path .parent×3, SST xContentTypeOptions→contentTypeOptions + cdn transform function, vpc.subnets→privateSubnets, IAM ssm:GetParameters+kms:Decrypt, public-subnet→private-subnet SSM egress, cc-03 activity/thread router-header reconstruction); commit 18a202b. cc-09 — replaced vendored wheels with hook.postbuild uv install (--python-platform x86_64-manylinux2014 --only-binary) into gitignored backend/.deps + PYTHONPATH; PyJWT[crypto]/moto[cognitoidp] extra fixes; /health db:ok ×3, arm64 pytest 48/48; commit 5aacc41. Branch cc-08-db-tls-verify-ca (local).
+
+## [2026-06-30] save | RDS Proxy TLS trust + SST Python Lambda packaging (concept)
+- Type: concept
+- Location: wiki/shared/rds-proxy-tls-and-sst-python-packaging.md
+- From: cross-app reusable distillation — RDS Proxy presents a PUBLIC-CA cert (trust public roots, not just the RDS regional bundle; verify-ca not verify-full; never require/disable) and SST bundle:-based Python Lambdas install no deps + build in place (hook.postbuild uv install into gitignored .deps/, x86_64-pinned; sst.config forbids top-level imports; resource.enc/.deps/sst-env.d.ts gitignore). Learned in comms-admin cc-08/09, confirmed against gunnerteam-api's db.js.
+
 ## [2026-06-30] save | Session — comms-admin full stack + iOS fixes + masterdb migrations
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-29-cc2820-3002-comms-admin-full-stack.md
