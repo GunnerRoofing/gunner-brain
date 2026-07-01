@@ -42,6 +42,7 @@ Read by everyone; write with coordination.
 
 - [[shared/gunner-platform-overview]] — high-level map of every application and shared infrastructure; written for infrastructure onboarding (as of 2026-06-29).
 - [[shared/rds-proxy-tls-and-sst-python-packaging]] — RDS Proxy presents a PUBLIC-CA cert (trust public roots, not just the RDS regional bundle; verify-ca not verify-full); SST `bundle:` Python Lambdas install no deps + build in place — `hook.postbuild` uv install into gitignored `.deps/`, x86_64-pinned. Cross-app (comms-admin + gunnerteam-api).
+- [[shared/cloudflare-sst-custom-domains]] — custom domains via SST + Cloudflare DNS-only + ACM: cert region differs (CloudFront=us-east-1, API GW regional=us-east-2); `cfat_` (account) vs `cfut_` (user) tokens ≈53 chars — length ≠ validity, and wrong verify endpoint returns misleading `1000`; SST wants a `cfut_` "Edit zone DNS" token; the DNS-write perm is the row named `DNS` (not "Zone DNS Settings"), hidden by a `zone` search filter; zone-scoped tokens need `CLOUDFLARE_DEFAULT_ACCOUNT_ID`; **CSP `connect-src` must list the custom API host or the browser blocks every fetch while curl passes**. From comms-admin cc-13/14/15.
 - [[shared/api-contracts/README]] — cross-app API & event contracts (one file per integration).
 - [[shared/decisions/README]] — architecture decision records (ADRs).
 - [[shared/architecture/README]] — architecture diagrams and high-level design docs.

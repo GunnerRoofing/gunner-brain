@@ -206,6 +206,7 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[meta/lint-report-2026-06-18]] | Lint report 2026-06-18 — 13 issues |
 | [[meta/lint/lint-report-2026-06-13]] | Lint report 2026-06-13 — 31 issues |
 | [[meta/lint-report-2026-06-18]] | Lint report 2026-06-18 — 227 pages, 13 issues (3 dead links, 3 stale claims, 3 index gaps, 2 structural, 2 orphans, 2 frontmatter gaps) |
+| [[meta/session-2026-07-01-fellow-app-mv3-remote-code-fix]] | Session 2026-07-01 — Fellow App (Gunner Notes) MV3 Chrome Web Store rejection fix: `firebase/auth` → `firebase/auth/web-extension` (drops remote reCAPTCHA/popup loaders), removed unused `notifications` permission, v1.0.3, store manifest strips `key` |
 | [[meta/session-2026-06-08-cc167-233-ios-tab-markup-themes]] | Session 2026-06-08 — cc-167–233: 4-tab architecture, PhotoMarkupEditor UIKit inset fix, ThemeManager Gunner teal, 360 photo capture, scroll-aware titles, Lambda v127, OMP 15.10.4 |
 | [[meta/session-2026-06-04-cc148-193-ios-co-fixes]] | Session 2026-06-04 — cc-148–193: guided job overhaul, CO flow, home screen redesign, FAB, Lambda v119 |
 | [[meta/session-2026-06-04-cc148-160-ios-co-fixes]] | Session 2026-06-04 — cc-148–160: field task fixes, PDF CO form, leads nearby, phase workflow |

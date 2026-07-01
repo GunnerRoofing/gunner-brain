@@ -1,3 +1,13 @@
+## [2026-07-01] save | Session — Fellow App (Gunner Notes) MV3 remote-code Chrome Web Store rejection fix
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-fellow-app-mv3-remote-code-fix.md
+- From: conversation fixing a Chrome Web Store MV3 rejection for the Fellow App (Gunner Notes) extension — swapped `firebase/auth`→`firebase/auth/web-extension` import (drops remote reCAPTCHA/popup loaders; app only ever calls `signInWithCredential` via `chrome.identity.launchWebAuthFlow`), removed unused `notifications` permission, bumped manifest version to 1.0.3, regenerated `dist-store/` with `key` stripped for store upload. Verified built bundles contain zero remote-loader strings.
+
+## [2026-07-01] save | Cloudflare + SST custom domains (DNS-only, ACM) — shared infra note
+- Type: concept
+- Location: wiki/shared/cloudflare-sst-custom-domains.md
+- From: comms-admin cc-13/14/15 (custom domains comms./api.comms.gunnerroofing.com). Reusable runbook capturing the ~90-min token maze + gotchas: cert region differs by resource (CloudFront=us-east-1, API GW regional=us-east-2); Cloudflare `cfat_`(account) vs `cfut_`(user) tokens ≈53 chars so length≠validity, and the WRONG verify endpoint returns a misleading `1000 Invalid` (account token → `/accounts/{id}/tokens/verify`, user → `/user/tokens/verify`); SST wants a `cfut_` "Edit zone DNS" user token; the DNS-write permission is the row literally named `DNS` (not "Zone DNS Settings"/"Zone"), hidden when the perm search is filtered to `zone`; zone-scoped tokens can't self-discover the account → set `CLOUDFLARE_DEFAULT_ACCOUNT_ID` (912d0d5f…, not secret); use literals not `api.url`/`site.url` (Pulumi cycle); and the load-bearing CSP gotcha — a custom API host must be added to StaticSite `connect-src` or the browser blocks every fetch while all curl checks still pass. Pins aws 6.79.0 / cloudflare 6.13.0; zone id 003ce622…. Filed to shared/ (cross-cutting infra, like rds-proxy-tls note). ⚠ rotate the screenshot-exposed `cfat_gZ…` token.
+
 ## [2026-07-01] save | Session — audit-write-timeout re-diagnosis (freeze not capacity) + invite/receipt guards + comms-admin reconcile/merge + masterdb migrate pipeline
 - Type: session
 - Location: wiki/gunnerteam/meta/session-2026-07-01-audit-freeze-guards-comms-admin-masterdb.md
