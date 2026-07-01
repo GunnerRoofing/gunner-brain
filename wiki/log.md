@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — masterdb org_slug hardening, crm-write-api Lambda, migrate pipeline live (cc-2925–3304)
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc2925-3304-masterdb-crm-write-api-migrate-pipeline.md
+- From: six chained cc-prompts. org_slug decoy-org fix part 2 (AdminUi default + `org_id` support on `/v1/auth/login`, PRs #25/#26 merged); new `crm-write-api` Lambda (`POST /crm/activity`, type='note' only, initially blocked on a missing `is_internal` column in prod); prod SST redeploy (fixed the stale-bundle `KeyError: 'p20_dialpad_agents'` + a "documented but never actually committed" SST 3.19.3→4.15.2 / aws-provider 7.20.0 version bump, dodging the pulumi-aws `aws@6.66.2` BucketV2 bug); `masterdb_migrate` DB role provisioned via the documented master-path exception; `w1_crm_activities_is_internal` applied through the real `migrate-prod` CI pipeline. **Two real infra bugs found and fixed along the way**: (1) the `gha-masterdb-migrate` role's `job_workflow_ref`-based OIDC trust condition matched the token claim byte-for-byte and was STILL denied — switched to a `sub`-based condition, the only pattern proven to work anywhere in this AWS account; (2) `crm_*` tables were `crm_app`-granted but master-owned, so `masterdb_migrate`'s DDL failed `must be owner of table` — new migration `x1_crm_ownership_to_crm_app` (k11 pattern) closes the gap for all future `crm_*` DDL. `crm-write-api` verified 201 end-to-end (worknote + comment), cc-3301 archived.
+
 ## [2026-07-01] save | Session — Karpathy LOOPS.md ingest + agentic loop discipline pushed to CLAUDE.md (4 repos)
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-karpathy-loops-agentic-harness-claude-md.md
