@@ -1,3 +1,15 @@
+## [2026-07-01] save | leo | CRM "Sell mode" record workspace + Tyler backend contract
+- Type: reference (progress push)
+- Location: wiki/leo/qp/crm-sell.md (new)
+- Pages updated: [[leo/hot]], [[leo/index]]
+- CRM-on-QP Increments 1–4 shipped to qp-stage (3-col record workspace: contact rail, unified activity timeline + note composer, Deal/Property/Quotes cards). Backend write contract LOCKED with Tyler (PATCH /crm/lead + POST /crm/activity, notes → masterdb crm_activities, is_internal, backfill-then-switch cutover). Open item: main_quote_id mapping — crm-transform doesn't populate it.
+- Cross-team (Tyler); did NOT touch wiki/hot.md (Tyler's) per ownership.
+
+## [2026-07-01] save | leo | QP siding exterior-screws box fix (verified on stage)
+- Type: reference (progress push)
+- Location: wiki/leo/qp/pricing-formula.md (updated)
+- Applied siding exterior screws `siding_soffit_sqft/3`→`/750` (per-each vs per-box unit bug), migration 20260701_siding_exterior_screws_box_fix.sql (reversible), verified end-to-end via siding-pricing-calculator-api-v3 (proj 245: 60 boxes → 1). EP answered the 6 Hardie questions; follow-ups drafted. PROD promotion pending.
+
 ## [2026-07-01] save | Session — cc-1202 GunnerCam service-key invites + cc-16 comms-admin CORS preflight fix
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc1202-cc16-invite-servicekey-cors-fix.md
