@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — cc-1202 GunnerCam service-key invites + cc-16 comms-admin CORS preflight fix
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc1202-cc16-invite-servicekey-cors-fix.md
+- From: gunnerteam-api cc-1202 — `POST /auth/invite` dual-auths via `authOrServiceKey`, letting a scoped `gtsk_` service key invite subcontractors only (deny-by-default), idempotent on existing members, `created_by` null-safe, audit provenance tagged; verified via a `_sql`/`_migration` Lambda preflight for schema checks and a real minted+revoked test key (no admin token needed), v427 live, commit `5aaf0a6`. Plus gunner-comms-admin cc-16 — fixed a CORS preflight 500 that broke every authenticated browser call (curl looked fine): the SST `$default` route swallows OPTIONS so API-GW's built-in CORS never fires; moved CORS ownership to Powertools' `CORSConfig` and discovered SST's `cors:false` still emits an empty `CorsConfiguration` that API-GW auto-answers, requiring `transform.api` to fully delete the field; verified via preflight/401/duplicate-header/wrong-origin curl checks, commit `9cba886`, new repo CLAUDE.md created. Also: verified the user's external "Master Open-Items/TODO" doc isn't in the Obsidian vault (project-folder artifact) and spot-checked several of its claims against live systems; ran the GunnerTeam runbook mirror sync (11 runbooks, vault commit `41061db`).
+
 ## [2026-07-01] save | Session cc-2924: gunner org slug hygiene — kill the slug='gunner' decoy (issue #21)
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc2924-org-slug-hygiene-issue21.md
