@@ -118,5 +118,8 @@ is a real browser + DevTools console, not curl.
 - Provider pins: `aws 6.79.0`, `cloudflare 6.13.0`
 - Live: `comms.gunnerroofing.com` (CloudFront), `api.comms.gunnerroofing.com` (API GW regional)
 
-> ⚠ A `cfat_gZ…` account token was exposed in a screenshot during this arc — rotate it and delete the
-> dead experiment tokens. Never paste a token into an image or a committed file; env var only.
+> **Token hygiene (resolved 2026-07-01):** a `cfat_` account token was exposed in a screenshot
+> during this arc — it has since been **rotated** and the dead experiment tokens deleted. Lasting
+> rule: never paste a token into an image or a committed file; env var only (`read -rs`, Keeper).
+> The live deploy uses a `cfut_` user token + `CLOUDFLARE_DEFAULT_ACCOUNT_ID` (both persisted to the
+> deploy env; token in Keeper).
