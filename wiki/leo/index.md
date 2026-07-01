@@ -2,7 +2,7 @@
 type: index
 owner: leo
 created: 2026-06-10
-updated: 2026-06-19
+updated: 2026-07-01
 tags: [gunner-ops, index]
 status: active
 ---
@@ -28,6 +28,7 @@ the pages here are the Leo/ops-angle views that link out to them.
 ## Quote Portal (QP)
 
 - [[leo/qp/quote-wizard]] — the guided 4-step quote-wizard rebuild (roof + native Siding/Windows pricing live on stage)
+- [[leo/qp/crm-sell]] — CRM "Sell mode" record workspace inside the wizard (first HubSpot-strangler slice; backend contract locked with Tyler)
 - [[leo/qp/teardown]] — QP repo/Lambda teardown findings + landmines
 - [[leo/qp/pricing-formula]] — EP-Edit workbook → backend calc DB formula updates
 
@@ -38,6 +39,7 @@ the pages here are the Leo/ops-angle views that link out to them.
 ## Concepts
 
 - [[leo/concepts/ops-lifecycle]] — the gunner-ops job lifecycle (pizza-ticker stages + advance conditions)
+- [[leo/concepts/material-order-automation]] — VP/CEO demo: QP-priced material takeoff + SOW, measurement upload (PDF/CSV), PO PDF export; headed for ops procurement
 
 ## Decisions
 

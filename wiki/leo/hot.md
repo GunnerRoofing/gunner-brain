@@ -2,7 +2,7 @@
 type: hot-cache
 owner: leo
 created: 2026-06-10
-updated: 2026-06-19
+updated: 2026-07-01
 tags: [gunner-ops, hot]
 status: active
 ---
@@ -15,10 +15,16 @@ status: active
 
 - **gunner-ops**: in production on masterdb (deployed 2026-06-10) but **not yet in use** — throwaway data, go-live target **~2026-06-26** (3-week MVP sprint). See [[leo/apps/gunner-ops]].
 - **QP quote-wizard**: active rebuild on `qp-stage`. Roof Phase C (all 4 materials) + native per-building Siding/Windows live. Next: Doors native, proposal-PDF, real per-trade floor %s. See [[leo/qp/quote-wizard]].
-- **QP pricing-formula (EP Edit)**: roof-asphalt + a few rate edits applied to stage calc DB (reversible). Pending EP: commission/finance cost-base, location-based material rules. See [[leo/qp/pricing-formula]].
+- **CRM "Sell mode" (CRM-on-QP)**: record-workspace UI shipped to `qp-stage` — contact rail, unified activity timeline + note composer, Deal/Property/Quotes cards (the first HubSpot-strangler slice). Backend write path locked with Tyler + being built. **Cross-team (Tyler).** See [[leo/qp/crm-sell]].
+- **QP pricing-formula (EP Edit)**: roof-asphalt + rate edits + **siding exterior-screws box fix (2026-07-01, verified on stage)** applied to the calc DB (reversible). Pending EP: siding soffit/garage/NT3 items, commission/finance cost-base, location rules. See [[leo/qp/pricing-formula]].
+- **Material Order Automation concept**: VP/CEO demo live on CloudFront — QP-priced takeoff + SOW, PDF/CSV measurement upload (HOVER+Nearmap), multi-job list, downloadable PO PDF. Pending: auto-SOW rewrite + two-file upload when CEO sends SOW examples. See [[leo/concepts/material-order-automation]].
 
 ## Recent Changes
 
+- 2026-07-01: **CRM Sell-mode record workspace** (Increments 1–4) live on qp-stage; **backend contract locked with Tyler** (write surface `PATCH /crm/lead` + `POST /crm/activity`, notes → masterdb `crm_activities`, backfill-then-switch cutover) — his build, my wiring queued. Open item: `main_quote_id` mapping (crm-transform doesn't populate it). **Cross-team (Tyler).** See [[leo/qp/crm-sell]].
+- 2026-07-01: QP **siding exterior-screws fix** (`/3`→`/750`, box-vs-each unit bug) applied + **verified end-to-end** on stage (proj 245: 60 boxes → 1). EP answered the 6 Hardie questions; follow-ups drafted (`~/qp-siding-ep-followup-questions.md`). See [[leo/qp/pricing-formula]].
+- 2026-06-23: material-order concept — added measurement upload (PDF/CSV), multi-job list (QP grabs stay pristine), PO PDF export; CEO-surfaced Good-tier ice&water `factor=0.1` bug (real stage-DB under-count, fix pending in pricing-formula).
+- 2026-06-23: gunner-ops PROD masterdb cutover prep (Tyler now owns masterdb) — confirmed pure credential swap, ops_app SELECT-only (does NOT need crew_members DELETE — that's gunnerteam_app's), supplied k13-trim keep-list. **Cross-team (Tyler).**
 - 2026-06-19: onboarded to gunner-brain — migrated gunner-ops, masterdb-integration, QP (wizard/teardown/pricing-formula), and Dialpad↔HubSpot into `wiki/leo/`.
 - 2026-06-11: gunner-ops Stripe (credit-card + cash/check) + multi-contact deployed to prod.
 - 2026-06-10: masterdb + gunner-ops deployed to **production**.
