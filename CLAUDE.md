@@ -106,6 +106,7 @@ When the user says `/lint` ("lint the wiki", "health check", "wiki audit"):
 3. Produce **`wiki/meta/lint/lint-report-YYYY-MM-DD.md`** (one file per run). Before writing, delete any reports in `wiki/meta/lint/` older than 30 days. Only the latest report needs to be kept.
 4. **Flag findings by section**, attributing each issue to its owning section so each person can fix their own.
 5. **Never auto-delete or rewrite another person's pages.** Lint reports; it does not mutate other owners' content. The most you do in someone else's section is *report*. Only the owner (per `CLAUDE.local.md`) edits their own pages. Mark suspected-dead pages as flagged in the report, not deleted.
+6. **Harness audit** (this file). Once per lint pass, also check `CLAUDE.md` itself for rules that are now redundant, superseded, or already default agent behavior. Flag candidates for removal in the report — do not silently delete rules from a shared file the whole team relies on; that requires Tyler's confirmation. See [[tyler/concepts/Agentic Loops]] Rule VIII ("delete the harness") — scaffolding that only accumulates and never gets pruned is a harness nobody is re-reading.
 
 ---
 

@@ -3,7 +3,7 @@ title: "Concepts Index"
 type: meta
 tags: [meta, index, concepts]
 created: 2026-04-14
-updated: 2026-04-23
+updated: 2026-07-01
 status: evergreen
 related:
   - "[[index]]"
@@ -45,3 +45,8 @@ All concept pages — security frameworks, technologies, and knowledge-managemen
 - [[concepts/LLM Wiki Pattern]] — the pattern this vault is built on
 - [[concepts/Hot Cache]] — session context optimization
 - [[concepts/Compounding Knowledge]] — why the pattern produces more value over time
+
+## Agentic Workflows
+
+- [[concepts/Agentic Loops]] — Karpathy's `LOOPS.md`; harness design, role separation, contract negotiation, disk-based state
+- [[concepts/omp-tasks-subagents]] — OMP tasks/subagents; the concrete role-separation pattern in this vault's own tooling

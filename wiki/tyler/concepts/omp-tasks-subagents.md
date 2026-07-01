@@ -12,6 +12,7 @@ status: active
 related:
   - '[[gunner/claude-session-onboarding]]'
   - '[[meta/omp-config-tuning-2026-05-22]]'
+  - '[[concepts/Agentic Loops]]'
 sources: []
 ---
 
@@ -71,3 +72,8 @@ Most cc-prompts are single-session work because they involve judgment calls. Tas
 ## Status Bar Indicator
 
 The `subagents` segment in the OMP right status bar shows active subagent count. It is **hidden when count = 0** — this is normal. It appears and disappears with task lifecycle. Color token: `statusLineSubagents`.
+
+
+## Connections
+
+See [[concepts/Agentic Loops]] — Karpathy's `LOOPS.md` frames this same role split (planner/generator/evaluator) as a general harness-design rule: mixing roles causes a model to grade its own work and converge on slop. The `explore` (read-only) vs `task` (edit) split above is this vault's concrete instance of that rule.

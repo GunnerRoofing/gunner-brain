@@ -3,7 +3,7 @@ title: "Sources Index"
 type: meta
 tags: [meta, index, source]
 created: 2026-04-14
-updated: 2026-04-23
+updated: 2026-07-01
 status: evergreen
 related:
   - "[[index]]"
@@ -43,3 +43,7 @@ All ingested source summaries. One summary page per source document.
 ## Vendor & Tool Training
 
 - [[summaries/keeper-workshop]] — Keeper staff training — master password, Security Audit, priority accounts to rotate
+
+## Agentic Workflows
+
+- [[summaries/karpathy-loops-md-agentic-loops]] — Karpathy's LOOPS.md — harness design, generator/evaluator role split, contract negotiation, disk-based state, deletable scaffolding

@@ -1,3 +1,9 @@
+## [2026-07-01] ingest | LOOPS.md: Field Notes on Agents That Run for Days (Andrej Karpathy)
+- Source: image (page scan, OCR'd) — [[tyler/sources/summaries/karpathy-loops-md-agentic-loops]]
+- Pages created: [[tyler/concepts/Agentic Loops]], [[tyler/sources/summaries/karpathy-loops-md-agentic-loops]]
+- Pages updated: [[shared/entities/Andrej Karpathy]], [[tyler/concepts/omp-tasks-subagents]], [[tyler/concepts/LLM Wiki Pattern]], [[tyler/concepts/_index]], [[tyler/sources/_index]], [[tyler/index]], [[tyler/hot]]
+- Key insight: nine-rule harness-design pattern (separate planner/generator/evaluator roles, negotiate a testable contract before writing code, persist state to disk not context, let a healthy loop restart rather than patch, score subjective taste via weighted axes, delete harness scaffolding as models improve). Directly extends two existing vault concepts: [[tyler/concepts/omp-tasks-subagents]] (role separation) and [[tyler/concepts/LLM Wiki Pattern]] (disk-based state over context).
+
 ## [2026-07-01] save | Session — cc-3300 crm_activities.is_internal migration + cc-20 Dialpad transcript moment-label strip
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc3300-cc20-crm-internal-flag-dialpad-transcript-clean.md

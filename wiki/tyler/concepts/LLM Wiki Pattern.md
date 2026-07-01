@@ -8,7 +8,7 @@ aliases:
   - "Karpathy Wiki"
   - "Persistent Wiki"
 created: 2026-04-07
-updated: 2026-04-23
+updated: 2026-07-01
 tags:
   - concept
   - knowledge-management
@@ -19,6 +19,7 @@ related:
   - "[[concepts/Hot Cache]]"
   - "[[concepts/Compounding Knowledge]]"
   - "[[entities/Andrej Karpathy]]"
+  - "[[concepts/Agentic Loops]]"
   - "[[index]]"
   - "[[concepts/_index]]"
 sources:
@@ -95,4 +96,5 @@ At small scale (~100 sources, ~hundreds of pages), the index file is sufficient.
 See [[concepts/Compounding Knowledge]] for why the pattern produces more value over time.
 See [[concepts/Hot Cache]] for the session context optimization.
 See [[entities/Andrej Karpathy]] for the pattern's origin.
+See [[concepts/Agentic Loops]] — Karpathy's other pattern, `LOOPS.md`, applies the identical "state belongs on disk, not context" argument to long-running agent builds rather than long-running knowledge work.
 See [[comparisons/Wiki vs RAG]] for a side-by-side comparison with semantic RAG.
