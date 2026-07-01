@@ -1,6 +1,6 @@
 ---
 type: hot-cache
-updated: 2026-06-19
+updated: 2026-07-01
 owner: vault
 ---
 
@@ -19,13 +19,14 @@ session. For app-specific detail, see your own section's `hot.md`
 
 > Tyler only writes to this block. Leo: do not edit.
 
-- **Lambda:** v405 live (`gunnerteam-dev-api`, alias `live`, us-east-2)
+- **Lambda:** v426 live (`gunnerteam-dev-api`, alias `live`, us-east-2)
 - **iOS:** BUILD SUCCEEDED through cc-1801/cc-1128
 - **Active:** Dialpad event-loss monitoring (4 CW alarms → SNS, cc-2809); `updated_at` consumer cursor on `dp_sms_messages`/`dp_calls` (masterdb p21, cc-2807); `dialpad-health` task emitting `DialpadRowsLastHour` hourly Mon–Fri (cc-2808)
 - **Weather (cc-3100→3103):** danger-alert feature SHIPPED. `evaluate.js` danger-only engine + `weather-sweep` scheduler (cc-3101, v416); ops poll `GET /weather/alerts/active` (`gtsk_` scope) + per-job badge `GET /weather/job/:jobId` (cc-3103, v417). Provider=NWS. See [[gunnerteam/meta/session-2026-06-30-cc3101-3103-weather-danger-engine]]. (`gt_weather_alerts` closes via `ended_at`, never DELETE — no grant.)
 - **Recent (2026-06-30):** comms-admin full stack built (cc-01→cc-07); iOS cc-3000/3001/3002 (UploadOutbox race, black thumbnails, discard escape — all tests passing, BUILD SUCCEEDED); cc-2820 enrich updated_at v405; cc-2821 crm_activities.external_number applied to prod masterdb; migration-graph CI guard PR #14 open on gunner-masterdb; session filed at [[tyler/meta/session-2026-06-29-cc2820-3002-comms-admin-full-stack]]
 - **Pending:** cc-2206 sub key provisioning (Tyler paste from Keeper + run verification script); add `migration-graph` to main branch-protection required checks (repo admin); Colin points smoke-test; cc-2809 silence alarm live verification. (comms-admin dev now deploys `/health` `db:ok` — see [[tyler/meta/session-2026-06-30-cc08-09-comms-admin-tls-packaging]].)
-- **comms-admin cc-06 (2026-07-01):** dynamic verification of dev found + fixed 3 deploy-blocking bugs (MFA `amr` lockout → server-side `admin_get_user`; missing `PutMetricData`; `audit_log` INSERT id/FK), committed `05ccea4` (48/48 tests). ⚠️ **`sst deploy` is currently broken** (pulumi `aws@6.66.2` `BucketV2` schema bug on the frontend bucket) — fixes are live via direct `update-function-code`/`put-role-policy`, self-healing on the next working deploy. [[tyler/meta/session-2026-07-01-cc06-cc10-comms-admin-dynamic-verify-fixes]]
+- **comms-admin cc-06→cc-12 (2026-07-01):** cc-06 fixes committed `05ccea4` (MFA→`admin_get_user`, scoped `PutMetricData` IAM, `audit_log` id/FK; 48/48). **`sst deploy` UNBLOCKED** — pinned pulumi `aws@6.79.0` (BucketV2 alias bug #4471, was 6.66.2); dev deploys clean, live reconciled to committed source (cc-11 `39ff0c3`); branch `cc-08-db-tls-verify-ca` merged → `main` `4e5d5c6` (cc-12). [[tyler/meta/session-2026-07-01-cc06-cc10-comms-admin-dynamic-verify-fixes]]
+- **Recent (2026-07-01):** **audit-write-timeout root cause = container-freeze of fire-and-forget audit writes, NOT cluster capacity** (idle-cluster RDS metrics: ACU 25% floor, CPU 5–9%, 0 deadlocks; enriched line `ms=125745`≫8s timeout; cc-3200 v419) — cc-3201 flush must stay AsyncLocalStorage-bound (top offender `dialpad.sms.received` passes no `req`). cc-1200 admin+manager invite subcontractors (v425 `e02f307`); cc-1201 deny subs 403 on `/fieldportal` receipt routes (v426 `db89ba9`); 189 units green. iOS cc-3105 severe-weather danger badge (BUILD SUCCEEDED, `024bc7f`). masterdb cc-2922 migrate role PR #22 + cc-2923 migrate pipeline draft PR #23 (Colin runs windowed prod deploy). ⚠️ **gunner-ios `origin` remote URL has an embedded GitHub PAT** — rotate + move to keychain/SSH. Full detail: [[gunnerteam/meta/session-2026-07-01-audit-freeze-guards-comms-admin-masterdb]]
 
 ---
 
