@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — cc-27–28: declare @aws-sdk/client-cloudwatch (v431) + de-flake audit-context timing tests
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc27-28-cloudwatch-dep-deflake-audit-tests.md
+- From: two hygiene cc-prompts on gunnerteam-api. cc-27 closed the undeclared `@aws-sdk/client-cloudwatch` dependency (the fix line was already uncommitted in the shared tree — verified, `npm install`, deployed v431, smoke-tested with a synthetic EventBridge invoke against the `live` alias instead of waiting for the cron: clean `dialpad-health` run, metric emitted, `Version: 431` in the log START tag; commit `5704d08`). cc-28 de-flaked the 4 intermittently-red `backend` CI subtests in `audit-context.test.js`: real wall-clock races (20ms setTimeout vs 50ms flush cap) converted to `node:test` mock timers; key trap = the cap timer registers in the flush's `finally`, so the test must drain microtasks (`setImmediate`) before `tick(50)`; 7/7 pass ×3 runs, timing tests now <4ms (commit `0d04e93`). Marked the package.json open item RESOLVED in the cc-18–26 session note.
+
 ## [2026-07-01] save | Session — cc-18–26: comms-admin MFA/recording UX + Dialpad-Enrich root-cause fix, deploy, two-stage backfill
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc18-26-comms-admin-dialpad-backfill.md

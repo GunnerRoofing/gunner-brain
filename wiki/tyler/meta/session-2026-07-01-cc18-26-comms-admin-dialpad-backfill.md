@@ -237,9 +237,9 @@ recovered transcript live in the viewer.
 
 - **`MIGRATION_SECRET` needs rotation** — leaked in a CLI error message during cc-24 (base64
   payload echoed back on a malformed invoke, decodable to the plaintext secret).
-- **`@aws-sdk/client-cloudwatch` missing from `package.json`** — works today only because
-  of Lambda's runtime-bundled SDK v3 fallback; should be declared explicitly (flagged in
-  PR #7, still open).
+- ~~**`@aws-sdk/client-cloudwatch` missing from `package.json`**~~ — **RESOLVED (cc-27, 2026-07-01):**
+  declared at `^3.700.0`, deployed as v431, live `dialpad-health` invoke verified clean. See
+  [[tyler/meta/session-2026-07-01-cc27-28-cloudwatch-dep-deflake-audit-tests]].
 - **SMS-trigger notification text leak** (`"Earn Your Business | Sign Today"` style lines)
   in transcripts — same root cause as the moment-label leak, different shape, not covered
   by the existing `_MOMENT_LINE`/`filterDialpadTranscriptLines` filters. Needs its own fix
