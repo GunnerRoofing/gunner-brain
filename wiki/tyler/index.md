@@ -169,6 +169,22 @@ Maintained by Claude. Updated on every ingest. Read this first when answering qu
 | [[runbooks/chrome-safesites-policy]] | Chrome SafeSites filter diagnosis — Google Admin CBCM policy, BlockList vs SafeSites, fix procedure |
 | [[runbooks/iterm2-nerd-fonts-omp-setup]] | iTerm2 Nerd Fonts + OMP setup — MesloLGM Nerd Font Mono v3, powerline config, glyph troubleshooting |
 
+### GunnerTeam (dev / deploy / ops)
+
+| Page | Description |
+|------|-------------|
+| [[gunnerteam/runbooks/appstore-abm-submission-runbook]] | App Store custom-app submission via App Store Connect + Apple Business Manager |
+| [[gunnerteam/runbooks/bedrock-model-access-runbook]] | Enable Bedrock model access once, and add new models going forward |
+| [[gunnerteam/runbooks/dialpad-subscription-runbook]] | Manually set up Dialpad event subscriptions / webhooks |
+| [[gunnerteam/runbooks/gunnerteam_app-password-runbook]] | Rotate/set the `gunnerteam_app` Postgres role password (secret-safe) |
+| [[gunnerteam/runbooks/masterdb-self-serve-access-cloudshell-runbook]] | Reach masterdb in-VPC from AWS CloudShell for self-serve queries |
+| [[gunnerteam/runbooks/offline-mode-device-test-runbook]] | Device test procedure for the iOS app's offline mode |
+| [[gunnerteam/runbooks/pairing-cheatsheet-refresh-proxy-import-2026-06-26]] | sst refresh + RDS proxy import cheat-sheet |
+| [[gunnerteam/runbooks/runbook-masterdb-residuals-2026-06-30]] | Remaining SOC2 §14 masterdb hardening residuals |
+| [[gunnerteam/runbooks/runbook-mint-weather-ops-service-key-2026-06-30]] | Mint the `weather_alerts_read` service key (secret-safe) |
+| [[gunnerteam/runbooks/runbook-verify-invites-cloudshell]] | Verify SubPortal invites / crew mapping / devices via CloudShell |
+| [[gunnerteam/runbooks/subportal-track1-onboard-real-sub-runbook-2026-06-30]] | Onboard a real subcontractor crew in dev (Track #1) |
+
 ## CISO Track
 
 | Page | Description |
