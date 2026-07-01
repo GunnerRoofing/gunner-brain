@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — Karpathy LOOPS.md ingest + agentic loop discipline pushed to CLAUDE.md (4 repos)
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-karpathy-loops-agentic-harness-claude-md.md
+- From: follow-up to the LOOPS.md ingest — Tyler challenged whether a wiki page alone changes agent behavior (it doesn't; only files on the session read path do). Audited gunner-brain, GunnerTeam, gunner-masterdb, gunner-comms-admin CLAUDE.md files for gaps vs. the 9 loop rules, added only non-duplicative deltas: gunner-brain `/lint` harness-audit step; GunnerTeam contract-before-code + read-trace-before-retry (`a2e663c`); gunner-masterdb contract-before-migration + round-trip verification (local-only, gitignored); gunner-comms-admin contract-before-code + retry cap (`8614354`).
+
 ## [2026-07-01] ingest | LOOPS.md: Field Notes on Agents That Run for Days (Andrej Karpathy)
 - Source: image (page scan, OCR'd) — [[tyler/sources/summaries/karpathy-loops-md-agentic-loops]]
 - Pages created: [[tyler/concepts/Agentic Loops]], [[tyler/sources/summaries/karpathy-loops-md-agentic-loops]]
