@@ -20,6 +20,7 @@ session. For app-specific detail, see your own section's `hot.md`
 > Tyler only writes to this block. Leo: do not edit.
 
 - **Lambda:** v426 live (`gunnerteam-dev-api`, alias `live`, us-east-2)
+- **masterdb cc-2924 (2026-07-01, issue #21):** killed the `slug='gunner'` decoy-org landmine — every gunner-org source resolution (p16, e5f6, `_seed_prod`, `db/seed.py`) now targets `slug='gunnerroofing'`; deleted abandoned `_provision_gunnerteam_app_guc`; made p17's repoint guard idempotent (fresh rebuilds no longer hit the shell-pointing state it repairs — verified upgrade/downgrade round-trip on local PG16). PR #24, all 5 CI gates green. Prod unaffected (source-only); decoy-row rename documented as an out-of-band UPDATE for Colin's shared-cluster window. [[tyler/meta/session-2026-07-01-cc2924-org-slug-hygiene-issue21]]
 - **iOS:** BUILD SUCCEEDED through cc-1801/cc-1128
 - **Active:** Dialpad event-loss monitoring (4 CW alarms → SNS, cc-2809); `updated_at` consumer cursor on `dp_sms_messages`/`dp_calls` (masterdb p21, cc-2807); `dialpad-health` task emitting `DialpadRowsLastHour` hourly Mon–Fri (cc-2808)
 - **Weather (cc-3100→3103):** danger-alert feature SHIPPED. `evaluate.js` danger-only engine + `weather-sweep` scheduler (cc-3101, v416); ops poll `GET /weather/alerts/active` (`gtsk_` scope) + per-job badge `GET /weather/job/:jobId` (cc-3103, v417). Provider=NWS. See [[gunnerteam/meta/session-2026-06-30-cc3101-3103-weather-danger-engine]]. (`gt_weather_alerts` closes via `ended_at`, never DELETE — no grant.)

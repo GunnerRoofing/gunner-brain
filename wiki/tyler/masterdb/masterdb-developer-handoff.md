@@ -2,7 +2,7 @@
 type: source
 title: "masterdb Developer Handoff"
 created: 2026-05-27
-updated: 2026-06-22
+updated: 2026-07-01
 tags:
   - masterdb
   - handoff
@@ -198,7 +198,10 @@ To provision or rotate: ask Leonard.
 
 ## Migration State
 
-Current head: `p16_gt_app_rls` (applied dev + prod 2026-06-24; k11→p16 full chain deployed)
+Current head (2026-06-24 chain shown below): `p16_gt_app_rls`. **Stale** — prod/dev head has since
+advanced through `p17_reconcile_gt_org` → `p18_org_cleanup` → the Dialpad/CRM lineage → `v1_provision_masterdb_migrate`
+(confirmed via `alembic heads` = 1, 2026-07-01). Full table below not yet re-audited past p16; see
+[[tyler/meta/session-2026-07-01-cc2924-org-slug-hygiene-issue21]] for the p16/p17/issue-#21 slug fix.
 
 | Revision | Description |
 |---|---|
@@ -225,7 +228,9 @@ Current head: `p16_gt_app_rls` (applied dev + prod 2026-06-24; k11→p16 full ch
 | `k13_least_priv_trim` | **B1** — revoke 4 over-granted tables (contacts, services, org_services, service_clients) |
 | `n14_ops_app_track` | Track ops_app provisioning in Alembic; drop ELSE ALTER ROLE (Aurora blocks NOSUPERUSER change on existing role) |
 | `o15_merge` | Merge revision (k13 + n14 were parallel heads off k12) |
-| `p16_gt_app_rls` | **B1** — role-scoped RLS policies for `gunnerteam_app` — org context without GUC/SET/pinning |
+| `p16_gt_app_rls` | **B1** — role-scoped RLS policies for `gunnerteam_app` — org context without GUC/SET/pinning. Originally resolved the org by `slug='gunner'` (the decoy shell `7d6db1bb`) — **fixed to `slug='gunnerroofing'` in cc-2924/issue #21** (2026-07-01). |
+| `p17_reconcile_gt_org` | Re-points the 18 `gunnerteam_app_org` policies from the shell (`7d6db1bb`) to canonical (`69aad261`) — the fix for p16's original mis-resolution. Applied to prod. Guard made idempotent in cc-2924 so a fresh rebuild (where p16 now resolves correctly on the first pass) no-ops instead of erroring. |
+| `p18_org_cleanup` | Soft-retires the shell org (`is_active=false`), email-case dedup, `lower(email)` guard. Applied to prod. Irreversible (documented). |
 
 > Always run `alembic upgrade head` in the migration Lambda — never directly against the DB.
 

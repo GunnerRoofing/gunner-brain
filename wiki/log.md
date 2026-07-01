@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session cc-2924: gunner org slug hygiene — kill the slug='gunner' decoy (issue #21)
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc2924-org-slug-hygiene-issue21.md
+- From: gunner-masterdb PR #24 (closes issue #21) — standardized every gunner-org source resolution on `slug='gunnerroofing'` (was `slug='gunner'`, matching the decoy shell org `7d6db1bb`): `db/migrate.py::_seed_prod`, `db/seed.py`, `p16_gt_app_rls.py`, and a second occurrence in `e5f6a7b8c9d0_add_gt_weather_tables.py` (found in audit, not in the original issue report). Deleted the abandoned `_provision_gunnerteam_app_guc` dead code + its handler branch. Made `p17_reconcile_gt_org.py`'s repoint guard idempotent — required once p16 resolves `gunnerroofing` directly, since a fresh rebuild never produces the shell-pointing state p17 was written to repair; verified upgrade/downgrade/re-upgrade round-trip on local Postgres 16. Full Alembic chain o15→p16→p17→p18→p19→p20→q1 replicated locally against a fresh DB matching CI's exact seed fixture; `tests/test_rls_isolation.py` passed; ruff/bandit/semgrep clean; pushed and confirmed all 5 real CI gates green (security, migration-graph, tests, lock-drift, rls-isolation). Decoy-row rename documented in the PR as an out-of-band UPDATE for a coordinated window with Colin, not applied. Raw-literal-id class (`p20`/`q1`/`t1` hardcode `69aad261`) logged as a separate out-of-scope §12 item.
+
 ## [2026-07-01] save | Session — comms-admin custom domains (cc-13/14/15) + local env fix
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc13-15-comms-admin-custom-domains.md
