@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — cc-06/cc-10: comms-admin dynamic verification (3 deploy-blocking bugs fixed + committed)
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc06-cc10-comms-admin-dynamic-verify-fixes.md
+- From: cc-06 dynamic verification of live gunner-comms-admin dev — found + fixed 3 critical bugs: (1) MFA amr lockout (pool us-east-2_hFVBSrcnn's SRP+TOTP flow emits no `amr` → require_admin 403'd every enrolled admin; fix = server-side enrollment check via cognito-idp admin_get_user, +AdminGetUser IAM); (2) metrics never emitted (role lacked cloudwatch:PutMetricData → AuthFailure401/Forbidden403/AuditWriteFailure silently dropped; fix = namespace-scoped PutMetricData); (3) every audit write threw (audit_log.id no DB default + user_id FKs users.id but app stamped Cognito sub; fix = uuid4() id + resolve real users.id in the gate). Verified via hand-rolled Cognito SRP+TOTP token mint + one-off in-VPC probe (query_feed keyset 1304 rows no dup/skip; since= strictly-newer; org-iso None-under-wrong-org; presign plays→403 after TTL; DB rejects UPDATE/DELETE; no secrets in logs). BLOCKED (need real gt-admin login + audit_log-readable role): HTTP-404 org-iso, live audit row-count, live-tail UI. cc-10 committed the fixes (auth.py/audit.py/sst.config.ts/test_calls.py + .gitignore + package-lock.json) as `05ccea4`, 48/48 tests, clean status. ⚠️ sst deploy broken by pulumi aws@6.66.2 BucketV2 schema bug → fixes applied via update-function-code+put-role-policy, self-healing on next clean deploy (cc-11).
+
 ## [2026-06-30] save | Session — cc-2213/2214/2215: resolveOrgName join fix + fieldportal drift + deploy-doc fix
 - Type: session
 - Location: wiki/gunnerteam/meta/session-2026-06-30-cc2213-2215-orgname-join-fix-deploy-drift.md
