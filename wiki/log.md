@@ -1,3 +1,8 @@
+## [2026-06-30] save | Session — cc-2213/2214/2215: resolveOrgName join fix + fieldportal drift + deploy-doc fix
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-06-30-cc2213-2215-orgname-join-fix-deploy-drift.md
+- From: cc-2213 diagnosed the forgot-password `'your company'` fallback = `resolveOrgName` `LEFT JOIN gt_org_theme t ON t.org_id = o.id` throwing `operator does not exist: uuid = character varying` (organizations.id varchar vs gt_org_theme.org_id uuid), swallowed by the bare catch → fix = `::text` cast + log-on-catch + regression test (cc-2211 `de4965a` regression). Deploy hit a certs-omission `ENOENT` init outage → alias rollback to v421 + patch-known-good-artifact recovery → v422/v423 verified (no `[resolveOrgName] failed:` log, casted query returns "Gunner Roofing"), commit `2c13ce8`. cc-2214 reconciled fieldportal.js deployed≠git drift (live SubPortal backend cc-2204/2208/2210, absent from git since v421); orgscope flag at :209 = false positive (crew_id global UUID, service-auth webhook), annotated `// org-scope-ok`; comment-only redeploy v424, commit `f75237d`, deployed==origin/main diff-empty. cc-2215 fixed README deploy zip → whole-dir `zip . -x` + certs/migrations pre-upload guard (matches CLAUDE.md), commit `21f4bfe`. Lambda v421→v424. origin/main 0/0.
+
 ## [2026-06-30] save | Session — cc-2211/2212/3201: white-label copy + audit flush-before-freeze
 - Type: session
 - Location: wiki/gunnerteam/meta/session-2026-06-30-cc2211-3201-whitelabel-audit-flush.md
