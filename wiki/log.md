@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — comms-admin custom domains (cc-13/14/15) + local env fix
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc13-15-comms-admin-custom-domains.md
+- From: gunner-comms-admin cc-13 (API CORS +https://comms.gunnerroofing.com, explicit list, `adca5e3`), cc-14 (site custom domain→CloudFront DNS-only + ACM us-east-1, pinned cloudflare provider 6.13.0, `9c4e5be`), cc-15 (API custom domain api.comms.gunnerroofing.com→API-GW regional + ACM us-east-2, frontend VITE_API_URL→literal host, + a CSP `connect-src` fix the prompt omitted — without it the browser blocks every fetch while curl passes, `8e34cf1`). All DNS-only + Amazon-issued certs, SOC 2 CC6.7; pins aws 6.79.0/cloudflare 6.13.0. Also: standalone local `frontend/.env.local` VITE_API_URL fix (placeholder→real dev host, NO trailing slash, gitignored) + Vite restart-detached lesson (async bash launch dies at wrapper timeout; use nohup+disown). ⚠ OPEN FINDING (unresolved, unrelated): recurring comms-admin background 500s — `handle_generic:93` "Unhandled error", concurrent cold-start bursts ~60s apart, no source_ip/no traceback = a non-HTTP invoker the APIGatewayHttpResolver can't parse; logger.exception emits no traceback (confirm exc_info) + identify the ~60s invoker. Token hygiene resolved (cfat_ rotated, cfut_ user token live, CLOUDFLARE_DEFAULT_ACCOUNT_ID persisted). Reusable runbook already filed: [[shared/cloudflare-sst-custom-domains]].
+
 ## [2026-07-01] save | Session — Fellow App (Gunner Notes) MV3 remote-code Chrome Web Store rejection fix
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-fellow-app-mv3-remote-code-fix.md
