@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — cc-3305 crm-write-api author fix + cc-3306 QP notes backfill loader
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc3305-3306-crm-author-fix-qp-notes-backfill.md
+- From: two chained cc-prompts on crm-transform. cc-3305: `_principal` read authorizer keys sso-authorizer-v1 never injects — the real contract is a JSON-encoded string under `authorizer.user` (parse it) plus a hardcoded `cognitoSub` constant identical for every user (trap: never attribute from it); fix = `json.loads(user)` → email/user_id, verified live (seeded agent → non-NULL `handled_by_agent_id`, bogus email → NULL + 201, test rows deleted). Also surfaced: `deploy-write.sh` swallows auth errors in its get-function probe and mis-branches to create-function under a non-MFA session. cc-3306: new `backfill_qp_notes` mode (S3 JSONL/CSV → crm_activities, `qpmsg-` dedup + ON CONFLICT DO NOTHING, source=qp, is_internal=true, phone→contact via _phone_to_contact, unmatched parked unattached, per-row isolation logging dedup only); stage export self-generated from the gg DB via throwaway in-VPC lambda (customer_contact EMPTY in stage — phones via project.hubspot_deal_id → hubspot_deals_data.phone), 192 rows / 35 projects; dry-run → load (24 attached / 168 parked) → re-run no-op (idempotent) → timeline render confirmed. IAM grant added to deploy.sh (which re-puts the policy every deploy). Commits bcc5ec2, 49bf8b0.
+
 ## [2026-07-01] save | Session — cc-27–28: declare @aws-sdk/client-cloudwatch (v431) + de-flake audit-context timing tests
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc27-28-cloudwatch-dep-deflake-audit-tests.md
