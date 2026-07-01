@@ -1,3 +1,8 @@
+## [2026-07-01] save | Session — cc-3300 crm_activities.is_internal migration + cc-20 Dialpad transcript moment-label strip
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-01-cc3300-cc20-crm-internal-flag-dialpad-transcript-clean.md
+- From: gunner-masterdb cc-3300 — added `crm_activities.is_internal` (boolean NOT NULL DEFAULT true) for the ServiceNow comment/work-note distinction, the backend half of the CRM write contract Leo's Sell-mode work locked in today (see [[leo/qp/crm-sell]]); caught the migration's stated parent (`u1_merge_weather_crm`) had already been superseded by a same-day sibling head (`v1_provision_masterdb_migrate`, PR #22) via `alembic heads` right after file creation, rechained correctly; verified with a full local Postgres 16 upgrade/downgrade/re-upgrade round-trip; hit and resolved a stale-branch git push gotcha (`push origin HEAD:main` after `pull --rebase`/`push origin main` silently targeted the wrong local branch); self-corrected an accidental `rm` of a pre-existing untracked file. Commit `ac388d0`. Plus gunner-comms-admin cc-20 — stripped Dialpad AI "moment" labels (`ai_csat_reboot`, `call_disposition`, etc.) that upstream ingestion leaks into `dp_calls.transcript` as fake utterance lines (31 of 69 lines on a sampled call); viewer-side regex filter + dedup in `get_transcript`, unit-tested; root cause flagged separately to ingestion owner. Commit `3b0e8e1` (already complete before this `/save`, verified not redone).
+
 ## [2026-07-01] save | leo | CRM "Sell mode" record workspace + Tyler backend contract
 - Type: reference (progress push)
 - Location: wiki/leo/qp/crm-sell.md (new)
