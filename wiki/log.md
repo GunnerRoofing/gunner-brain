@@ -1,3 +1,8 @@
+## [2026-06-30] save | Session — cc-2211/2212/3201: white-label copy + audit flush-before-freeze
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-06-30-cc2211-3201-whitelabel-audit-flush.md
+- From: gunnerteam-api cc-2211 (de-hardcode invite email + join push via resolveOrgName, v418); cc-2212 (reset email + shared email.js FROM/`<title>` parameterization + buildFrom header-injection safety + invite/reset deep-link pages, v420); cc-3201 (audit flush-before-freeze — AsyncLocalStorage per-request queue in audit-context.js bounded by AUDIT_FLUSH_TIMEOUT_MS, wraps lambda.js dispatch, SOC 2 CC7.2, v421); + read-only comms_admin_ro topology investigation (belongs on PROD sczazkvf; dev-named proxy fronts prod cluster). 22/22 unit tests. Commits de4965a/1e7ae8a/48fe55b, origin/main 0/0.
+
 ## [2026-06-30] save | Session — comms-admin full stack + iOS fixes + masterdb migrations
 - Type: session
 - Location: wiki/tyler/meta/session-2026-06-29-cc2820-3002-comms-admin-full-stack.md
