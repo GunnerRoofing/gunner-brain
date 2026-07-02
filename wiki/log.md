@@ -1,3 +1,8 @@
+## [2026-07-02] save | Session — cc-3500/3501: TOTP MFA for GunnerTeam iOS (mandatory admin + optional opt-in)
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-07-02-cc3500-3501-totp-mfa-login-settings.md
+- From: two chained iOS-only cc-prompts on GunnerForms. cc-3500 added the missing TOTP challenge path to `AuthManager.login()` (switches on `result.nextStep` instead of a bare `isSignedIn` guard; `.confirmSignInWithTOTPCode` → `pendingTOTP`), `confirmTOTP`/`cancelTOTP`, a new `MFAEnrollmentView` (blocking full-screen QR + manual-key setup via `CoreImage.CIFilterBuiltins`, no new dependency), and made TOTP mandatory for `role=="admin"` via a `ContentView` root-gated `fullScreenCover`. cc-3501 added voluntary opt-in/out for every other role: new Settings "Security" section, `MFAEnrollmentView` gained `enum Mode { required, optional }` (default `.required` keeps cc-3500's call site untouched) so the QR/verify UI isn't duplicated, plus `disableTOTP()` guarded against `role=="admin"`. Verified against the pinned amplify-swift 2.58.1 SPM checkout: `fetchMFAPreference`/`updateMFAPreference` are `AWSCognitoAuthPlugin`-specific (need `Amplify.Auth.getPlugin(for:) as? AWSCognitoAuthPlugin`), not reachable directly off `Amplify.Auth` like `setUpTOTP`/`verifyTOTPSetup`/`confirmSignIn` are — the prompt's own sketch code would not have compiled. Both prompts: BUILD SUCCEEDED, zero warnings on touched files, committed to main (`8d27c3b`, `08c1d1e`).
+
 ## [2026-07-02] save | Session — cc-3307 Phase A prod qp-rehearsal purge + eyeball staged; cutover paused on Leo's prod export
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-02-cc3307-phaseA-qp-purge-eyeball-staged.md
