@@ -13,7 +13,7 @@ status: developing
 related:
   - '[[vendors/hexnode]]'
   - '[[concepts/apple-business-manager]]'
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
 ---
 
 # JAMF Pro

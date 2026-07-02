@@ -6,10 +6,10 @@ created: 2026-05-19
 updated: 2026-05-19
 sources: []
 related:
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[vendors/companycam]]"
-  - "[[gunner/aws-environment]]"
-  - "[[gunner/claude-team-setup]]"
+  - "[[gunnerteam/aws-environment]]"
+  - "[[gunnerteam/claude-team-setup]]"
 status: complete
 ---
 

@@ -7,10 +7,10 @@ updated: 2026-05-15
 status: stable
 sources: []
 related:
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[vendors/companycam]]"
   - "[[summaries/external-api-handoff]]"
-  - "[[gunner/gunnerteam-api-aws-migration]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
 ---
 
 # Session 2026-05-15 — Photo Comments v1 + v1.1, Lambda PC, Branch Cleanup

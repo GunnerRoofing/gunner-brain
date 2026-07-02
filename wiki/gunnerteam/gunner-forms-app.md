@@ -23,7 +23,7 @@ created: 2026-04-16T00:00:00.000Z
 updated: '2026-05-12'
 sources: []
 related:
-  - '[[gunner/gunner-assistant]]'
+  - '[[tyler/gunner-assistant/gunner-assistant]]'
   - '[[vendors/monday]]'
   - '[[questions/app-store-guideline-4-8-webview-login]]'
   - '[[questions/hexnode-custom-app-deployment]]'
@@ -40,7 +40,7 @@ Native iOS app (Swift/SwiftUI) providing Gunner employees with form access, anno
 
 ## Architecture
 
-Hybrid app — native SwiftUI views throughout. Auth system **migrating from Cloudflare D1 (SQLite) + Worker JWT → Express.js + RDS PostgreSQL on AWS.** See [[gunner/gunnerteam-api-aws-migration]] for full migration decision and infrastructure details. Announcements with APNs push notifications. Forms screen retains Monday.com WebView + native APFormView.
+Hybrid app — native SwiftUI views throughout. Auth system **migrating from Cloudflare D1 (SQLite) + Worker JWT → Express.js + RDS PostgreSQL on AWS.** See [[tyler/gunnerteam/gunnerteam-api-aws-migration]] for full migration decision and infrastructure details. Announcements with APNs push notifications. Forms screen retains Monday.com WebView + native APFormView.
 
 | File | Purpose |
 |------|---------|
@@ -674,7 +674,7 @@ The temp file for sharing was written using `doc.documentName` (e.g. `"Oil Chang
 
 ## Related
 
-- [[gunner/gunner-assistant]] — planned AI knowledge base tab
+- [[tyler/gunner-assistant/gunner-assistant]] — planned AI knowledge base tab
 - [[vendors/monday]] — Monday.com GraphQL API v2024-01
 - [[questions/app-store-guideline-4-8-webview-login]] — Guideline 4.8 rejection and fix
 - [[questions/hexnode-custom-app-deployment]] — ABM + Hexnode custom app deployment

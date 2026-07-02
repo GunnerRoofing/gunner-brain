@@ -11,7 +11,7 @@ tags:
   - config
 related:
   - "[[meta/omp-config-tuning-2026-05-22]]"
-  - "[[gunner/claude-session-onboarding]]"
+  - "[[gunnerteam/claude-session-onboarding]]"
 ---
 
 # OMP Config Full Schema Audit — 2026-05-22

@@ -13,7 +13,7 @@ related:
   - "[[vendors/dialpad]]"
   - "[[vendors/hubspot]]"
   - "[[vendors/monday]]"
-  - "[[gunner/hubspot-leads-project]]"
+  - "[[gunnerteam/hubspot-leads-project]]"
   - "[[gunnerteam/voip-softphone-research]]"
 ---
 

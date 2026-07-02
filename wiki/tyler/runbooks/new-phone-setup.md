@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [New Phone setup.docx]
-related: ["[[vendors/hexnode]]", "[[runbooks/new-laptop-setup]]", "[[gunner/environment]]"]
+related: ["[[vendors/hexnode]]", "[[runbooks/new-laptop-setup]]", "[[gunnerteam/environment]]"]
 ---
 
 # New Phone Setup (iPhone)

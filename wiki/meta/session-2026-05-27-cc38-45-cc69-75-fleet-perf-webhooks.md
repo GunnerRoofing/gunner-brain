@@ -13,7 +13,7 @@ tags:
   - webhooks
 status: stable
 related:
-  - "[[gunner/gunnerteam-performance-standards]]"
+  - "[[tyler/gunnerteam/gunnerteam-performance-standards]]"
   - "[[meta/session-2026-05-27-cc57-63-invite-registration-fix]]"
   - "[[meta/session-2026-05-27-omp-plugins-cc51-53]]"
 ---

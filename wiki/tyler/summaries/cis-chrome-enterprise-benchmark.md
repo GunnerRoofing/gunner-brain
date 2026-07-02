@@ -70,7 +70,7 @@ This is the **first dedicated CIS Benchmark for Chrome Enterprise Core** (the fr
 | Developer Tools | DeveloperToolsAvailability = 0 (always on) | Disable (value 2) | ⚠️ Open |
 | DNS-over-HTTPS | DnsOverHttpsMode = automatic | Secure (no fallback) | ⚠️ Open |
 
-See full gap analysis: [[gunner/chrome-policy]]
+See full gap analysis: [[gunnerteam/chrome-policy]]
 
 ## Key Note for JAMF Decision
 

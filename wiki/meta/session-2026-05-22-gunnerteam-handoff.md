@@ -12,9 +12,9 @@ tags:
   - handoff
 status: evergreen
 related:
-  - '[[gunner/gunner-forms-app]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/gunnerteam-project-structure]]'
+  - '[[gunnerteam/gunner-forms-app]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/gunnerteam-project-structure]]'
   - '[[meta/session-2026-05-22-cognito-auth-api-ios]]'
 ---
 

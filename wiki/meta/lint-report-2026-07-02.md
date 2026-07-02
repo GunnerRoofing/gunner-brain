@@ -43,7 +43,7 @@ status: developing
 
 Files fixed: `gunnerteam/environment.md` (×2), `gunnerteam/federal-market.md`, `gunnerteam/it-decision-log.md`, `gunnerteam/secure-coding-guide.md`, `shared/entities/Andrew Prchal.md` (×2), `shared/entities/Eddie Prchal.md` (×2), `shared/entities/Eric Recchia.md` (×3), `shared/entities/Tyler Suffern.md`, `tyler/concepts/cis-ig1.md` (×2), `tyler/concepts/cmmc.md` (×2), `tyler/concepts/incident-response.md` (×3), `tyler/concepts/nist-csf.md`, `tyler/concepts/poam.md` (×2), `tyler/concepts/soc2.md`, `tyler/runbooks/acceptable-use-policy.md`, `tyler/runbooks/incident-response.md` (×2), `tyler/runbooks/it-comms-style-guide.md` (×2), `tyler/summaries/cmmc-level1-assessment-guide.md`, `tyler/summaries/system-security-plan.md` (×2), `tyler/threats/t1486-data-encrypted-for-impact.md` (×3), `meta/session-2026-05-15-compliance-apns.md`, `meta/session-2026-05-21-post-cutover-stabilization.md`.
 
-## Stale `gunner/` Prefix Links — Functional but Non-Canonical (298 occurrences / 113 files) — PLANNED, NOT EXECUTED
+## ✅ Stale `gunner/` Prefix Links — Functional but Non-Canonical (298 occurrences / 111 files) — EXECUTED 2026-07-02
 
 Separately from the (now-fixed) ambiguous cluster above: ~298 other wikilinks still use the retired `gunner/` path prefix (e.g. `[[gunner/environment]]`, `[[gunner/aws-environment]]`, `[[gunner/hubspot-leads-project]]`). These all happen to **resolve correctly today** via Obsidian's bare-filename fallback, because every other target filename in this set is unique vault-wide. They are not broken, but they're technical debt from the `gunner/` → `gunnerteam/` restructure (same restructure that already caused the `gunner/system-security-plan` ambiguity above) — a future rename or a new file sharing one of these basenames would silently break them with no warning. **Not fixed this pass** (blast radius too large for a lint cycle — 113 files, spans nearly every section of the vault); full mapping table, per-file breakdown, and a runnable dry-run/apply script are written up at [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]] for a dedicated follow-up session. 3 additional `[[gunner/...]]` occurrences (2 files) are literal `...` ellipsis placeholders in session notes documenting past lint work, not real link targets — excluded from the plan by design.
 
@@ -142,4 +142,5 @@ No new candidates this pass. The three carried-over candidates from 2026-06-25/0
 - ✅ 3 tag-case violations fixed.
 - ✅ Cross-reference gap fixed (TOTP session note ↔ `[[tyler/concepts/mfa]]`).
 - ✅ Stale index pointer fixed; 06-26 report un-orphaned.
-- 📋 **Planned, not executed**: 298-link stale `gunner/` prefix cluster across 113 files — see [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]].
+- ✅ **298-link stale `gunner/` prefix cluster** — executed 2026-07-02 (same day, dedicated scripted pass): 298 substitutions / 111 files, grep-verified clean — see [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]].
+n-gunner-prefix-links-2026-07-02]].

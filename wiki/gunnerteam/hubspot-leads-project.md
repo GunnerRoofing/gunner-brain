@@ -17,13 +17,13 @@ sources:
   - HubSpot Leads Project 4.16.26.md
   - HubSpot Lead Phases.md
 related:
-  - '"[[gunner/hubspot-sales-pipeline]]"'
-  - '"[[gunner/app-inventory]]"'
+  - '"[[gunnerteam/hubspot-sales-pipeline]]"'
+  - '"[[gunnerteam/app-inventory]]"'
   - '"[[vendors/google-workspace]]"'
-  - '"[[gunner/lead-assignment-automation]]"'
+  - '"[[gunnerteam/lead-assignment-automation]]"'
   - '"[[vendors/dialpad-api-reference]]"'
   - '"[[vendors/monday-api-reference]]"'
-  - '"[[gunner/hubspot-salesperson-sop]]"'
+  - '"[[gunnerteam/hubspot-salesperson-sop]]"'
 ---
 
 # HubSpot Lead Object Buildout
@@ -53,8 +53,8 @@ A Lead is created when a Contact enters the sales process. A Deal is only create
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Limited go-live | In progress — sandbox build |
-| 2 | Round-robin assignment (AWS) | Scripts written — see [[gunner/lead-assignment-automation]] |
-| 3 | Dialpad → Monday integration | Scripts written — see [[gunner/lead-assignment-automation]] |
+| 2 | Round-robin assignment (AWS) | Scripts written — see [[gunnerteam/lead-assignment-automation]] |
+| 3 | Dialpad → Monday integration | Scripts written — see [[gunnerteam/lead-assignment-automation]] |
 | 4 | HubSpot cleanup | Deferred |
 
 ### Phase 1 — Limited Go-Live
@@ -236,7 +236,7 @@ Build in this order — properties and stages must exist first.
 1. Automation → Workflows → Create → Lead-based
 2. Trigger: Lead is created **AND Lead Source ≠ Web Submission** (web leads are excluded — they auto-assign via 7e)
 3. Action: Send Webhook → `_system/lead-assignment/` Lambda (handles Dialpad availability check, 5-min timer, location routing)
-4. See [[gunner/lead-assignment-automation]] for full implementation — this is not a native HubSpot rotation
+4. See [[gunnerteam/lead-assignment-automation]] for full implementation — this is not a native HubSpot rotation
 
 **7c — 24-Hour No-Task Reassignment**
 1. Automation → Workflows → Create → Lead-based
@@ -317,7 +317,7 @@ Build last — depends on deal stages being set.
 
 | Problem | Notes |
 |---------|-------|
-| Round robin — location and/or "busy" | **Being addressed in Phase 2** — see [[gunner/lead-assignment-automation]] |
+| Round robin — location and/or "busy" | **Being addressed in Phase 2** — see [[gunnerteam/lead-assignment-automation]] |
 | Address validator clunkiness | Deferred from sandbox; revisit before prod launch |
 | Lead type — Pipeline Automation creates lead automatically | Verify this doesn't conflict with manual lead creation flows |
 | Workflows need cleanup and sorting | Accumulating fast; organize before prod |
@@ -339,7 +339,7 @@ Two separate windows confirmed:
 | **5 minutes** | No outbound call to customer after assignment | AWS Lambda (`_system/lead-assignment/`) — not a HubSpot workflow |
 | **24 hours** | No task scheduled on the lead | HubSpot workflow 7c |
 
-The 5-min window is the speed-to-lead check. The Lambda queries Dialpad call history to verify the rep actually called. If not, the lead is reassigned to the next available rep and the 5-min clock restarts. See [[gunner/lead-assignment-automation]].
+The 5-min window is the speed-to-lead check. The Lambda queries Dialpad call history to verify the rep actually called. If not, the lead is reassigned to the next available rep and the 5-min clock restarts. See [[gunnerteam/lead-assignment-automation]].
 
 ---
 
@@ -353,7 +353,7 @@ All post-sale customer communication via Dialpad is logged to the Monday project
 - **Bryce** — accounts receivable
 - **Mike Ushka** — service manager
 
-How it works: when any of these staff make/receive a Dialpad call or SMS to a known job contact number, the `dialpadEvents` Lambda posts a formatted update to the Monday item. See [[gunner/lead-assignment-automation]] for setup.
+How it works: when any of these staff make/receive a Dialpad call or SMS to a known job contact number, the `dialpadEvents` Lambda posts a formatted update to the Monday item. See [[gunnerteam/lead-assignment-automation]] for setup.
 
 ---
 
@@ -392,6 +392,6 @@ This overlaps with the Dialpad → HubSpot direct integration being scoped (repl
 
 ## Related
 
-- [[gunner/hubspot-salesperson-sop]] — Sales Workspace SOP for salesperson day-to-day use (IT-SOP-HUB-002)
-- [[gunner/hubspot-workflow-designs]] — detailed workflow designs for lead assignment and hygiene
+- [[gunnerteam/hubspot-salesperson-sop]] — Sales Workspace SOP for salesperson day-to-day use (IT-SOP-HUB-002)
+- [[gunnerteam/hubspot-workflow-designs]] — detailed workflow designs for lead assignment and hygiene
 - [[vendors/hubspot]] — HubSpot vendor page

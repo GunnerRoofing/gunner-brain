@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: developing
 sources: []
-related: ["[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[runbooks/offboarding]]", "[[concepts/mfa]]", "[[concepts/sso]]", "[[gunner/app-inventory]]", "[[runbooks/incident-response]]"]
+related: ["[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[runbooks/offboarding]]", "[[concepts/mfa]]", "[[concepts/sso]]", "[[gunnerteam/app-inventory]]", "[[runbooks/incident-response]]"]
 ---
 
 # T1078 — Valid Accounts
@@ -47,7 +47,7 @@ Adversaries use valid credentials — stolen, purchased, or obtained through phi
 
 ## Gaps / Exposure Notes
 
-- **Non-SSO apps** remain accessible after Google account disable — see [[gunner/app-inventory]] for manual steps required
+- **Non-SSO apps** remain accessible after Google account disable — see [[gunnerteam/app-inventory]] for manual steps required
 - **CRITICAL (open):** Multiple admin credentials found in OneNote outside Keeper — AWS DevOps credentials, Keeper recovery codes, Hexnode admin password, Netgear switch, Google GAM, SendGrid, HubSpot 2FA codes. These should be treated as potentially exposed until rotated into Keeper and removed from OneNote.
 - No PAM solution beyond OU-based separation in Google Workspace + Keeper
 - No behavioral analytics or SIEM to detect anomalous legitimate-user activity
@@ -67,4 +67,4 @@ Follow [[runbooks/incident-response]] — Procedure 2 (Account Compromise): disa
 - [[concepts/mfa]] — key mitigation
 - [[concepts/sso]] — kill-switch mechanism
 - [[vendors/keeper]] — credential management
-- [[gunner/app-inventory]] — non-SSO app exposure map
+- [[gunnerteam/app-inventory]] — non-SSO app exposure map

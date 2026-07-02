@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-14
 status: stable
 sources: [Gunner IT Governance.xlsx, System Security Plan.docx, Acceptable Use Policy.docx]
-related: ["[[gunner/environment]]", "[[gunner/app-inventory]]", "[[concepts/cis-ig1]]", "[[vendors/hexnode]]", "[[vendors/keeper]]", "[[summaries/cis-google-workspace-benchmark]]", "[[summaries/cis-chrome-enterprise-benchmark]]"]
+related: ["[[gunnerteam/environment]]", "[[gunnerteam/app-inventory]]", "[[concepts/cis-ig1]]", "[[vendors/hexnode]]", "[[vendors/keeper]]", "[[summaries/cis-google-workspace-benchmark]]", "[[summaries/cis-chrome-enterprise-benchmark]]"]
 ---
 
 # Google Workspace
@@ -173,7 +173,7 @@ New CIS benchmarks for Google products (June 2025) are now in the vault:
 
 ## Related Pages
 
-- [[gunner/environment]] — full environment overview
-- [[gunner/app-inventory]] — complete application inventory
+- [[gunnerteam/environment]] — full environment overview
+- [[gunnerteam/app-inventory]] — complete application inventory
 - [[concepts/cis-ig1]] — CIS IG1 framework details
 - [[vendors/keeper]] — password management

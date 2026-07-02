@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Acceptable Use Policy.docx, AUP Acknowledgment Form.docx]
-related: ["[[gunner/environment]]", "[[vendors/hexnode]]", "[[vendors/keeper]]", "[[gunner/app-inventory]]", "[[gunnerteam/system-security-plan]]"]
+related: ["[[gunnerteam/environment]]", "[[vendors/hexnode]]", "[[vendors/keeper]]", "[[gunnerteam/app-inventory]]", "[[gunnerteam/system-security-plan]]"]
 ---
 
 # Acceptable Use Policy (AUP)
@@ -38,7 +38,7 @@ Applies to all employees and contractors issued a Gunner Roofing company device 
 
 ## 2. The Gunner Tech Stack
 
-All business operations must use approved applications only. See [[gunner/app-inventory]] for the full approved app list.
+All business operations must use approved applications only. See [[gunnerteam/app-inventory]] for the full approved app list.
 
 Prohibited: Installing unapproved apps, using personal cloud storage for work data, or circumventing MDM controls.
 

@@ -14,7 +14,7 @@ status: evergreen
 related:
   - "[[meta/session-2026-06-04-cc148-160-ios-co-fixes]]"
   - "[[meta/lint-report-2026-06-04]]"
-  - "[[gunner/gunnerteam-project-structure]]"
+  - "[[tyler/gunnerteam/gunnerteam-project-structure]]"
 ---
 
 # iOS cc-148–193: Home redesign, guided job screen, CO flow, toolbar fixes

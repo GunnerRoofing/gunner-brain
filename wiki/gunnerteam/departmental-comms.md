@@ -9,7 +9,7 @@ related:
   - "[[vendors/dialpad]]"
   - "[[vendors/hubspot]]"
   - "[[vendors/monday]]"
-  - "[[gunner/environment]]"
+  - "[[gunnerteam/environment]]"
 status: stable
 ---
 
@@ -43,4 +43,4 @@ Which tool to use for what, by department and use case. Source of truth for comm
 - [[vendors/dialpad]] — Dialpad VoIP platform details
 - [[vendors/hubspot]] — HubSpot CRM details
 - [[vendors/monday]] — Monday.com operations PM
-- [[gunner/gunner-forms-app]] — iOS app providing access to Monday.com forms
+- [[gunnerteam/gunner-forms-app]] — iOS app providing access to Monday.com forms

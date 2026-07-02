@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [AG_Level1_V2.0_FinalDraft_20211210_508.pdf]
-related: ["[[concepts/cmmc]]", "[[gunner/federal-market]]", "[[gunnerteam/system-security-plan]]"]
+related: ["[[concepts/cmmc]]", "[[gunnerteam/federal-market]]", "[[gunnerteam/system-security-plan]]"]
 ---
 
 # CMMC Level 1 Assessment Guide v2.0 — Summary

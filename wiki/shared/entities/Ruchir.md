@@ -9,12 +9,12 @@ tags:
   - former-staff
 status: stable
 related:
-  - "[[gunner/software-suite]]"
+  - "[[gunnerteam/software-suite]]"
 ---
 
 # Ruchir
 
-Former developer contractor. Listed in [[gunner/software-suite]] as the owner of the Quote Portal (quote customization tool).
+Former developer contractor. Listed in [[gunnerteam/software-suite]] as the owner of the Quote Portal (quote customization tool).
 
 **Status:** No longer engaged as of 2026-06-09.
 

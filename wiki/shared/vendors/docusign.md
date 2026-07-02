@@ -10,7 +10,7 @@ tags:
   - signatures
 status: active
 related:
-  - "[[gunner/software-suite]]"
+  - "[[gunnerteam/software-suite]]"
   - "[[runbooks/onboarding]]"
   - "[[runbooks/offboarding]]"
 ---
@@ -41,4 +41,4 @@ DocuSign is Gunner Roofing's e-signature and contract management platform. It is
 
 ## References
 
-- [[gunner/software-suite]] — listed in current SaaS stack
+- [[gunnerteam/software-suite]] — listed in current SaaS stack

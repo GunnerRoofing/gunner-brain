@@ -12,7 +12,7 @@ tags:
 status: active
 related:
   - '[[meta/session-2026-05-22-cc-prompt-26-27-announcements-omp]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
 ---
 
 # Session 2026-05-22: APNs Push Fixes, Backlog Audit, cc-29 Nav Revert

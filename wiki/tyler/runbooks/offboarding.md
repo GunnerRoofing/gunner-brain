@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [System Security Plan.docx, Gunner IT Governance.xlsx, Acceptable Use Policy.docx]
-related: ["[[runbooks/onboarding]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[gunner/app-inventory]]"]
+related: ["[[runbooks/onboarding]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[gunnerteam/app-inventory]]"]
 ---
 
 # Employee Offboarding ("Kill-Switch")
@@ -180,4 +180,4 @@ Do not wait to collect the device before wiping — wipe immediately, recover ph
 - [[vendors/hexnode]] — MDM wipe procedures
 - [[vendors/google-workspace]] — OU structure and account management
 - [[vendors/keeper]] — credential rotation guidance
-- [[gunner/app-inventory]] — full app list with offboarding actions
+- [[gunnerteam/app-inventory]] — full app list with offboarding actions

@@ -20,7 +20,7 @@ sources:
   - new laptop set up.docx
   - New Phone setup.docx
 related:
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
   - '[[vendors/google-workspace]]'
   - '[[concepts/cis-ig1]]'
   - '[[runbooks/new-laptop-setup]]'

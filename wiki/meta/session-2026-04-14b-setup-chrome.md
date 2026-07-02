@@ -6,7 +6,7 @@ created: 2026-04-14
 updated: 2026-04-14
 status: stable
 sources: [chrome-policy-export-2026-04-14.md]
-related: ["[[gunner/chrome-policy]]", "[[summaries/cis-chrome-enterprise-benchmark]]", "[[meta/session-2026-04-14-claude-obsidian]]"]
+related: ["[[gunnerteam/chrome-policy]]", "[[summaries/cis-chrome-enterprise-benchmark]]", "[[meta/session-2026-04-14-claude-obsidian]]"]
 ---
 
 # Session Note — Vault Setup Completion + Chrome Policy (2026-04-14)
@@ -84,14 +84,14 @@ Created `.claude/settings.json` with three hooks (git-dependency removed since l
 
 Policy is well-hardened overall: sign-in locked to @gunnerroofing.com, Safe Browsing Enhanced, HTTPS-Only forced, all GenAI off, telemetry off, site isolation on, remote access/debugging disabled, post-quantum crypto enabled, Keeper force-installed, idle sign-out at 240min.
 
-Full analysis: [[gunner/chrome-policy]]
+Full analysis: [[gunnerteam/chrome-policy]]
 
 ---
 
 ## HubSpot Sandbox Instructions
 
 Full step-by-step setup guide written in this session. Not saved as a separate wiki page — instructions are synthesis of existing wiki pages:
-- [[gunner/hubspot-leads-project]] (Lead object, stages, flows, automations)
-- [[gunner/hubspot-sales-pipeline]] (CRM lifecycle stages, stale deal workflows)
+- [[gunnerteam/hubspot-leads-project]] (Lead object, stages, flows, automations)
+- [[gunnerteam/hubspot-sales-pipeline]] (CRM lifecycle stages, stale deal workflows)
 
 Key priority order: CRM rebuild base → Excel Lead project (overwrites parts) → 4.13.26 meeting notes (top priority). Key conflict resolved: 24-hour reassignment (from Excel) applies to Lead object; meeting notes confirmed "In Communication/Qualifying Lead" name and deals-from-any-stage rule.

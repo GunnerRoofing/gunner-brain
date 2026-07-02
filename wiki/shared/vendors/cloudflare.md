@@ -6,9 +6,9 @@ tags: [vendor, cloudflare, dns, networking, cdn, waf]
 created: 2026-05-07
 updated: 2026-05-07
 related:
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/aws-environment]]"
-  - "[[gunner/environment]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[gunnerteam/aws-environment]]"
+  - "[[gunnerteam/environment]]"
 ---
 
 # Cloudflare
@@ -31,7 +31,7 @@ Gunner has deployed static front-end assets via Cloudflare Pages. Used for the G
 
 ### Workers and D1 (Legacy — Being Migrated Away)
 
-Cloudflare Workers (serverless edge compute) and D1 (SQLite-based edge database) were previously used as the backend for the GunnerTeam API and related automations. This stack is actively being migrated to AWS (Lambda + DynamoDB). See [[gunner/gunnerteam-api-aws-migration]] for migration status and rationale.
+Cloudflare Workers (serverless edge compute) and D1 (SQLite-based edge database) were previously used as the backend for the GunnerTeam API and related automations. This stack is actively being migrated to AWS (Lambda + DynamoDB). See [[tyler/gunnerteam/gunnerteam-api-aws-migration]] for migration status and rationale.
 
 > [!gap]
 > Workers/D1 migration is in progress as of 2026-05-07. Some routes or data may still be served from Workers during transition. Verify current state before making DNS or routing changes.
@@ -52,9 +52,9 @@ Cloudflare WAF rules are in place for public-facing properties. Review WAF logs 
 
 ## Integration Points
 
-- [[gunner/gunnerteam-api-aws-migration]] — Migration away from Workers/D1 to AWS
-- [[gunner/aws-environment]] — Target infrastructure for the migration
-- [[gunner/gunner-forms-app]] — GunnerForms uses Cloudflare Pages for the front end
+- [[tyler/gunnerteam/gunnerteam-api-aws-migration]] — Migration away from Workers/D1 to AWS
+- [[gunnerteam/aws-environment]] — Target infrastructure for the migration
+- [[gunnerteam/gunner-forms-app]] — GunnerForms uses Cloudflare Pages for the front end
 
 ---
 

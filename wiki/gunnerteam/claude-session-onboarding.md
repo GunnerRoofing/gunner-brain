@@ -6,10 +6,10 @@ created: 2026-05-19
 updated: 2026-05-19
 sources: []
 related:
-  - "[[gunner/claude-team-setup]]"
+  - "[[gunnerteam/claude-team-setup]]"
   - "[[meta/claude-obsidian-setup-guide]]"
-  - "[[gunner/gunner-forms-app]]"
-  - "[[gunner/aws-environment]]"
+  - "[[gunnerteam/gunner-forms-app]]"
+  - "[[gunnerteam/aws-environment]]"
 status: active
 ---
 

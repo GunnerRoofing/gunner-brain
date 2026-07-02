@@ -6,11 +6,11 @@ created: 2026-04-21
 updated: 2026-04-21
 sources: []
 related:
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[questions/app-store-guideline-4-8-webview-login]]"
   - "[[questions/ios-dev-workflow-claude-xcode-github]]"
   - "[[vendors/stripe-api-reference]]"
-  - "[[gunner/it-decision-log]]"
+  - "[[gunnerteam/it-decision-log]]"
 status: stable
 ---
 
@@ -40,14 +40,14 @@ status: stable
 | Source | Wiki Page |
 |--------|-----------|
 | Stripe API Reference.pdf | [[vendors/stripe-api-reference]] — Gunner CT Sandbox active |
-| IT Decision & Change Log.docx | [[gunner/it-decision-log]] — SEC-001 CIS IG1, 3 Hexnode CHGs, EXC-001 |
-| Departmental Comms.xlsx | [[gunner/departmental-comms]] — tool-to-use-case map |
-| Gunner Forms Privacy Policy.docx | [[gunner/gunner-forms-privacy-policy]] — zero data collection |
+| IT Decision & Change Log.docx | [[gunnerteam/it-decision-log]] — SEC-001 CIS IG1, 3 Hexnode CHGs, EXC-001 |
+| Departmental Comms.xlsx | [[gunnerteam/departmental-comms]] — tool-to-use-case map |
+| Gunner Forms Privacy Policy.docx | [[gunnerteam/gunner-forms-privacy-policy]] — zero data collection |
 | Keeper Workshop.pptx | [[summaries/keeper-workshop]] — staff training, Security Audit, priority accounts |
 | Jamf/Microsoft v2 Final.pptx | Updated [[vendors/jamf]] — Defender for Business closes CMMC AV gap |
-| CMMC Presentation.txt | Already captured in [[gunner/federal-market]] |
+| CMMC Presentation.txt | Already captured in [[gunnerteam/federal-market]] |
 | KnowBe4 Proposal.pptx | Already captured in [[vendors/knowbe4]] |
-| HubSpot Lead Phases.md | Already captured in [[gunner/hubspot-leads-project]] |
+| HubSpot Lead Phases.md | Already captured in [[gunnerteam/hubspot-leads-project]] |
 
 **Not ingested:** IT Tasks xlsx (historical task export), Performance Review (personal), IT Standards pptx (content in roadmap)
 

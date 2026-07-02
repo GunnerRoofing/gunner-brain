@@ -12,7 +12,7 @@ tags:
   - checkbox
 status: stable
 related:
-  - "[[gunner/gunnerteam-project-structure]]"
+  - "[[tyler/gunnerteam/gunnerteam-project-structure]]"
   - "[[meta/session-2026-05-26-dual-camera-avassetwriter-crash-fix]]"
 ---
 

@@ -7,8 +7,8 @@ updated: 2026-05-15
 status: stable
 sources: []
 related:
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/tls-cutover-2026-05-14]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[gunnerteam/tls-cutover-2026-05-14]]"
   - "[[vendors/companycam]]"
   - "[[gunnerteam/system-security-plan]]"
   - "[[meta/session-2026-05-15-photo-comments]]"
@@ -28,7 +28,7 @@ Continuation of 2026-05-15 session. Previous segments: [[meta/session-2026-05-15
 - `wiki/runbooks/incident-response.md` — lines 55, 71, 76 (notification steps in Procedures 2 and 3)
 
 **C3 — bad frontmatter path:**
-- `wiki/runbooks/monday-pm-my-work-view-setup.md` line 12: `'[[wiki/gunner/environment.md]]'` → `'[[gunner/environment]]'`
+- `wiki/runbooks/monday-pm-my-work-view-setup.md` line 12: `'[[wiki/gunner/environment.md]]'` → `'[[gunnerteam/environment]]'`
 
 **S9 — escaped pipe in canvas link:**
 - `wiki/index.md` line 133: `[[canvases/main.canvas\|main]]` → `[[canvases/main.canvas|main]]`

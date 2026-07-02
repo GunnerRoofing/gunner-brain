@@ -13,7 +13,7 @@ tags:
   - resend
 status: developing
 related:
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[vendors/monday]]"
 ---
 

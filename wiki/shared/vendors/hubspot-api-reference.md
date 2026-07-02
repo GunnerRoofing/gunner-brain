@@ -10,7 +10,7 @@ related:
   - "[[vendors/hubspot]]"
   - "[[vendors/dialpad-api-reference]]"
   - "[[vendors/monday-api-reference]]"
-  - "[[gunner/hubspot-leads-project]]"
+  - "[[gunnerteam/hubspot-leads-project]]"
 ---
 
 # HubSpot API Reference
@@ -307,4 +307,4 @@ If the phone number returns no contact results, options:
 - [[vendors/hubspot]] — Vendor overview, Gunner usage
 - [[vendors/dialpad-api-reference]] — Dialpad webhook payloads (call + SMS)
 - [[vendors/monday-api-reference]] — Monday.com GraphQL API
-- [[gunner/hubspot-leads-project]] — Lead object buildout; Dialpad integration in scope
+- [[gunnerteam/hubspot-leads-project]] — Lead object buildout; Dialpad integration in scope

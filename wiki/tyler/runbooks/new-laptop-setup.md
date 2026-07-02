@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [new laptop set up.docx]
-related: ["[[vendors/hexnode]]", "[[runbooks/new-phone-setup]]", "[[gunner/environment]]"]
+related: ["[[vendors/hexnode]]", "[[runbooks/new-phone-setup]]", "[[gunnerteam/environment]]"]
 ---
 
 # New Laptop Setup (MacBook)

@@ -15,15 +15,15 @@ sources:
   - Gunner IT Governance.xlsx
   - IT_Tasks_1775773048.xlsx
 related:
-  - '[[gunner/environment]]'
-  - '[[gunner/app-inventory]]'
-  - '[[gunner/hubspot-sales-pipeline]]'
-  - '[[gunner/hubspot-leads-project]]'
-  - '[[gunner/hubspot-salesperson-sop]]'
+  - '[[gunnerteam/environment]]'
+  - '[[gunnerteam/app-inventory]]'
+  - '[[gunnerteam/hubspot-sales-pipeline]]'
+  - '[[gunnerteam/hubspot-leads-project]]'
+  - '[[gunnerteam/hubspot-salesperson-sop]]'
   - '[[vendors/google-workspace]]'
-  - '[[gunner/dialpad-hubspot-integration]]'
-  - '[[gunner/lead-assignment-automation]]'
-  - '[[gunner/aws-environment]]'
+  - '[[gunnerteam/dialpad-hubspot-integration]]'
+  - '[[gunnerteam/lead-assignment-automation]]'
+  - '[[gunnerteam/aws-environment]]'
 ---
 
 # HubSpot
@@ -34,8 +34,8 @@ HubSpot is Gunner Roofing's sales CRM. It manages the full lead and deal lifecyc
 
 ## How It's Used at Gunner
 
-- Lead capture and management — full Lead object buildout in progress (see [[gunner/hubspot-leads-project]])
-- Deal pipeline tracking and stale deal management (see [[gunner/hubspot-sales-pipeline]])
+- Lead capture and management — full Lead object buildout in progress (see [[gunnerteam/hubspot-leads-project]])
+- Deal pipeline tracking and stale deal management (see [[gunnerteam/hubspot-sales-pipeline]])
 - Customer communication log
 - Google Business Reviews notifications surfaced via Google Chat integration
 - Sales team primary workspace
@@ -50,8 +50,8 @@ SCIM (automated provisioning) requires a paid HubSpot tier — not currently in 
 
 | Project | Status |
 |---------|--------|
-| [[gunner/hubspot-leads-project]] — Lead object buildout | In progress (as of 2026-04-13) |
-| [[gunner/hubspot-sales-pipeline]] — Stale deal management | Complete — reports and workflows live |
+| [[gunnerteam/hubspot-leads-project]] — Lead object buildout | In progress (as of 2026-04-13) |
+| [[gunnerteam/hubspot-sales-pipeline]] — Stale deal management | Complete — reports and workflows live |
 
 ## Pipeline Configuration
 
@@ -67,9 +67,9 @@ SCIM (automated provisioning) requires a paid HubSpot tier — not currently in 
 | Google Chat | HubSpot → Chat | Make.com |
 | Google SSO | Auth | Google SAML |
 | GoTo (Dialpad alt) | Tested during VoIP audit | Not selected — Dialpad retained |
-| Dialpad (custom) | Bidirectional | Custom Lambda webhook receiver — see [[gunner/dialpad-hubspot-integration]] |
-| Lead assignment | HubSpot → Lambda → HubSpot | Round-robin automation — see [[gunner/lead-assignment-automation]] |
-| WordPress (via AWS) | WordPress → EC2 → HubSpot | api-user.php on EC2 creates contacts from web form submissions — see [[gunner/aws-environment]] |
+| Dialpad (custom) | Bidirectional | Custom Lambda webhook receiver — see [[gunnerteam/dialpad-hubspot-integration]] |
+| Lead assignment | HubSpot → Lambda → HubSpot | Round-robin automation — see [[gunnerteam/lead-assignment-automation]] |
+| WordPress (via AWS) | WordPress → EC2 → HubSpot | api-user.php on EC2 creates contacts from web form submissions — see [[gunnerteam/aws-environment]] |
 
 ## Renewal
 
@@ -78,11 +78,11 @@ SCIM (automated provisioning) requires a paid HubSpot tier — not currently in 
 ## Related
 
 - [[vendors/hubspot-api-reference]] — API reference: contact search, call/note engagements, associations
-- [[gunner/hubspot-sales-pipeline]] — stale deal management
-- [[gunner/hubspot-leads-project]] — Lead object buildout (in progress)
-- [[gunner/hubspot-salesperson-sop]] — Sales Workspace SOP for salesperson day-to-day use (IT-SOP-HUB-002)
-- [[gunner/dialpad-hubspot-integration]] — Custom Dialpad → HubSpot call/SMS logging architecture
-- [[gunner/lead-assignment-automation]] — Round-robin lead assignment; HubSpot workflows trigger Lambda
-- [[gunner/aws-environment]] — EC2 api-user.php creates HubSpot contacts from WordPress submissions
-- [[gunner/app-inventory]] — SSO/offboarding status
+- [[gunnerteam/hubspot-sales-pipeline]] — stale deal management
+- [[gunnerteam/hubspot-leads-project]] — Lead object buildout (in progress)
+- [[gunnerteam/hubspot-salesperson-sop]] — Sales Workspace SOP for salesperson day-to-day use (IT-SOP-HUB-002)
+- [[gunnerteam/dialpad-hubspot-integration]] — Custom Dialpad → HubSpot call/SMS logging architecture
+- [[gunnerteam/lead-assignment-automation]] — Round-robin lead assignment; HubSpot workflows trigger Lambda
+- [[gunnerteam/aws-environment]] — EC2 api-user.php creates HubSpot contacts from WordPress submissions
+- [[gunnerteam/app-inventory]] — SSO/offboarding status
 - [[vendors/google-workspace]] — IdP and SSO

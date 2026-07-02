@@ -10,7 +10,7 @@ updated: '2026-04-16'
 status: seed
 sources: []
 related:
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
   - '[[vendors/hubspot]]'
 ---
 # Quote Portal
@@ -26,7 +26,7 @@ Quote Portal is Gunner Roofing's quote customization and management tool. Used b
 
 ## SSO Status
 
-Unknown — verify in [[gunner/app-inventory]].
+Unknown — verify in [[gunnerteam/app-inventory]].
 
 ## Renewal
 

@@ -20,10 +20,10 @@ related:
   - '[[vendors/google-workspace]]'
   - '[[vendors/keeper]]'
   - '[[vendors/knowbe4]]'
-  - '[[gunner/app-inventory]]'
+  - '[[gunnerteam/app-inventory]]'
   - '[[gunnerteam/system-security-plan]]'
-  - '[[gunner/brand-colors]]'
-  - '[[gunner/completed-projects]]'
+  - '[[gunnerteam/brand-colors]]'
+  - '[[gunnerteam/completed-projects]]'
   - '[[vendors/jamf]]'
 ---
 
@@ -51,7 +51,7 @@ related:
 
 **Main phone:** 866-262-6005
 
-**DUNS #:** 121897089 (used for federal/surety work — see [[gunner/federal-market]])
+**DUNS #:** 121897089 (used for federal/surety work — see [[gunnerteam/federal-market]])
 
 ### weatherTAP GPS Coordinates (for weather monitoring)
 

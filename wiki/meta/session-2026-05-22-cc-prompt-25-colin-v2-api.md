@@ -11,8 +11,8 @@ tags:
   - smoke-test
 status: active
 related:
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/subportal-cc-prompt-01-scaffold]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[tyler/gunnerteam/subportal-cc-prompt-01-scaffold]]"
   - "[[meta/session-2026-05-22-cc-prompt-24-branch-merge]]"
 sources: []
 ---

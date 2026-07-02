@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [System Security Plan.docx, Gunner IT Governance.xlsx, IT_Tasks_1775773048.xlsx]
-related: ["[[runbooks/offboarding]]", "[[runbooks/new-laptop-setup]]", "[[runbooks/new-phone-setup]]", "[[runbooks/acceptable-use-policy]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[gunner/app-inventory]]"]
+related: ["[[runbooks/offboarding]]", "[[runbooks/new-laptop-setup]]", "[[runbooks/new-phone-setup]]", "[[runbooks/acceptable-use-policy]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[gunnerteam/app-inventory]]"]
 ---
 
 # Employee Onboarding ("New Crew")

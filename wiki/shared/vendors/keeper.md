@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Keeper Workshop.pptx, Acceptable Use Policy.docx, System Security Plan.docx]
-related: ["[[gunner/environment]]", "[[vendors/google-workspace]]", "[[runbooks/acceptable-use-policy]]"]
+related: ["[[gunnerteam/environment]]", "[[vendors/google-workspace]]", "[[runbooks/acceptable-use-policy]]"]
 ---
 
 # Keeper Password Manager

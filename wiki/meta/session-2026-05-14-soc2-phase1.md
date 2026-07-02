@@ -15,7 +15,7 @@ status: stable
 
 # Session 2026-05-14 — SOC 2 Phase 1
 
-Full SOC 2 readiness sprint for [[gunner/gunnerteam-api-aws-migration|GunnerTeam API]]. Four items completed in one session: audit logging, RDS exposure fix, secrets management, and full route coverage.
+Full SOC 2 readiness sprint for [[tyler/gunnerteam/gunnerteam-api-aws-migration|GunnerTeam API]]. Four items completed in one session: audit logging, RDS exposure fix, secrets management, and full route coverage.
 
 ---
 
@@ -134,5 +134,5 @@ Full SOC 2 readiness sprint for [[gunner/gunnerteam-api-aws-migration|GunnerTeam
 
 ## Related
 
-- [[gunner/gunnerteam-api-aws-migration]] — main API architecture page (updated this session)
+- [[tyler/gunnerteam/gunnerteam-api-aws-migration]] — main API architecture page (updated this session)
 - [[concepts/incident-response]] — IR policy stub

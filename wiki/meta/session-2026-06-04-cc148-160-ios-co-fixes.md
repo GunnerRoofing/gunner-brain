@@ -12,7 +12,7 @@ tags:
 status: evergreen
 related:
   - "[[meta/session-2026-06-03-cc126-147-ios-refactor-splits-fixes]]"
-  - "[[gunner/gunnerteam-project-structure]]"
+  - "[[tyler/gunnerteam/gunnerteam-project-structure]]"
 ---
 
 # iOS cc-148–160: Change Order flow, guided view redesign, leads button

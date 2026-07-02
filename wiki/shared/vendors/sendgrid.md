@@ -10,7 +10,7 @@ updated: '2026-05-12'
 status: stable
 sources: []
 related:
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
   - '[[concepts/email-security]]'
 ---
 # SendGrid
@@ -22,7 +22,7 @@ SendGrid is Twilio's transactional email platform. SendGrid access has been esta
 ## How It's Used at Gunner
 
 - Transactional email — sending domain: gunnerroofing.com
-- Access established via Becky's account (see [[gunner/completed-projects]] — Email Domain Security)
+- Access established via Becky's account (see [[gunnerteam/completed-projects]] — Email Domain Security)
 - Used in the context of the Gunner Team app and any automated outbound email flows separate from Gmail
 
 ## Email Security Note

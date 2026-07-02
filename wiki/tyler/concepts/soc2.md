@@ -8,7 +8,7 @@ status: developing
 sources: []
 related:
   - "[[gunnerteam/system-security-plan]]"
-  - "[[gunner/aws-environment]]"
+  - "[[gunnerteam/aws-environment]]"
   - "[[ciso-track/roadmap]]"
 ---
 
@@ -39,7 +39,7 @@ Type II is what enterprise customers and enterprise sales require. Type I is a s
 
 ## At Gunner
 
-SOC 2 readiness is an active initiative tied to the federal market expansion strategy ([[gunner/federal-market]]) and enterprise client requirements.
+SOC 2 readiness is an active initiative tied to the federal market expansion strategy ([[gunnerteam/federal-market]]) and enterprise client requirements.
 
 ### Phase 1 — Completed 2026-05-14 / 2026-05-15
 

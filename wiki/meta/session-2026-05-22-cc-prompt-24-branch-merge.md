@@ -13,8 +13,8 @@ tags:
   - branch-merge
 status: evergreen
 related:
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/gunner-forms-app]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[meta/session-2026-05-21-gunnerteam-ios-feature-sprint]]"
 ---
 

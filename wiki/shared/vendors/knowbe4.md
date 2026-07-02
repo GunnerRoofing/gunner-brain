@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [KnowBe4 Proposal.pptx, Gunner IT Governance.xlsx, Tyler Suffern - Performance Review 2026.docx]
-related: ["[[gunner/environment]]", "[[concepts/cis-ig1]]", "[[ciso-track/roadmap]]"]
+related: ["[[gunnerteam/environment]]", "[[concepts/cis-ig1]]", "[[ciso-track/roadmap]]"]
 ---
 
 # KnowBe4

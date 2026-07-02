@@ -11,8 +11,8 @@ tags:
   - cc-prompts
 status: evergreen
 related:
-  - "[[gunner/gunnerteam-project-structure]]"
-  - "[[gunner/masterdb-developer-handoff]]"
+  - "[[tyler/gunnerteam/gunnerteam-project-structure]]"
+  - "[[tyler/masterdb/masterdb-developer-handoff]]"
 ---
 
 # iOS Refactor: File Splits cc-126–147 + Photo/UI Fixes

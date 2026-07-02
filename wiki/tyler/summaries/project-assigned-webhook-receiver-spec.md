@@ -12,7 +12,7 @@ sources:
   - project-assigned-webhook-receiver-spec.md
 related:
   - '[[vendors/companycam]]'
-  - '[[gunner/gunner-forms-app]]'
+  - '[[gunnerteam/gunner-forms-app]]'
 status: evergreen
 ---
 

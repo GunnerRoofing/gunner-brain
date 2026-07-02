@@ -1,16 +1,16 @@
 ---
 type: meta
-title: "Scripted Pass Plan — Retire Stale `gunner/` Prefix Wikilinks"
+title: Scripted Pass Plan — Retire Stale `gunner/` Prefix Wikilinks
 created: '2026-07-02'
 updated: '2026-07-02'
 tags:
   - meta
   - lint
   - technical-debt
-status: developing
+status: evergreen
 related:
-  - "[[meta/lint-report-2026-07-02]]"
-  - "[[meta/dashboard]]"
+  - '[[meta/lint-report-2026-07-02]]'
+  - '[[meta/dashboard]]'
 ---
 
 # Scripted Pass Plan: Retire Stale `gunner/` Prefix Wikilinks
@@ -236,6 +236,19 @@ if __name__ == "__main__":
    3 known placeholder exceptions.
 7. `git pull --rebase origin main` again (someone else may have pushed).
 8. `git add -A && git commit -m "lint: scripted pass — retire 298 stale gunner/ prefix wikilinks across 113 files (31 canonical targets)"`
+9. `git push origin main` (retry with `git pull --rebase` if rejected).
+
+## Why This Is a Separate Pass, Not Part of the 2026-07-02 Lint
+
+113 files is too large a diff to review confidently inside a single lint
+session alongside everything else that pass covers — the risk isn't the
+substitution logic (it's a precise, tested exact-match replace), it's
+verifying none of it silently changes meaning in files with unusual formatting
+outside the `[[...]]` bracket syntax. Running it standalone, with its own
+commit and its own before/after grep-verification, keeps a bad substitution
+easy to `git revert` in isolation rather than tangled into an otherwise-clean
+lint commit.
+ix wikilinks across 113 files (31 canonical targets)"`
 9. `git push origin main` (retry with `git pull --rebase` if rejected).
 
 ## Why This Is a Separate Pass, Not Part of the 2026-07-02 Lint

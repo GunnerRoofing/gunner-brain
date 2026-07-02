@@ -11,10 +11,10 @@ tags:
   - lambda
 status: stable
 related:
-  - "[[gunner/gunnerteam-project-structure]]"
-  - "[[gunner/aws-environment]]"
-  - "[[gunner/brand-colors]]"
-  - "[[gunner/masterdb-developer-handoff]]"
+  - "[[tyler/gunnerteam/gunnerteam-project-structure]]"
+  - "[[gunnerteam/aws-environment]]"
+  - "[[gunnerteam/brand-colors]]"
+  - "[[tyler/masterdb/masterdb-developer-handoff]]"
 ---
 
 # iOS cc-167–233: Tab Architecture, Markup Fix, ThemeManager, Polish Sprint

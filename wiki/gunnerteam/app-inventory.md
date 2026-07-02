@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Departmental Comms.xlsx, Gunner IT Governance.xlsx, Acceptable Use Policy.docx]
-related: ["[[gunner/environment]]", "[[vendors/google-workspace]]", "[[vendors/hexnode]]"]
+related: ["[[gunnerteam/environment]]", "[[vendors/google-workspace]]", "[[vendors/hexnode]]"]
 ---
 
 # Gunner Application Inventory

@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Gunner IT Governance.xlsx, Acceptable Use Policy.docx, System Security Plan.docx]
-related: ["[[vendors/google-workspace]]", "[[gunner/app-inventory]]", "[[concepts/mfa]]", "[[runbooks/offboarding]]", "[[threats/t1078-valid-accounts]]"]
+related: ["[[vendors/google-workspace]]", "[[gunnerteam/app-inventory]]", "[[concepts/mfa]]", "[[runbooks/offboarding]]", "[[threats/t1078-valid-accounts]]"]
 ---
 
 # Single Sign-On (SSO)
@@ -54,12 +54,12 @@ SCIM automates user provisioning/deprovisioning beyond just SSO. At Gunner, Goog
 
 ## Gunner SSO Strategy (In Progress)
 
-The goal is to minimize non-SSO app exposure. Current non-SSO apps are documented in [[gunner/app-inventory]] and treated as elevated offboarding risk. See [[threats/t1078-valid-accounts]] for the threat this creates.
+The goal is to minimize non-SSO app exposure. Current non-SSO apps are documented in [[gunnerteam/app-inventory]] and treated as elevated offboarding risk. See [[threats/t1078-valid-accounts]] for the threat this creates.
 
 ## Related
 
 - [[vendors/google-workspace]] — OU structure, SSO/SCIM status table, IdP configuration
-- [[gunner/app-inventory]] — full SSO vs email/password classification
+- [[gunnerteam/app-inventory]] — full SSO vs email/password classification
 - [[concepts/mfa]] — MFA enforced at IdP level propagates through SSO
 - [[runbooks/offboarding]] — Kill-Switch process; non-SSO manual steps
 - [[threats/t1078-valid-accounts]] — valid accounts threat; non-SSO apps are the exposure

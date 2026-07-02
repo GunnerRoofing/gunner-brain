@@ -7,9 +7,9 @@ updated: 2026-05-15
 status: stable
 sources: []
 related:
-  - "[[gunner/gunner-forms-app]]"
-  - "[[gunner/environment]]"
-  - "[[gunner/app-inventory]]"
+  - "[[gunnerteam/gunner-forms-app]]"
+  - "[[gunnerteam/environment]]"
+  - "[[gunnerteam/app-inventory]]"
 ---
 
 # CompanyCam
@@ -123,10 +123,10 @@ Full endpoint reference, gotchas, dev fixtures, and TypeScript client: [[summari
 |--------------|----------|---------------|
 | Yes | Google SSO | Google SSO |
 
-See [[gunner/app-inventory]] for full SSO and offboarding notes.
+See [[gunnerteam/app-inventory]] for full SSO and offboarding notes.
 
 ## Related
 
-- [[gunner/gunner-forms-app]] — iOS app integration, photo viewer, upload implementation
-- [[gunner/environment]] — SaaS stack; CompanyCam in Core Operations table
-- [[gunner/app-inventory]] — SSO inventory
+- [[gunnerteam/gunner-forms-app]] — iOS app integration, photo viewer, upload implementation
+- [[gunnerteam/environment]] — SaaS stack; CompanyCam in Core Operations table
+- [[gunnerteam/app-inventory]] — SSO inventory

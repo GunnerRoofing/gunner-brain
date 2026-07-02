@@ -14,8 +14,8 @@ sources:
   - EXTERNAL_API_HANDOFF.local.md
 related:
   - '[[vendors/companycam]]'
-  - '[[gunner/gunner-forms-app]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[gunnerteam/gunner-forms-app]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
 status: stable
 ---
 

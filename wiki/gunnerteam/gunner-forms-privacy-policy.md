@@ -6,7 +6,7 @@ created: 2026-04-21
 updated: 2026-04-21
 sources: [Gunner Forms Privacy Policy.docx]
 related:
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
   - "[[vendors/monday]]"
 status: stable
 ---

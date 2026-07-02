@@ -7,8 +7,8 @@ created: 2026-05-14
 updated: 2026-05-14
 sources: []
 related:
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/aws-environment]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[gunnerteam/aws-environment]]"
   - "[[meta/session-2026-05-14-soc2-phase1]]"
 ---
 

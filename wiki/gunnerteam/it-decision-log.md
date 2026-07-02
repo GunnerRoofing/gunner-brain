@@ -7,7 +7,7 @@ updated: 2026-04-21
 sources: [IT Decision & Change Log.docx]
 related:
   - "[[gunnerteam/system-security-plan]]"
-  - "[[gunner/environment]]"
+  - "[[gunnerteam/environment]]"
   - "[[vendors/hexnode]]"
   - "[[concepts/cis-ig1]]"
 status: stable

@@ -13,7 +13,7 @@ status: seed
 sources: []
 related:
   - '[[concepts/cmmc]]'
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
   - '[[vendors/hexnode]]'
 ---
 # Bitdefender GravityZone

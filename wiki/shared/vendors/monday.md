@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Departmental Comms.xlsx, Gunner IT Governance.xlsx, IT_Tasks_1775773048.xlsx]
-related: ["[[gunner/environment]]", "[[gunner/app-inventory]]", "[[vendors/google-workspace]]"]
+related: ["[[gunnerteam/environment]]", "[[gunnerteam/app-inventory]]", "[[vendors/google-workspace]]"]
 ---
 
 # Monday.com
@@ -52,7 +52,7 @@ The internal Gunner Forms app is distributed via Apple Business Manager and wrap
 ## Related
 
 - [[vendors/monday-api-reference]] — GraphQL API reference: search items, create/update, column value formats
-- [[gunner/app-inventory]] — SSO/offboarding status
+- [[gunnerteam/app-inventory]] — SSO/offboarding status
 - [[vendors/google-workspace]] — IdP and SSO
 - [[concepts/apple-business-manager]] — Gunner Forms app distribution
-- [[gunner/environment]] — environment overview
+- [[gunnerteam/environment]] — environment overview

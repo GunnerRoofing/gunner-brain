@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [IT Communications Style Guide.docx]
-related: ["[[gunnerteam/system-security-plan]]", "[[gunner/environment]]"]
+related: ["[[gunnerteam/system-security-plan]]", "[[gunnerteam/environment]]"]
 ---
 
 # IT Communications Style Guide

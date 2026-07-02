@@ -14,9 +14,9 @@ updated: 2026-05-13T00:00:00.000Z
 sources:
   - white label agenda.xlsx
 related:
-  - '[[gunner/software-suite]]'
+  - '[[gunnerteam/software-suite]]'
   - '[[vendors/companycam]]'
-  - '[[gunner/gunner-forms-app]]'
+  - '[[gunnerteam/gunner-forms-app]]'
 status: evergreen
 ---
 
@@ -24,7 +24,7 @@ status: evergreen
 
 Source: `raw-sources/white label agenda.xlsx` — two sheets: partner Q&A (Ruchir) and software feature matrix.
 
-Full synthesis at [[gunner/software-suite]].
+Full synthesis at [[gunnerteam/software-suite]].
 
 ## Sheet 1 — Partner Onboarding Q&A
 
@@ -49,7 +49,7 @@ Full synthesis at [[gunner/software-suite]].
 
 ## Sheet 2 — Software Feature Matrix (60-day = Urgent)
 
-See [[gunner/software-suite]] for full structured breakdown.
+See [[gunnerteam/software-suite]] for full structured breakdown.
 
 **Systems of Truth:**
 - QP = supplier pricing, materials, labor rates

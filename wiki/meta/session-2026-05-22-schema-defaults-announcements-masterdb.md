@@ -13,10 +13,10 @@ tags:
   - python
 status: complete
 related:
-  - '[[gunner/masterdb-architecture]]'
-  - '[[gunner/secure-coding-guide]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
+  - '[[gunnerteam/secure-coding-guide]]'
   - '[[meta/session-2026-05-21-post-cutover-stabilization]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
   - '[[concepts/soc2]]'
 ---
 # Session 2026-05-22 — Schema DEFAULT Audit + Announcements Fix + masterdb Platform Ingestion
@@ -128,11 +128,11 @@ This is the same issue that's been present since the masterdb VPC migration. Roo
 
 ## Knowledge Ingested
 
-### [[gunner/masterdb-architecture]]
+### [[tyler/masterdb/masterdb-architecture]]
 
 Python Lambda + Aurora Serverless v2 + Cognito + SST v3 platform. Single Aurora cluster, Postgres schemas separate domains: `master`, `sales`, `ops`, `field`, `quotes`. RLS + `org_id` on every query. EventBridge for cross-app workflows. JIT user provisioning via Lambda trigger on first Google SSO login. The GunnerTeam Express API (`gt_` tables) is the first tenant of this platform.
 
-### [[gunner/secure-coding-guide]]
+### [[gunnerteam/secure-coding-guide]]
 
 OWASP Top 10 applied to the Python/Lambda/Cognito/Aurora stack. 16-item pre-PR checklist. Key rules:
 - `org_id` always from `claims["custom:org_id"]`, never from request body

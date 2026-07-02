@@ -12,7 +12,7 @@ tags:
 related:
   - "[[meta/session-2026-05-19-omp-professional-setup]]"
   - "[[meta/session-2026-05-19-omp-plugins-themes]]"
-  - "[[gunner/claude-session-onboarding]]"
+  - "[[gunnerteam/claude-session-onboarding]]"
 ---
 
 # OMP Config Tuning — 2026-05-22

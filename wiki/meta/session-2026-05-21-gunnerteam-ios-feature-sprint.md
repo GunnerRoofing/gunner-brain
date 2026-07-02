@@ -13,8 +13,8 @@ tags:
 status: complete
 related:
   - '[[meta/session-2026-05-21-post-cutover-stabilization]]'
-  - '[[gunner/gunner-forms-app]]'
-  - '[[gunner/aws-environment]]'
+  - '[[gunnerteam/gunner-forms-app]]'
+  - '[[gunnerteam/aws-environment]]'
 ---
 # GunnerTeam iOS Feature Sprint — Guided Tasks, Voice Comment, Nav Fixes
 

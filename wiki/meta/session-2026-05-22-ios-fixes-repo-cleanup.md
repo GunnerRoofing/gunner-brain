@@ -12,8 +12,8 @@ tags:
   - cognito
   - session
 related:
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/subportal-cognito-auth]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/subportal-cognito-auth]]'
   - '[[meta/omp-config-full-audit-2026-05-22]]'
 ---
 
@@ -104,7 +104,7 @@ Status bar redesigned: left = pi/model/git/path, right = subagents/context_pct/c
 
 ## Subportal: Cognito auth (cc-prompt-04)
 
-Full implementation details in [[gunner/subportal-cognito-auth]].
+Full implementation details in [[tyler/gunnerteam/subportal-cognito-auth]].
 
 Summary: HS256 JWT replaced with Cognito SRP. Pool `us-east-2_hFVBSrcnn` live. Tyler's user created (`CONFIRMED`). Smoke test passed — login works, Cognito ID token visible in Authorization header on API calls.
 

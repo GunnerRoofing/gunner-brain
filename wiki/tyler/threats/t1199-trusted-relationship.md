@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: developing
 sources: []
-related: ["[[vendors/google-workspace]]", "[[gunner/app-inventory]]", "[[runbooks/offboarding]]", "[[concepts/sso]]"]
+related: ["[[vendors/google-workspace]]", "[[gunnerteam/app-inventory]]", "[[runbooks/offboarding]]", "[[concepts/sso]]"]
 ---
 
 # T1199 — Trusted Relationship
@@ -59,6 +59,6 @@ The Contractors OU in Google Workspace is well-designed for T1199 — minimal ac
 ## Related
 
 - [[vendors/google-workspace]] — Contractors OU configuration, service account alert policy
-- [[gunner/app-inventory]] — vendor integration details
+- [[gunnerteam/app-inventory]] — vendor integration details
 - [[runbooks/offboarding]] — Kill-Switch applies to contractors
 - [[concepts/sso]] — contractor access revocation via Google account disable

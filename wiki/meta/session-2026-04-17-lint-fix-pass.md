@@ -27,9 +27,9 @@ related:
 
 | Fix | Pages Updated |
 |-----|---------------|
-| W1: `[[gunner/brand-colors]]` | `environment.md` related |
+| W1: `[[gunnerteam/brand-colors]]` | `environment.md` related |
 | W2: `[[concepts/poam]]` inline links | `incident-response.md`, `t1486-data-encrypted-for-impact.md`, `system-security-plan.md` |
-| W3: `[[gunner/completed-projects]]` | `environment.md` and `roadmap.md` related |
+| W3: `[[gunnerteam/completed-projects]]` | `environment.md` and `roadmap.md` related |
 | W4: `[[vendors/jamf]]` | `hexnode.md` body + related; `environment.md` related |
 | W5: `[[comparisons/Wiki vs RAG]]` | `LLM Wiki Pattern.md` and `Compounding Knowledge.md` Connections sections |
 | W9/W18: Integration architecture links | `dialpad.md` and `hubspot.md` — frontmatter + body |

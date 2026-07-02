@@ -1,3 +1,9 @@
+## [2026-07-02] lint | Scripted pass — retired 298 stale gunner/ prefix wikilinks (111 files, 31 targets)
+- Type: lint follow-up (planned in [[meta/lint-report-2026-07-02]], executed same day)
+- Plan + script: [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]]
+- Dry run matched plan exactly (298 occurrences; "113 files" in the plan counted 2 placeholder-only files the script excludes) → applied → spot-checked diffs across gunnerteam/tyler/shared/meta → grep-verified zero remaining `[[gunner/...]]` wikilinks outside intentional exclusions (log.md, historical lint reports, plan doc, 3 ellipsis placeholders)
+- Session note: wiki/meta/session-2026-07-02-gunner-prefix-scripted-pass.md
+
 ## [2026-07-02] save | Session — cc-3500/3501: TOTP MFA for GunnerTeam iOS (mandatory admin + optional opt-in)
 - Type: session
 - Location: wiki/gunnerteam/meta/session-2026-07-02-cc3500-3501-totp-mfa-login-settings.md

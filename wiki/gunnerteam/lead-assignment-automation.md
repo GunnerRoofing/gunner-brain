@@ -16,8 +16,8 @@ status: ready-to-build
 sources:
   - _system/lead-assignment/
 related:
-  - '[[gunner/dialpad-hubspot-integration]]'
-  - '[[gunner/hubspot-leads-project]]'
+  - '[[gunnerteam/dialpad-hubspot-integration]]'
+  - '[[gunnerteam/hubspot-leads-project]]'
   - '[[vendors/dialpad-api-reference]]'
   - '[[vendors/hubspot-api-reference]]'
   - '[[vendors/monday-api-reference]]'
@@ -268,8 +268,8 @@ Optional group ID: open board → right-click a group → copy link → extract 
 
 ## Related
 
-- [[gunner/dialpad-hubspot-integration]] — Call/SMS logging to HubSpot (separate concern — logs after the fact)
-- [[gunner/hubspot-leads-project]] — Full HubSpot leads buildout; this automation is workflow 7b + speed-to-lead
+- [[gunnerteam/dialpad-hubspot-integration]] — Call/SMS logging to HubSpot (separate concern — logs after the fact)
+- [[gunnerteam/hubspot-leads-project]] — Full HubSpot leads buildout; this automation is workflow 7b + speed-to-lead
 - [[vendors/dialpad-api-reference]] — Call payload fields, webhook setup, contacts API
 - [[vendors/hubspot-api-reference]] — Contact/deal fetch, lead owner update
 - [[vendors/monday-api-reference]] — GraphQL create_item, create_update syntax

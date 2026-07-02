@@ -11,11 +11,11 @@ tags:
   - masterdb
 status: active
 related:
-  - "[[gunner/masterdb-architecture]]"
-  - "[[gunner/subportal-cc-prompt-01-scaffold]]"
-  - "[[gunner/subportal-cc-prompt-02-frontend]]"
-  - "[[gunner/gunnerteam-api-aws-migration]]"
-  - "[[gunner/claude-session-onboarding]]"
+  - "[[tyler/masterdb/masterdb-architecture]]"
+  - "[[tyler/gunnerteam/subportal-cc-prompt-01-scaffold]]"
+  - "[[tyler/gunnerteam/subportal-cc-prompt-02-frontend]]"
+  - "[[tyler/gunnerteam/gunnerteam-api-aws-migration]]"
+  - "[[gunnerteam/claude-session-onboarding]]"
 sources: []
 ---
 
@@ -74,4 +74,4 @@ All diffs between legacy source and new destination were clean (empty `diff` out
 - **Claude Code sessions** for GunnerTeam open at `~/Documents/Gunner/GunnerTeam/`.
 - **Claude Code sessions** for subportal open at `~/Documents/Gunner/subportal/`.
 - **masterdb clone** (Alembic migrations) lives at `~/Documents/Gunner/subportal/db/`.
-- The `onboarding prompt` in [[gunner/claude-session-onboarding]] already reflects these paths.
+- The `onboarding prompt` in [[gunnerteam/claude-session-onboarding]] already reflects these paths.

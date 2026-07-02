@@ -12,16 +12,16 @@ updated: '2026-04-23'
 status: developing
 sources: []
 related:
-  - "[[gunner/hubspot-leads-project]]"
-  - "[[gunner/lead-assignment-automation]]"
-  - "[[gunner/hubspot-sales-pipeline]]"
+  - "[[gunnerteam/hubspot-leads-project]]"
+  - "[[gunnerteam/lead-assignment-automation]]"
+  - "[[gunnerteam/hubspot-sales-pipeline]]"
   - "[[vendors/hubspot]]"
-  - "[[gunner/hubspot-salesperson-sop]]"
+  - "[[gunnerteam/hubspot-salesperson-sop]]"
 ---
 
 # HubSpot Workflow Designs — Lead Assignment & Activity Hygiene
 
-Detailed workflow designs built during the Phase 1 HubSpot Leads buildout. These are distinct from the Lambda/DynamoDB round-robin assignment (Phase 2) documented in [[gunner/lead-assignment-automation]].
+Detailed workflow designs built during the Phase 1 HubSpot Leads buildout. These are distinct from the Lambda/DynamoDB round-robin assignment (Phase 2) documented in [[gunnerteam/lead-assignment-automation]].
 
 ---
 
@@ -176,6 +176,6 @@ Enrollment trigger:
 
 ## Related
 
-- [[gunner/hubspot-salesperson-sop]] — Sales Workspace SOP; these workflows surface as automated tasks seen by reps
-- [[gunner/hubspot-leads-project]] — Lead object buildout context
+- [[gunnerteam/hubspot-salesperson-sop]] — Sales Workspace SOP; these workflows surface as automated tasks seen by reps
+- [[gunnerteam/hubspot-leads-project]] — Lead object buildout context
 - [[vendors/hubspot]] — HubSpot vendor page

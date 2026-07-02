@@ -13,7 +13,7 @@ sources: []
 related:
   - '"[[vendors/keeper]]"'
   - '"[[vendors/google-workspace]]"'
-  - '"[[gunner/chrome-policy]]"'
+  - '"[[gunnerteam/chrome-policy]]"'
 ---
 
 # Keeper Web Vault Login Redirect Loop

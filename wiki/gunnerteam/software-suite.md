@@ -15,9 +15,9 @@ updated: 2026-05-13T00:00:00.000Z
 sources:
   - white label agenda.xlsx
 related:
-  - '[[gunner/gunner-forms-app]]'
+  - '[[gunnerteam/gunner-forms-app]]'
   - '[[vendors/companycam]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
   - '[[summaries/white-label-agenda]]'
 status: developing
 ---

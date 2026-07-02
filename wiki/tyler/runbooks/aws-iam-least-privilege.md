@@ -9,7 +9,7 @@ tags:
 status: pending — execute at end of first dev wave
 created: 2026-05-20T00:00:00.000Z
 related:
-  - '[[gunner/aws-environment]]'
+  - '[[gunnerteam/aws-environment]]'
   - '[[concepts/soc2]]'
 updated: '2026-05-22'
 ---

@@ -128,7 +128,7 @@ Add any personal aliases below the init line. Reload with `source ~/.zshrc` afte
 | GunnerTeam repo | `~/Dev/GunnerTeam/` |
 | Wiki vault | `~/Documents/Obsidian/Gunner Vault/` |
 
-See [[gunner/gunnerteam-project-structure]] for the repo layout and [[gunner/aws-environment]] for the deploy environment.
+See [[tyler/gunnerteam/gunnerteam-project-structure]] for the repo layout and [[gunnerteam/aws-environment]] for the deploy environment.
 
 ---
 

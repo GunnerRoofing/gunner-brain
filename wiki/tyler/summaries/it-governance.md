@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Gunner IT Governance.xlsx]
-related: ["[[vendors/google-workspace]]", "[[concepts/cis-ig1]]", "[[gunner/app-inventory]]", "[[gunner/environment]]"]
+related: ["[[vendors/google-workspace]]", "[[concepts/cis-ig1]]", "[[gunnerteam/app-inventory]]", "[[gunnerteam/environment]]"]
 ---
 
 # Summary — Gunner IT Governance Workbook
@@ -38,6 +38,6 @@ related: ["[[vendors/google-workspace]]", "[[concepts/cis-ig1]]", "[[gunner/app-
 ## Pages Updated From This Source
 
 - [[vendors/google-workspace]] — full OU and policy details
-- [[gunner/app-inventory]] — SSO/offboarding table
+- [[gunnerteam/app-inventory]] — SSO/offboarding table
 - [[concepts/cis-ig1]] — CIS control mapping
-- [[gunner/environment]] — OU summary
+- [[gunnerteam/environment]] — OU summary

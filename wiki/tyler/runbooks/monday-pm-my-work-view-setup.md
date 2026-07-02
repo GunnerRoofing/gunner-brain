@@ -9,7 +9,7 @@ tags:
 created: '2026-05-01'
 updated: '2026-05-07'
 related:
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
 ---
 
 # Monday.com PM "My Work" View Setup

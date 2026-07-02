@@ -11,7 +11,7 @@ created: '2026-05-26T00:00:00.000Z'
 updated: '2026-05-26T00:00:00.000Z'
 sources: []
 related:
-  - '[[gunner/gunnerteam-project-structure]]'
+  - '[[tyler/gunnerteam/gunnerteam-project-structure]]'
   - '[[session-2026-05-26-dual-camera-avassetwriter-crash-fix]]'
 status: complete
 ---

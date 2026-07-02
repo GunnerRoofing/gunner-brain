@@ -7,7 +7,7 @@ tags: [session, companycam, ios, gunnerteam, swift]
 status: developing
 related:
   - "[[vendors/companycam]]"
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
 ---
 
 # CompanyCam Feature — Session 13

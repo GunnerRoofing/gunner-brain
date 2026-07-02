@@ -42,7 +42,7 @@ API Gateway invokes the `live` alias of `gunnerteam-dev-api`. Cloudflare DNS pro
 | Cluster endpoint | `gunnerteam-dev.c52gm8goign8.us-east-2.rds.amazonaws.com` |
 | RDS Proxy endpoint | `gunnerteam-dev-api.proxy-c52gm8goign8.us-east-2.rds.amazonaws.com` |
 
-The Lambda connects through the RDS Proxy endpoint, which pools and reuses database connections across invocations. See [[gunner/masterdb-architecture]] for schema details.
+The Lambda connects through the RDS Proxy endpoint, which pools and reuses database connections across invocations. See [[tyler/masterdb/masterdb-architecture]] for schema details.
 
 ## Auth
 
@@ -121,7 +121,7 @@ Terraform lives in `~/Dev/GunnerTeam/terraform/` and manages the Lambda function
 
 ## Related
 
-- [[gunner/environment]] — full Gunner tech stack and infrastructure overview
-- [[gunner/gunnerteam-project-structure]] — repo layout for the iOS app and Express Lambda backend
-- [[gunner/gunnerteam-api-aws-migration]] — migration history to the current Lambda architecture
-- [[gunner/masterdb-architecture]] — Aurora schema and data model
+- [[gunnerteam/environment]] — full Gunner tech stack and infrastructure overview
+- [[tyler/gunnerteam/gunnerteam-project-structure]] — repo layout for the iOS app and Express Lambda backend
+- [[tyler/gunnerteam/gunnerteam-api-aws-migration]] — migration history to the current Lambda architecture
+- [[tyler/masterdb/masterdb-architecture]] — Aurora schema and data model

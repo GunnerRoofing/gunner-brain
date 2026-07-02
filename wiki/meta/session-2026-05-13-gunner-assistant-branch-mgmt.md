@@ -6,8 +6,8 @@ created: 2026-05-13
 updated: 2026-05-13
 sources: []
 related:
-  - "[[gunner/gunner-forms-app]]"
-  - "[[gunner/software-suite]]"
+  - "[[gunnerteam/gunner-forms-app]]"
+  - "[[gunnerteam/software-suite]]"
   - "[[vendors/companycam]]"
   - "[[summaries/project-assigned-webhook-receiver-spec]]"
   - "[[summaries/white-label-agenda]]"
@@ -96,7 +96,7 @@ USPTO assigned design search codes to Gunner trademark application (SN: 99611883
 
 ## White Label Software Suite
 
-Full suite ingested from `white label agenda.xlsx`. See [[gunner/software-suite]] for complete breakdown.
+Full suite ingested from `white label agenda.xlsx`. See [[gunnerteam/software-suite]] for complete breakdown.
 
 Key context: GunnerCam (ColinCam) is being built in-house — it is the replacement for CompanyCam as an external vendor. The current CompanyCam integration in Gunner Team iOS is a bridge while ColinCam matures.
 

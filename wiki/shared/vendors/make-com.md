@@ -11,11 +11,11 @@ updated: '2026-04-23'
 status: developing
 sources: []
 related:
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
   - '[[vendors/hubspot]]'
   - '[[runbooks/hubspot-google-chat]]'
-  - '[[gunner/hubspot-leads-project]]'
-  - '[[gunner/aws-environment]]'
+  - '[[gunnerteam/hubspot-leads-project]]'
+  - '[[gunnerteam/aws-environment]]'
 ---
 # Make.com
 
@@ -25,7 +25,7 @@ Make.com (formerly Integromat) is the automation platform used for HubSpot integ
 
 ### Delete AWS-Created Deals (Workaround)
 
-**Purpose:** The AWS custom script (`api-user.php` on EC2) creates both a Contact and a Deal in HubSpot. Until the script is rewritten to stop creating deals, this scenario deletes the deal automatically while leaving the contact intact. See [[gunner/aws-environment]] for full context on the EC2 script.
+**Purpose:** The AWS custom script (`api-user.php` on EC2) creates both a Contact and a Deal in HubSpot. Until the script is rewritten to stop creating deals, this scenario deletes the deal automatically while leaving the contact intact. See [[gunnerteam/aws-environment]] for full context on the EC2 script.
 
 **Trigger:** HubSpot — Watch Objects (Deals, Created)
 **Filter:** `wp_project_id` is greater than 0
@@ -51,5 +51,5 @@ See [[runbooks/hubspot-google-chat]] for setup details.
 
 - [[vendors/hubspot]] — source system for Make.com triggers
 - [[runbooks/hubspot-google-chat]] — HubSpot Chat notification setup
-- [[gunner/hubspot-leads-project]] — HubSpot Lead object buildout context
-- [[gunner/aws-environment]] — EC2 api-user.php whose deal-creation side effect this scenario mitigates
+- [[gunnerteam/hubspot-leads-project]] — HubSpot Lead object buildout context
+- [[gunnerteam/aws-environment]] — EC2 api-user.php whose deal-creation side effect this scenario mitigates

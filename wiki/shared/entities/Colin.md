@@ -10,8 +10,8 @@ tags:
 status: active
 related:
   - '[[vendors/companycam]]'
-  - '[[gunner/masterdb-developer-handoff]]'
-  - '[[gunner/gunnerteam-project-structure]]'
+  - '[[tyler/masterdb/masterdb-developer-handoff]]'
+  - '[[tyler/gunnerteam/gunnerteam-project-structure]]'
 ---
 
 # Colin Wong
@@ -35,5 +35,5 @@ The GunnerTeam iOS app consumes Colin's API for:
 ## References
 
 - [[summaries/external-api-handoff]] — Project Hub external API contract
-- [[gunner/masterdb-developer-handoff]] — M2M service client (ColinCam)
+- [[tyler/masterdb/masterdb-developer-handoff]] — M2M service client (ColinCam)
 - [[meta/session-2026-06-08-cc167-233-ios-tab-markup-themes]] — 360 photo feature jointly designed

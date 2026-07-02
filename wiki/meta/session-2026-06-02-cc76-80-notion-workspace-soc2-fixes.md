@@ -13,8 +13,8 @@ tags:
 status: stable
 related:
   - "[[meta/session-2026-05-27-cc38-45-cc69-75-fleet-perf-webhooks]]"
-  - "[[gunner/gunnerteam-performance-standards]]"
-  - "[[gunner/masterdb-architecture]]"
+  - "[[tyler/gunnerteam/gunnerteam-performance-standards]]"
+  - "[[tyler/masterdb/masterdb-architecture]]"
 ---
 
 # cc-prompts 76–80: Notion Workspace Build + SOC 2 Fixes

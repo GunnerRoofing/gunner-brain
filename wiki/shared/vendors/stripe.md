@@ -8,8 +8,8 @@ tags:
   - payments
 status: stub
 related:
-  - "[[gunner/software-suite]]"
-  - "[[gunner/masterdb-architecture]]"
+  - "[[gunnerteam/software-suite]]"
+  - "[[tyler/masterdb/masterdb-architecture]]"
 ---
 
 # Stripe
@@ -20,7 +20,7 @@ Stripe is the payments platform referenced in the Gunner software suite roadmap 
 
 ## Status
 
-- Referenced in [[gunner/software-suite]] as an external integration (not rebuilt internally)
+- Referenced in [[gunnerteam/software-suite]] as an external integration (not rebuilt internally)
 - Stripe API Reference PDF available in `raw-sources/articles/Stripe API Reference.pdf`
 
 ## Planned Use

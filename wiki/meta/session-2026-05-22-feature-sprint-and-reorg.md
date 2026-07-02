@@ -14,10 +14,10 @@ tags:
   - devops
 status: developing
 related:
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/aws-environment]]'
-  - '[[gunner/subportal-cc-prompt-02-frontend]]'
-  - '[[gunner/environment]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[gunnerteam/aws-environment]]'
+  - '[[tyler/gunnerteam/subportal-cc-prompt-02-frontend]]'
+  - '[[gunnerteam/environment]]'
 ---
 # Session: Feature Sprint + Folder Reorg (2026-05-22)
 

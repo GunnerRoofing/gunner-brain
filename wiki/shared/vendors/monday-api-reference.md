@@ -10,7 +10,7 @@ related:
   - "[[vendors/monday]]"
   - "[[vendors/dialpad-api-reference]]"
   - "[[vendors/hubspot-api-reference]]"
-  - "[[gunner/hubspot-leads-project]]"
+  - "[[gunnerteam/hubspot-leads-project]]"
 ---
 
 # Monday.com API Reference
@@ -339,4 +339,4 @@ On a Dialpad `hangup` webhook, match the caller to a board item by phone and eit
 - [[vendors/monday]] — Vendor overview, Gunner usage
 - [[vendors/dialpad-api-reference]] — Dialpad webhook payloads
 - [[vendors/hubspot-api-reference]] — HubSpot engagements + contact search
-- [[gunner/hubspot-leads-project]] — Lead object buildout project
+- [[gunnerteam/hubspot-leads-project]] — Lead object buildout project

@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [My Notebook @ Gunner Roofing.pdf]
-related: ["[[vendors/hubspot]]", "[[gunner/environment]]"]
+related: ["[[vendors/hubspot]]", "[[gunnerteam/environment]]"]
 ---
 
 # HubSpot Sales Pipeline — Stale Deal Management

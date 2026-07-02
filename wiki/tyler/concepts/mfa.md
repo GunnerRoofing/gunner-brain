@@ -39,7 +39,7 @@ Password policy for Admin OU: 12-character minimum, complexity required, 90-day 
 
 ## Coverage Gaps
 
-MFA only protects apps authenticated through Google SSO. Non-SSO apps ([[gunner/app-inventory]]) are not covered by Gunner's MFA enforcement — credential-based attacks against ADP, Wells Fargo, etc. are harder to detect and block.
+MFA only protects apps authenticated through Google SSO. Non-SSO apps ([[gunnerteam/app-inventory]]) are not covered by Gunner's MFA enforcement — credential-based attacks against ADP, Wells Fargo, etc. are harder to detect and block.
 
 ## CIS Controls
 

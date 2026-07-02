@@ -13,8 +13,8 @@ tags:
   - schema
 status: complete
 related:
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/aws-environment]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[gunnerteam/aws-environment]]'
   - '[[gunnerteam/system-security-plan]]'
   - '[[concepts/soc2]]'
 ---

@@ -13,7 +13,7 @@ updated: '2026-04-20'
 status: in-progress
 sources: []
 related:
-  - "[[gunner/gunner-assistant]]"
+  - "[[tyler/gunner-assistant/gunner-assistant]]"
   - "[[vendors/hubspot]]"
 ---
 
@@ -76,7 +76,7 @@ Only works if the account has an active GitHub Copilot subscription.
 | Team members ask HubSpot questions in chat | Claude.ai Team + HubSpot integration |
 | Scan GitHub org, find things across repos | Claude Code + GitHub MCP |
 | Answer questions about repo structure/code | Claude Code + GitHub MCP (or clone locally) |
-| Roofing knowledge base for field staff | See [[gunner/gunner-assistant]] |
+| Roofing knowledge base for field staff | See [[tyler/gunner-assistant/gunner-assistant]] |
 
 ### Org-Wide Repo Scanning
 

@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-14
 status: stable
 sources: [CMMC Presentation.txt, AG_Level1_V2.0_FinalDraft_20211210_508.pdf]
-related: ["[[concepts/cis-ig1]]", "[[gunnerteam/system-security-plan]]", "[[gunner/federal-market]]", "[[ciso-track/roadmap]]"]
+related: ["[[concepts/cis-ig1]]", "[[gunnerteam/system-security-plan]]", "[[gunnerteam/federal-market]]", "[[ciso-track/roadmap]]"]
 ---
 
 # CMMC Level 1 — Cybersecurity Maturity Model Certification
@@ -87,4 +87,4 @@ CMMC Level 1 maps to basic safeguarding requirements. Gunner's existing CIS IG1 
 - The AUP requirement (new employees must sign) is already in place
 - Primary remaining technical gap: **endpoint antivirus** ([[vendors/bitdefender|Bitdefender GravityZone]] ~$1.1k/yr)
 - Primary remaining process gap: **visitor logs / front desk sign-in**
-- See [[gunner/federal-market]] for the business case and other non-CMMC compliance requirements
+- See [[gunnerteam/federal-market]] for the business case and other non-CMMC compliance requirements

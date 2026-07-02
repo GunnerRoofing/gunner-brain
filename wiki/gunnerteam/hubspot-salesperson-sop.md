@@ -6,8 +6,8 @@ created: 2026-04-22
 updated: 2026-04-22
 sources: []
 related:
-  - "[[gunner/hubspot-leads-project]]"
-  - "[[gunner/hubspot-workflow-designs]]"
+  - "[[gunnerteam/hubspot-leads-project]]"
+  - "[[gunnerteam/hubspot-workflow-designs]]"
   - "[[vendors/hubspot]]"
 status: developing
 ---

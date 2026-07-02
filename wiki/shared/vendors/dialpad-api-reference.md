@@ -9,7 +9,7 @@ sources: [dialpadapi.json]
 related:
   - "[[vendors/dialpad]]"
   - "[[vendors/hubspot]]"
-  - "[[gunner/hubspot-leads-project]]"
+  - "[[gunnerteam/hubspot-leads-project]]"
 ---
 
 # Dialpad API Reference
@@ -388,4 +388,4 @@ On SMS webhook event:
 
 - [[vendors/dialpad]] — Vendor overview, Gunner usage, SSO status
 - [[vendors/hubspot]] — CRM platform
-- [[gunner/hubspot-leads-project]] — Lead object buildout; Dialpad integration is in scope
+- [[gunnerteam/hubspot-leads-project]] — Lead object buildout; Dialpad integration is in scope

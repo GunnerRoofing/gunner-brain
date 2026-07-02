@@ -12,8 +12,8 @@ created: '2026-05-15'
 updated: '2026-05-15'
 sources: []
 related:
-  - '[[gunner/gunner-forms-app]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[gunnerteam/gunner-forms-app]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
   - '[[vendors/monday]]'
   - '[[summaries/external-api-handoff]]'
 status: stable

@@ -13,7 +13,7 @@ status: active
 related:
   - '[[meta/omp-config-full-audit-2026-05-22]]'
   - '[[runbooks/iterm2-nerd-fonts-omp-setup]]'
-  - '[[gunner/gunnerteam-api-aws-migration]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
 ---
 
 # Session 2026-05-22: cc-26/27, Announcements Fixes, OMP Tuning, Repo Cleanup

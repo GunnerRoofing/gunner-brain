@@ -11,8 +11,8 @@ tags:
   - companycam
 status: stable
 related:
-  - '[[gunner/gunner-forms-app]]'
-  - '[[gunner/gunnerteam-project-structure]]'
+  - '[[gunnerteam/gunner-forms-app]]'
+  - '[[tyler/gunnerteam/gunnerteam-project-structure]]'
   - '[[meta/session-2026-05-22-cc-prompt-25-colin-v2-api]]'
 ---
 

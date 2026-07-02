@@ -7,7 +7,7 @@ updated: 2026-05-12
 status: stable
 related:
   - "[[gunnerteam/system-security-plan]]"
-  - "[[gunner/environment]]"
+  - "[[gunnerteam/environment]]"
   - "[[runbooks/incident-response]]"
   - "[[concepts/incident-response]]"
 ---
@@ -43,6 +43,6 @@ See [[concepts/incident-response]] for the full response authority structure.
 ## Related
 
 - [[gunnerteam/system-security-plan]] — SSP; Eric is System Owner
-- [[gunner/environment]] — Key Personnel table
+- [[gunnerteam/environment]] — Key Personnel table
 - [[runbooks/incident-response]] — IR escalation path
 - [[concepts/incident-response]] — IR authority structure

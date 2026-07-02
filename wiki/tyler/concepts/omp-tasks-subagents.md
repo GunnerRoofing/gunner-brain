@@ -10,7 +10,7 @@ tags:
   - subagents
 status: active
 related:
-  - '[[gunner/claude-session-onboarding]]'
+  - '[[gunnerteam/claude-session-onboarding]]'
   - '[[meta/omp-config-tuning-2026-05-22]]'
   - '[[concepts/Agentic Loops]]'
 sources: []

@@ -6,7 +6,7 @@ created: 2026-04-10
 updated: 2026-04-13
 status: stable
 sources: [OneNote migration, Tyler confirmed 2026-04-13]
-related: ["[[gunner/environment]]"]
+related: ["[[gunnerteam/environment]]"]
 ---
 
 # Gunner Brand Colors

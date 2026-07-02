@@ -14,11 +14,11 @@ sources:
   - Gunner IT Governance.xlsx
   - IT_Tasks_1775773048.xlsx
 related:
-  - '[[gunner/environment]]'
-  - '[[gunner/app-inventory]]'
+  - '[[gunnerteam/environment]]'
+  - '[[gunnerteam/app-inventory]]'
   - '[[runbooks/dialpad-out-of-office]]'
-  - '[[gunner/dialpad-hubspot-integration]]'
-  - '[[gunner/lead-assignment-automation]]'
+  - '[[gunnerteam/dialpad-hubspot-integration]]'
+  - '[[gunnerteam/lead-assignment-automation]]'
 ---
 
 # Dialpad
@@ -64,14 +64,14 @@ Individual user issues (Leslie, John Miller, Pam, Roger) resolved during the VoI
 
 ## HubSpot Integration
 
-The native Dialpad HubSpot integration is unreliable — calls and texts do not consistently log to contacts or associated deals. A custom webhook-based integration is being built to replace it. See [[gunner/dialpad-hubspot-integration]] for the full architecture and [[gunner/lead-assignment-automation]] for the round-robin lead assignment system. See [[gunner/hubspot-leads-project]] for project context and [[vendors/dialpad-api-reference]] for the full API spec.
+The native Dialpad HubSpot integration is unreliable — calls and texts do not consistently log to contacts or associated deals. A custom webhook-based integration is being built to replace it. See [[gunnerteam/dialpad-hubspot-integration]] for the full architecture and [[gunnerteam/lead-assignment-automation]] for the round-robin lead assignment system. See [[gunnerteam/hubspot-leads-project]] for project context and [[vendors/dialpad-api-reference]] for the full API spec.
 
 ## Related
 
 - [[vendors/dialpad-api-reference]] — Full API reference: webhooks, calls, SMS, contacts, auth
 - [[runbooks/dialpad-out-of-office]] — OOO, vacation status, DND, SMS auto-reply
-- [[gunner/dialpad-hubspot-integration]] — Custom webhook integration architecture (call/SMS logging)
-- [[gunner/lead-assignment-automation]] — Round-robin lead assignment automation using Dialpad availability
-- [[gunner/app-inventory]] — SSO/offboarding status
-- [[gunner/environment]] — environment overview
-- [[gunner/hubspot-leads-project]] — Lead object buildout; Dialpad integration in scope
+- [[gunnerteam/dialpad-hubspot-integration]] — Custom webhook integration architecture (call/SMS logging)
+- [[gunnerteam/lead-assignment-automation]] — Round-robin lead assignment automation using Dialpad availability
+- [[gunnerteam/app-inventory]] — SSO/offboarding status
+- [[gunnerteam/environment]] — environment overview
+- [[gunnerteam/hubspot-leads-project]] — Lead object buildout; Dialpad integration in scope

@@ -13,7 +13,7 @@ updated: 2026-04-13T00:00:00.000Z
 sources:
   - System Security Plan.docx
 related:
-  - '[[gunner/environment]]'
+  - '[[gunnerteam/environment]]'
   - '[[concepts/cis-ig1]]'
   - '[[vendors/hexnode]]'
   - '[[vendors/google-workspace]]'

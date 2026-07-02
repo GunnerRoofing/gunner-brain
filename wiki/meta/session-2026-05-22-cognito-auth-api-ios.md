@@ -15,10 +15,10 @@ tags:
   - session
 status: evergreen
 related:
-  - '[[gunner/gunnerteam-api-aws-migration]]'
-  - '[[gunner/masterdb-architecture]]'
-  - '[[gunner/secure-coding-guide]]'
-  - '[[gunner/aws-environment]]'
+  - '[[tyler/gunnerteam/gunnerteam-api-aws-migration]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
+  - '[[gunnerteam/secure-coding-guide]]'
+  - '[[gunnerteam/aws-environment]]'
 ---
 
 # GunnerTeam Cognito Auth Migration — API + iOS (cc-05 + cc-06)

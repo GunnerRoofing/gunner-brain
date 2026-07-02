@@ -54,4 +54,4 @@ Finalized OMP professional setup, cleaned up gunner-ios git branches, fixed ansi
 
 - [[meta/session-2026-05-19-omp-plugins-themes]] — plugin installation session (earlier same day)
 - [[meta/session-2026-05-19-omp-professional-setup]] — initial config session (earlier same day)
-- [[gunner/gunnerteam-api-aws-migration]] — database architecture reference
+- [[tyler/gunnerteam/gunnerteam-api-aws-migration]] — database architecture reference

@@ -8,7 +8,7 @@ sources: []
 related:
   - "[[vendors/hexnode]]"
   - "[[concepts/apple-business-manager]]"
-  - "[[gunner/gunner-forms-app]]"
+  - "[[gunnerteam/gunner-forms-app]]"
 status: stable
 ---
 
@@ -64,4 +64,4 @@ GunnerForms is distributed this way — approved but not public.
 
 - [[vendors/hexnode]] — Hexnode MDM setup and policies
 - [[concepts/apple-business-manager]] — ABM zero-touch provisioning overview
-- [[gunner/gunner-forms-app]] — GunnerForms app details and status
+- [[gunnerteam/gunner-forms-app]] — GunnerForms app details and status

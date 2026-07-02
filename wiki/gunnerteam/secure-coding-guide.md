@@ -14,9 +14,9 @@ tags:
   - cognito
 status: active
 related:
-  - '[[gunner/masterdb-architecture]]'
+  - '[[tyler/masterdb/masterdb-architecture]]'
   - '[[concepts/soc2]]'
-  - '[[gunner/aws-environment]]'
+  - '[[gunnerteam/aws-environment]]'
   - '[[gunnerteam/system-security-plan]]'
 ---
 # Secure Coding Guide — Gunner Suite
