@@ -12,7 +12,7 @@ status: active
 Leo owns **gunner-ops** (the named section app) and is the de-facto owner of the
 **quote portal (QP)** and the **Dialpad↔HubSpot** integrations, plus the
 ops-side of **masterdb**. Cross-team foundations (masterdb internals, Dialpad/HubSpot
-vendor pages) are canonical in [[gunnerteam/index]] and [[shared/entities/_index|shared]] —
+vendor pages) are canonical in [[gunnerteam/overview]] and [[shared/entities/_index|shared]] —
 the pages here are the Leo/ops-angle views that link out to them.
 
 ## Overview

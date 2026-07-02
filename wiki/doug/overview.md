@@ -1,8 +1,12 @@
 ---
 type: overview
 owner: doug
-created: 2026-06-10
+created: 2026-06-10T00:00:00.000Z
 status: active
+updated: '2026-07-02'
+tags:
+  - doug
+  - overview
 ---
 
 # Doug's Apps — Overview

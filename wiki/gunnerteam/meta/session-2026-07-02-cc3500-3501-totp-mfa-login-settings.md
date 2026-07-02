@@ -14,6 +14,7 @@ status: stable
 related:
   - '[[gunnerteam/overview]]'
   - '[[tyler/meta/session-2026-07-01-cc18-26-comms-admin-dialpad-backfill]]'
+  - '[[tyler/concepts/mfa]]'
 ---
 
 # Session cc-prompt-3500/3501 — TOTP MFA for GunnerTeam iOS: mandatory for admins, optional for everyone else
@@ -21,6 +22,11 @@ related:
 Repo: `GunnerForms/` (iOS-only, no backend/deploy changes — Cognito pool
 `us-east-2_hFVBSrcnn` stays `MFA OPTIONAL`; enforcement is entirely client-gated,
 with Cognito enforcing the challenge server-side once a user is enrolled).
+
+Scope note vs. [[tyler/concepts/mfa]]: that page covers org-level MFA enforced
+through Google Workspace (propagates to Google-SSO-connected apps). This session
+is a separate, app-level control — GunnerTeam iOS's own Cognito user pool, TOTP
+only, enrolled and enforced independently of Workspace/Google SSO.
 
 ## Problem
 

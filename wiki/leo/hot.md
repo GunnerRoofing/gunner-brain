@@ -40,7 +40,7 @@ status: active
 ## Integration Points
 
 - **masterdb** ([[leo/apps/masterdb-integration]]): ops runs as the `ops_app` RLS-subject role inside masterdb; B-lite auth delegates login to masterdb. Shared foundation also used by GunnerTeam iOS + ColinCam.
-- **GunnerTeam iOS** ([[gunnerteam/index]]): job data destined to flow into the iOS field app (via masterdb).
+- **GunnerTeam iOS** ([[gunnerteam/overview]]): job data destined to flow into the iOS field app (via masterdb).
 - **Stripe / ABC Supply / SRS**: gunner-ops billing + procurement.
 - **Dialpad + HubSpot** ([[leo/integrations/dialpad-hubspot]]): call/SMS logging + lead owner assignment (prod HubSpot portal 24467359).
 

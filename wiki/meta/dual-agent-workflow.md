@@ -8,7 +8,7 @@ sources: [Current Session]
 related:
   - "`CLAUDE.md`"
   - "[[Memory]]"
-  - "[[wiki/hot.md]]"
+  - "[[hot]]"
 status: stable
 ---
 

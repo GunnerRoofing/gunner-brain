@@ -1,13 +1,18 @@
 ---
-title: "cc-prompts-33–38: Dual Camera Orientation + Glassmorphism Polish"
+title: 'cc-prompts-33–38: Dual Camera Orientation + Glassmorphism Polish'
 type: session
-tags: [dual-camera, AVFoundation, iOS, glassmorphism, GunnerTeam]
-created: 2026-05-26
-updated: 2026-05-26
+tags:
+  - dual-camera
+  - avfoundation
+  - ios
+  - glassmorphism
+  - gunnerteam
+created: '2026-05-26T00:00:00.000Z'
+updated: '2026-05-26T00:00:00.000Z'
 sources: []
 related:
-  - "[[gunner/gunnerteam-project-structure]]"
-  - "[[session-2026-05-26-dual-camera-avassetwriter-crash-fix]]"
+  - '[[gunner/gunnerteam-project-structure]]'
+  - '[[session-2026-05-26-dual-camera-avassetwriter-crash-fix]]'
 status: complete
 ---
 

@@ -1,0 +1,152 @@
+{
+  "nodes": [
+    {
+      "id": "index",
+      "type": "file",
+      "file": "wiki/index.md",
+      "x": 0,
+      "y": -400,
+      "width": 320,
+      "height": 140,
+      "color": "1"
+    },
+    {
+      "id": "hot",
+      "type": "file",
+      "file": "wiki/hot.md",
+      "x": 380,
+      "y": -400,
+      "width": 300,
+      "height": 140,
+      "color": "1"
+    },
+    {
+      "id": "tyler",
+      "type": "file",
+      "file": "wiki/tyler/overview.md",
+      "x": -600,
+      "y": -100,
+      "width": 300,
+      "height": 140,
+      "color": "5"
+    },
+    {
+      "id": "gunnerteam",
+      "type": "file",
+      "file": "wiki/gunnerteam/overview.md",
+      "x": -250,
+      "y": -100,
+      "width": 300,
+      "height": 140,
+      "color": "5"
+    },
+    {
+      "id": "colin",
+      "type": "file",
+      "file": "wiki/colin/overview.md",
+      "x": 100,
+      "y": -100,
+      "width": 300,
+      "height": 140,
+      "color": "2"
+    },
+    {
+      "id": "leo",
+      "type": "file",
+      "file": "wiki/leo/overview.md",
+      "x": 450,
+      "y": -100,
+      "width": 300,
+      "height": 140,
+      "color": "4"
+    },
+    {
+      "id": "doug",
+      "type": "file",
+      "file": "wiki/doug/overview.md",
+      "x": 800,
+      "y": -100,
+      "width": 300,
+      "height": 140,
+      "color": "3"
+    },
+    {
+      "id": "shared",
+      "type": "file",
+      "file": "wiki/shared/gunner-platform-overview.md",
+      "x": 100,
+      "y": 200,
+      "width": 320,
+      "height": 140,
+      "color": "6"
+    },
+    {
+      "id": "api-contracts",
+      "type": "file",
+      "file": "wiki/shared/api-contracts/README.md",
+      "x": -300,
+      "y": 450,
+      "width": 260,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "decisions",
+      "type": "file",
+      "file": "wiki/shared/decisions/README.md",
+      "x": 0,
+      "y": 450,
+      "width": 260,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "architecture",
+      "type": "file",
+      "file": "wiki/shared/architecture/README.md",
+      "x": 300,
+      "y": 450,
+      "width": 260,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "entities",
+      "type": "file",
+      "file": "wiki/shared/entities/_index.md",
+      "x": 600,
+      "y": 450,
+      "width": 260,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "meta",
+      "type": "file",
+      "file": "wiki/meta/dashboard.md",
+      "x": 800,
+      "y": -400,
+      "width": 300,
+      "height": 140,
+      "color": "1"
+    }
+  ],
+  "edges": [
+    { "id": "e-index-hot", "fromNode": "index", "fromSide": "right", "toNode": "hot", "toSide": "left" },
+    { "id": "e-index-meta", "fromNode": "hot", "fromSide": "right", "toNode": "meta", "toSide": "left" },
+    { "id": "e-index-tyler", "fromNode": "index", "fromSide": "bottom", "toNode": "tyler", "toSide": "top" },
+    { "id": "e-index-gunnerteam", "fromNode": "index", "fromSide": "bottom", "toNode": "gunnerteam", "toSide": "top" },
+    { "id": "e-index-colin", "fromNode": "index", "fromSide": "bottom", "toNode": "colin", "toSide": "top" },
+    { "id": "e-index-leo", "fromNode": "index", "fromSide": "bottom", "toNode": "leo", "toSide": "top" },
+    { "id": "e-index-doug", "fromNode": "index", "fromSide": "bottom", "toNode": "doug", "toSide": "top" },
+    { "id": "e-tyler-gunnerteam", "fromNode": "tyler", "fromSide": "right", "toNode": "gunnerteam", "toSide": "left", "label": "same owner" },
+    { "id": "e-gunnerteam-shared", "fromNode": "gunnerteam", "fromSide": "bottom", "toNode": "shared", "toSide": "top", "label": "CompanyCam / masterdb" },
+    { "id": "e-colin-shared", "fromNode": "colin", "fromSide": "bottom", "toNode": "shared", "toSide": "top" },
+    { "id": "e-leo-shared", "fromNode": "leo", "fromSide": "bottom", "toNode": "shared", "toSide": "top", "label": "masterdb" },
+    { "id": "e-doug-shared", "fromNode": "doug", "fromSide": "bottom", "toNode": "shared", "toSide": "top" },
+    { "id": "e-shared-api", "fromNode": "shared", "fromSide": "bottom", "toNode": "api-contracts", "toSide": "top" },
+    { "id": "e-shared-decisions", "fromNode": "shared", "fromSide": "bottom", "toNode": "decisions", "toSide": "top" },
+    { "id": "e-shared-architecture", "fromNode": "shared", "fromSide": "bottom", "toNode": "architecture", "toSide": "top" },
+    { "id": "e-shared-entities", "fromNode": "shared", "fromSide": "bottom", "toNode": "entities", "toSide": "top" }
+  ]
+}

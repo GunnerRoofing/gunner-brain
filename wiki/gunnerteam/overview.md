@@ -4,7 +4,7 @@ owner: tyler
 app: GunnerTeam iOS
 created: 2026-06-10T00:00:00.000Z
 status: active
-updated: '2026-06-22'
+updated: '2026-07-02'
 title: GunnerTeam Overview
 tags:
   - gunnerteam
@@ -44,7 +44,7 @@ and the Lambda backend (`gunnerteam-api/`).
 
 ## Current State
 
-- Lambda **v294** live (alias `live` on `gunnerteam-dev-api`). See [[tyler/hot]] for the current version before deploying.
+- Lambda live on `gunnerteam-dev-api`, alias `live`. See [[tyler/hot]] for the current version before deploying.
 - iOS **`main`** branch active. Distributed via Apple Business Manager (Hexnode MDM).
 
 ## Integration with GunnerCam
@@ -55,7 +55,7 @@ and the Lambda backend (`gunnerteam-api/`).
 
 ## Related
 
-- [[overview]]
+- [[index]]
 - [[aws-environment]]
 - [[masterdb-architecture]]
 - [[gunnerteam-project-structure]]

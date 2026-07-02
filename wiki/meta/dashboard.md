@@ -1,7 +1,8 @@
 ---
 type: meta
 title: Dashboard
-updated: '2026-06-24'
+created: '2026-06-10'
+updated: '2026-07-02'
 tags:
   - meta
 status: active
@@ -9,7 +10,7 @@ status: active
 
 # Wiki Dashboard
 
-**Last lint:** [[meta/lint-report-2026-06-24]] (2026-06-24) — 32 issues
+**Last lint:** [[meta/lint-report-2026-07-02]] (2026-07-02) — 46 issues (6 auto-fixable, 37 in one repeat cluster pending review)
 
 ## Recent Activity
 ```dataview
@@ -32,6 +33,7 @@ LIST FROM "wiki/tyler/questions" WHERE answer_quality = "draft" SORT created DES
 ```
 
 ## Lint History
+- [[meta/lint-report-2026-07-02]] — 2026-07-02: 46 issues (2 stale claims, 1 orphan, 1 broken self-link, 37 ambiguous-basename links in one cluster, 5 content frontmatter gaps)
 - [[meta/lint-report-2026-06-24]] — 2026-06-24: 32 issues (1 dead link, 4 stale claims, 4 orphans, 15 frontmatter gaps, fragile prefix links)
 - [[meta/lint-report-2026-06-19]] — 2026-06-19
 - [[meta/lint/lint-report-2026-06-13]] — 2026-06-13: 31 issues

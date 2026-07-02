@@ -1,7 +1,12 @@
 ---
 type: readme
-updated: 2026-06-10
+updated: 2026-06-10T00:00:00.000Z
 owner: vault
+status: stable
+created: '2026-06-10'
+tags:
+  - shared
+  - decisions
 ---
 
 # Decisions (ADRs)
