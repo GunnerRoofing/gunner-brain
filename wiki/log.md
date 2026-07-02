@@ -1,3 +1,8 @@
+## [2026-07-02] save | Session — cc-3307 Phase A prod qp-rehearsal purge + eyeball staged; cutover paused on Leo's prod export
+- Type: session
+- Location: wiki/tyler/meta/session-2026-07-02-cc3307-phaseA-qp-purge-eyeball-staged.md
+- From: cc-3307 close-out run. Phase A clean: pre-count 192 (exact gate), 191 deleted, 1 retained (`qpmsg-110603`, contact `692cf941-…`), throwaway runner + scratch deleted immediately. Eyeball data-half done: Comment + Work note posted through the real `crm-write-api` authorizer shape (201 each), all 3 activities verified rendering via `get-crm-timeline-api-v1`; Leo owes the Sell pixel check (the 2 manual test notes survive Phase B — delete by id after his sign-off). Sequence BLOCKED at the prod export: `export_qp_notes_prod.sql` is Leo-machine-only and prod QP DB is unreachable from the dev acct. Phase B / dry-run (resolve-rate gate ≫12.5%) / real load / go all queued behind it. Side fix: crm-transform local main was 2 deployed-but-unpushed commits ahead (`bcc5ec2`, `49bf8b0`) — pushed. Correspondence + reconstructed reference SELECT handed to Leo.
+
 ## [2026-07-01] save | Session — cc-3305 crm-write-api author fix + cc-3306 QP notes backfill loader
 - Type: session
 - Location: wiki/tyler/meta/session-2026-07-01-cc3305-3306-crm-author-fix-qp-notes-backfill.md

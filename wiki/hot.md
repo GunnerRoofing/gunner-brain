@@ -1,6 +1,6 @@
 ---
 type: hot-cache
-updated: 2026-07-01
+updated: 2026-07-02
 owner: vault
 ---
 
@@ -19,6 +19,7 @@ session. For app-specific detail, see your own section's `hot.md`
 
 > Tyler only writes to this block. Leo: do not edit.
 
+- **🧨 CRM cutover — YOUR TWO MOVES, Leo (cc-3307, 2026-07-02):** Phase A purge DONE (192→1 retained: `qpmsg-110603`, still on contact `692cf941-…`/`+1860881…`). Your eyeball is staged: Comment + Work note already posted on that contact through the real write path and verified rendering via `get-crm-timeline-api-v1` — do the **Sell pixel check on qp-stage** and ping Tyler. Then the **prod export**: `export_qp_notes_prod.sql` is on YOUR machine only — run `psql -tA -f … > qp-notes-prod.jsonl` → `s3://dev-gg/crm-backfill/qp-notes-prod.jsonl` (or hand Tyler the file; please also commit the .sql somewhere durable). Everything after (Phase B purge-to-0 → dry-run ≫12.5% gate → real load → go) is staged on Tyler's side and runs same-day once the export lands. Full detail: `correspondence/for-leo-cc3307-phaseA-done-need-prod-export-2026-07-02.md` (Gunner Team App project) + [[tyler/meta/session-2026-07-02-cc3307-phaseA-qp-purge-eyeball-staged]]
 - **📝 CRM cutover prep (cc-3305/3306, 2026-07-01):** manual-note **author attribution fixed** in `crm-write-api` (`sso-authorizer-v1` puts a JSON-encoded string under `authorizer.user` — parse that; the `cognitoSub` key is a hardcoded constant, never identity). **QP rep-notes backfill loader live** (`crm-transform` mode `backfill_qp_notes`, idempotent `qpmsg-` dedup): stage export loaded + verified (192 notes, attached ones render in Leo's Sell timeline via `contact_id`). **Leo:** remaining sequence = prod `gg.message` export → dry-run → load → verify → you flip `NEXT_PUBLIC_CRM_WRITE`. [[tyler/meta/session-2026-07-01-cc3305-3306-crm-author-fix-qp-notes-backfill]]
 - **🚀 masterdb migrate-prod pipeline LIVE (cc-2925–3304, 2026-07-01):** New `crm-write-api` Lambda verified 201 end-to-end (note writes). Prod SST stack fixed (stale bundle + a version bump the reconcile doc had only *claimed* was committed). `masterdb_migrate` role provisioned; `w1_crm_activities_is_internal` applied via the real CI pipeline. **Cross-team-relevant:** this AWS account's GitHub OIDC roles only reliably authorize on `sub`-based trust conditions — `job_workflow_ref` matched the token claim exactly and was still denied. Default to `sub:repo:<org>/<repo>:ref:<ref>` for any new OIDC role in `980921733684`. [[tyler/meta/session-2026-07-01-cc2925-3304-masterdb-crm-write-api-migrate-pipeline]]
 - **Lambda:** v426 live (`gunnerteam-dev-api`, alias `live`, us-east-2)
