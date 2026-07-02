@@ -1,3 +1,8 @@
+## [2026-07-02] save | Session — cc-3107: weather danger-alert smoke test (repeatable, prod-safe)
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-07-02-cc3107-weather-smoke-test.md
+- From: built + shipped `gunnerteam-api/scripts/smoke-weather.mjs` (committed `bf2373f`), a repeatable prod-safe self-cleaning smoke test for the cc-3101/3103 danger-only weather pipeline, run against live dev via the `_sql` seam + `weather-sweep` task dispatch. Final live run 10/10. Adopted Tyler's hand-authored `.mjs` (replaced my `.js` mid-session) and fixed two real bugs: (1) FORCE-RLS blindness — plain `gt_weather_alerts` reads through the `_sql` seam silently return zero rows and inserts are policy-denied (no `app.current_org_id` on the pooled conn); fix = MATERIALIZED-CTE `set_config` for reads + INSERT…RETURNING (single-statement, because multi-statement `SET; SELECT`/`SET; INSERT RETURNING` loses the last statement's rows via node-pg simple-query array), SET-prefix only for row-less UPDATEs. (2) dedup assertion filtered `ended_at IS NULL` but the unique index `(org_id,job_id,condition,source_alert_id)` excludes `ended_at` → flaked against the 15-min production cron close-out; retargeted to the true invariant "exactly one row ever." Also fixed Cognito flow (client has `USER_PASSWORD_AUTH`, not `ADMIN_USER_PASSWORD_AUTH`; `initiate-auth` client-id only). Verified live: `--qualifier live` works for `_sql`/task dispatch; weatherSweep daylight-ET gate 06–20; only committed the script, left Tyler's unstaged `project.pbxproj` untouched.
+
 ## [2026-07-02] save | Session — cc-3506: DocuSign change order confirmation guard + TestFlight 3.3.4
 - Type: session
 - Location: wiki/gunnerteam/meta/session-2026-07-02-cc3506-docusign-co-confirm-guard.md
