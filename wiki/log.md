@@ -6,6 +6,11 @@
 - 🚫 cc-53 (customer names Dialpad→HubSpot) = feasibility-only, NO commit in any repo: raw name already in `dp_events.payload` (`payload->contact->>name`, 5055/5055) but `contact_name` absent on `dp_calls`/`dp_sms_messages` (`information_schema` rowCount 0) → blocked on Colin's shared-prod DDL (`dp_*` tables are unmanaged — no Alembic/no gunnerteam-api migration). Ingest+backfill + comms-admin `feed.py` passthrough specced & ready.
 - Deploy state (verified at save): comms-admin cc-40→56 committed+PUSHED (`origin…HEAD = 0/0`); LIVE(dev) = cc-54-era bundle (last `sst deploy` was cc-54) → cc-55/56 committed but NOT live (both deployed nothing). masterdb PR #27 MERGED. iOS committed to main.
 
+## [2026-07-02] save | Session — crm-transform / QP-CRM cutover umbrella (cc-3308 + cc-3309 + cc-3307B)
+- Type: session (cross-ticket synthesis; per-ticket detail in the 3 linked notes)
+- Location: wiki/tyler/meta/session-2026-07-02-crm-transform-qp-cutover-cc3308-3309-3307B.md
+- From: one continuous crm-transform session making the QP "Sell" CRM write+backfill path prod-ready. cc-3308 CORS (shipped, unblocks the UI read of write responses); cc-3309 loader test-project skip (code shipped, dry-run STOP); cc-3307 Phase B purge (done, qpmsg-110603 kept). Throughline: **prod notes-backfill is gated on Leo** — the `qp-notes-prod.jsonl` export is effectively all test/system noise (0 legit customer notes after the skip), and the clean prod export + two product decisions (exclude system GAF-notifications, park placeholder-phone rows) are still owed. Reusable: throwaway in-VPC Lambda for prod masterdb ops (5× this session, all deleted); "dev" proxy is PROD (cc-2111); `crm_app` owner-DELETE; deploy-script env-sync bug class; MFA-expiry-mid-task hazard.
+
 ## [2026-07-02] save | Session — cc-3307 Phase B: purge 4 test/eyeball manual notes; keep qpmsg-110603
 - Type: session (destructive, throwaway-runner only — no repo commit)
 - Location: wiki/tyler/meta/session-2026-07-02-cc3307-phaseB-purge-manual-notes.md
