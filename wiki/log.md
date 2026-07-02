@@ -1,3 +1,8 @@
+## [2026-07-02] save | Session — cc-3506: DocuSign change order confirmation guard + TestFlight 3.3.4
+- Type: session
+- Location: wiki/gunnerteam/meta/session-2026-07-02-cc3506-docusign-co-confirm-guard.md
+- From: incident-driven iOS change — $1 "Test" CO DocuSigned to a real homeowner; added `.confirmationDialog` to `PDFChangeOrderView` submit button showing real `signerEmail` + `changeOrderAmt` before firing; BUILD SUCCEEDED; committed 7c9e020; bumped 3.3.3→3.3.4 (build 17) and uploaded to TestFlight.
+
 ## [2026-07-02] lint | Scripted pass — retired 298 stale gunner/ prefix wikilinks (111 files, 31 targets)
 - Type: lint follow-up (planned in [[meta/lint-report-2026-07-02]], executed same day)
 - Plan + script: [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]]
