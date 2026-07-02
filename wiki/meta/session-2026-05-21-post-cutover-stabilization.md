@@ -15,7 +15,7 @@ status: complete
 related:
   - '[[gunner/gunnerteam-api-aws-migration]]'
   - '[[gunner/aws-environment]]'
-  - '[[gunner/system-security-plan]]'
+  - '[[gunnerteam/system-security-plan]]'
   - '[[concepts/soc2]]'
 ---
 # Post-Cutover Stabilization — GunnerTeam API v51-v58

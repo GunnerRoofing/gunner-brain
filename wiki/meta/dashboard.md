@@ -10,7 +10,7 @@ status: active
 
 # Wiki Dashboard
 
-**Last lint:** [[meta/lint-report-2026-07-02]] (2026-07-02) — 46 issues (6 auto-fixable, 37 in one repeat cluster pending review)
+**Last lint:** [[meta/lint-report-2026-07-02]] (2026-07-02) — 46 issues, 43 resolved same day (37-link ambiguous cluster fixed; 6 other auto-fixes applied). Remaining: [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]] — 298 stale-but-functional `gunner/` prefix links across 113 files, planned but not yet executed.
 
 ## Recent Activity
 ```dataview

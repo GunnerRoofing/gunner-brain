@@ -14,11 +14,12 @@ status: developing
 ## Summary
 - Pages scanned: 354 (up from 314 on 2026-06-26 — 40 new pages, mostly session notes)
 - Issues found: 46
-- Auto-fixable (safe): 6
-- Needs review: 40 (37 are one repeat cluster — see "Stale `gunner/` Prefix Links" below)
+- Auto-fixed: 43 (6 originally-safe fixes + the 37-link ambiguous cluster, approved and applied same day)
+- Needs review: 3 (the `[[gunner/...]]` ellipsis placeholders — not real links, no action)
+- Planned follow-up: 298 stale-but-functional `gunner/` prefix links across 113 files — see [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]] (not executed this pass, dedicated scripted pass planned)
 - Noise / historical: 115 dead-link occurrences in old lint reports and session notes documenting past issues (not live problems, not counted above)
 
-**Since 2026-06-26:** orphans stayed at ~0 (1 new orphan — the 06-26 report itself, never indexed). No regressions in the 4 previously-fixed piped-backslash entity links (`entities/Tyler Suffern` etc. — confirmed still resolving). Two stale Lambda-version claims found (see below) — first stale-claim finding since lint tracking began.
+**Since 2026-06-26:** orphans stayed at ~0 (1 new orphan — the 06-26 report itself, never indexed, fixed this pass). No regressions in the 4 previously-fixed piped-backslash entity links (`entities/Tyler Suffern` etc. — confirmed still resolving). Two stale Lambda-version claims found and fixed (see below) — first stale-claim finding since lint tracking began.
 
 ---
 
@@ -34,18 +35,17 @@ status: developing
 - **`wiki/leo/index.md`**: `[[gunnerteam/index]]` — no `gunnerteam/index.md` exists (the section uses `overview.md`, not `index.md`). Should be `[[gunnerteam/overview]]`.
 - **`wiki/leo/hot.md`**: `[[gunnerteam/index]]` — same fix, `[[gunnerteam/overview]]`.
 
-## Dead Links — Ambiguous Basename Collision (37 occurrences / 22 files)
+## ✅ Dead Links — Ambiguous Basename Collision (37 occurrences / 22 files) — FIXED
 
-`[[gunner/system-security-plan]]` doesn't resolve to a path (no `gunner/` folder exists), and falls back to matching by bare filename `system-security-plan.md` — which is **ambiguous**: both `wiki/gunnerteam/system-security-plan.md` (the canonical SSP, linked from `wiki/index.md`) and `wiki/tyler/summaries/system-security-plan.md` (a *summary of* the SSP) share that filename. Obsidian's resolver may silently pick either one depending on internal tie-breaking — this is a landmine, not a working link.
+`[[gunner/system-security-plan]]` didn't resolve to a path (no `gunner/` folder exists), and fell back to matching by bare filename `system-security-plan.md` — which was **ambiguous**: both `wiki/gunnerteam/system-security-plan.md` (the canonical SSP, linked from `wiki/index.md`) and `wiki/tyler/summaries/system-security-plan.md` (a *summary of* the SSP) share that filename. Obsidian's resolver could silently pick either one depending on internal tie-breaking — a landmine, not a working link.
 
-Affected files (all instances should point to `[[gunnerteam/system-security-plan]]`, the canonical page):
-`gunnerteam/environment.md` (×2), `gunnerteam/federal-market.md`, `gunnerteam/it-decision-log.md`, `gunnerteam/secure-coding-guide.md`, `shared/entities/Andrew Prchal.md` (×2), `shared/entities/Eddie Prchal.md` (×2), `shared/entities/Eric Recchia.md` (×3), `shared/entities/Tyler Suffern.md`, `tyler/concepts/cis-ig1.md` (×2), `tyler/concepts/cmmc.md` (×2), `tyler/concepts/incident-response.md` (×3), `tyler/concepts/nist-csf.md`, `tyler/concepts/poam.md` (×2), `tyler/concepts/soc2.md`, `tyler/runbooks/acceptable-use-policy.md`, `tyler/runbooks/incident-response.md` (×2), `tyler/runbooks/it-comms-style-guide.md` (×2), `tyler/summaries/cmmc-level1-assessment-guide.md`, `tyler/summaries/system-security-plan.md` (×2), `tyler/threats/t1486-data-encrypted-for-impact.md` (×3).
+**Fixed same day**, approved and applied: all 37 wikilink occurrences across 22 files repointed to `[[gunnerteam/system-security-plan]]`, the canonical page. One adjacent plain-text historical mention (`wiki/gunner/system-security-plan.md`, in `session-2026-05-15-compliance-apns.md`, documenting a past bug) was deliberately left untouched — not a wikilink, doesn't navigate. Post-fix verification: all 37 links now resolve to a single unambiguous target; zero remaining `[[gunner/system-security-plan...]]` wikilinks vault-wide.
 
-**Needs review, not auto-fixed**: 22 files is a wide blast radius for one mechanical substitution pass — flagging for your go-ahead before a bulk find/replace.
+Files fixed: `gunnerteam/environment.md` (×2), `gunnerteam/federal-market.md`, `gunnerteam/it-decision-log.md`, `gunnerteam/secure-coding-guide.md`, `shared/entities/Andrew Prchal.md` (×2), `shared/entities/Eddie Prchal.md` (×2), `shared/entities/Eric Recchia.md` (×3), `shared/entities/Tyler Suffern.md`, `tyler/concepts/cis-ig1.md` (×2), `tyler/concepts/cmmc.md` (×2), `tyler/concepts/incident-response.md` (×3), `tyler/concepts/nist-csf.md`, `tyler/concepts/poam.md` (×2), `tyler/concepts/soc2.md`, `tyler/runbooks/acceptable-use-policy.md`, `tyler/runbooks/incident-response.md` (×2), `tyler/runbooks/it-comms-style-guide.md` (×2), `tyler/summaries/cmmc-level1-assessment-guide.md`, `tyler/summaries/system-security-plan.md` (×2), `tyler/threats/t1486-data-encrypted-for-impact.md` (×3), `meta/session-2026-05-15-compliance-apns.md`, `meta/session-2026-05-21-post-cutover-stabilization.md`.
 
-## Stale `gunner/` Prefix Links — Functional but Non-Canonical (333 occurrences / 118 files)
+## Stale `gunner/` Prefix Links — Functional but Non-Canonical (298 occurrences / 113 files) — PLANNED, NOT EXECUTED
 
-Separately from the ambiguous cluster above: ~333 other wikilinks still use the retired `gunner/` path prefix (e.g. `[[gunner/environment]]`, `[[gunner/aws-environment]]`, `[[gunner/hubspot-leads-project]]`). These all happen to **resolve correctly today** via Obsidian's bare-filename fallback, because every other target filename in this set is unique vault-wide. They are not broken, but they're technical debt from the `gunner/` → `gunnerteam/` restructure (same restructure that already left the `gunner/system-security-plan` ambiguity above) — a future rename or a new file sharing one of these basenames would silently break them with no warning. **Not fixing this pass** (blast radius too large for a lint cycle — 118 files); flagging so it's tracked, and recommending it as a dedicated follow-up (e.g. a scripted `gunner/` → `gunnerteam/`-or-correct-prefix pass with per-file verification) rather than an ad hoc lint fix.
+Separately from the (now-fixed) ambiguous cluster above: ~298 other wikilinks still use the retired `gunner/` path prefix (e.g. `[[gunner/environment]]`, `[[gunner/aws-environment]]`, `[[gunner/hubspot-leads-project]]`). These all happen to **resolve correctly today** via Obsidian's bare-filename fallback, because every other target filename in this set is unique vault-wide. They are not broken, but they're technical debt from the `gunner/` → `gunnerteam/` restructure (same restructure that already caused the `gunner/system-security-plan` ambiguity above) — a future rename or a new file sharing one of these basenames would silently break them with no warning. **Not fixed this pass** (blast radius too large for a lint cycle — 113 files, spans nearly every section of the vault); full mapping table, per-file breakdown, and a runnable dry-run/apply script are written up at [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]] for a dedicated follow-up session. 3 additional `[[gunner/...]]` occurrences (2 files) are literal `...` ellipsis placeholders in session notes documenting past lint work, not real link targets — excluded from the plan by design.
 
 ## Dead Links — Historical Noise (not actionable, 115 occurrences)
 
@@ -133,5 +133,13 @@ No new candidates this pass. The three carried-over candidates from 2026-06-25/0
 
 - ✅ **4 piped-backslash entity links** (`Tyler Suffern`, `Eric Recchia`, `Eddie Prchal`, `Andrew Prchal` in `ssp-addendum-1-product-environment.md`) — confirmed fixed and stable, resolve correctly via `entities/<Name>` full path.
 - ✅ **12 orphan session notes** (2026-06-25 finding) — still all indexed, no regression.
-- ⚠️ **`[[CLAUDE.md]]`/`[[Memory.md]]` in `dual-agent-workflow.md`** — `CLAUDE.md` and `Memory.md` were fixed to `` `CLAUDE.md` `` and `[[Memory]]`, but the adjacent `[[wiki/hot.md]]` in the same `related` list was missed — see Dead Links — Actionable above.
-- 🆕 New this pass: 2 stale Lambda-version claims, 1 broken self-link, 2 broken `gunnerteam/index` links, 1 stale index pointer, 1 cross-reference gap, 3 tag-case violations, 5 content-page frontmatter gaps.
+- ✅ **`[[CLAUDE.md]]`/`[[Memory.md]]` in `dual-agent-workflow.md`** — fully resolved this pass. `CLAUDE.md`/`Memory.md` were already fixed to `` `CLAUDE.md` ``/`[[Memory]]`; the remaining `[[wiki/hot.md]]` in the same `related` list is now `[[hot]]`.
+- ✅ All 3 "Dead Links — Actionable" fixed (dual-agent-workflow, leo/index, leo/hot).
+- ✅ All 37 "Ambiguous Basename Collision" links fixed (see above).
+- ✅ Both stale Lambda-version claims fixed (`hot.md` v426→v431; `gunnerteam/overview.md` hardcoded version removed).
+- ✅ Broken `[[overview]]` self-link fixed → `[[index]]`.
+- ✅ 5 content-page frontmatter gaps filled.
+- ✅ 3 tag-case violations fixed.
+- ✅ Cross-reference gap fixed (TOTP session note ↔ `[[tyler/concepts/mfa]]`).
+- ✅ Stale index pointer fixed; 06-26 report un-orphaned.
+- 📋 **Planned, not executed**: 298-link stale `gunner/` prefix cluster across 113 files — see [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]].

@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: developing
 sources: []
-related: ["[[gunner/system-security-plan]]", "[[vendors/hexnode]]", "[[concepts/incident-response]]", "[[runbooks/incident-response]]", "[[threats/t1566-phishing]]", "[[threats/t1078-valid-accounts]]"]
+related: ["[[gunnerteam/system-security-plan]]", "[[vendors/hexnode]]", "[[concepts/incident-response]]", "[[runbooks/incident-response]]", "[[threats/t1566-phishing]]", "[[threats/t1078-valid-accounts]]"]
 ---
 
 # T1486 — Data Encrypted for Impact
@@ -54,7 +54,7 @@ Adversaries encrypt data on target systems to deny access and extort payment. Ra
 
 ## Gunner-Specific Note
 
-Ransomware is the highest-consequence threat for a company of Gunner's size. A successful attack against the flat network with no tested backup plan could be operationally catastrophic. Backup scope, off-site storage, and tested recovery are the most critical open [[concepts/poam|POAM]] items in [[gunner/system-security-plan]].
+Ransomware is the highest-consequence threat for a company of Gunner's size. A successful attack against the flat network with no tested backup plan could be operationally catastrophic. Backup scope, off-site storage, and tested recovery are the most critical open [[concepts/poam|POAM]] items in [[gunnerteam/system-security-plan]].
 
 ## Response
 
@@ -62,7 +62,7 @@ Follow [[runbooks/incident-response]] — Procedure 3 (Suspected Ransomware / Ma
 
 ## Related
 
-- [[gunner/system-security-plan]] — POAM items: backup, network segmentation, BCP
+- [[gunnerteam/system-security-plan]] — POAM items: backup, network segmentation, BCP
 - [[runbooks/incident-response]] — Procedure 3: ransomware response
 - [[concepts/incident-response]] — IR authority and defined procedures
 - [[threats/t1566-phishing]] — common initial access vector

@@ -10,7 +10,7 @@ related:
   - "[[gunner/gunnerteam-api-aws-migration]]"
   - "[[gunner/tls-cutover-2026-05-14]]"
   - "[[vendors/companycam]]"
-  - "[[gunner/system-security-plan]]"
+  - "[[gunnerteam/system-security-plan]]"
   - "[[meta/session-2026-05-15-photo-comments]]"
 ---
 

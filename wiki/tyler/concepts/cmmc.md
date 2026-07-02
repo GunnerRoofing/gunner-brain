@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-14
 status: stable
 sources: [CMMC Presentation.txt, AG_Level1_V2.0_FinalDraft_20211210_508.pdf]
-related: ["[[concepts/cis-ig1]]", "[[gunner/system-security-plan]]", "[[gunner/federal-market]]", "[[ciso-track/roadmap]]"]
+related: ["[[concepts/cis-ig1]]", "[[gunnerteam/system-security-plan]]", "[[gunner/federal-market]]", "[[ciso-track/roadmap]]"]
 ---
 
 # CMMC Level 1 — Cybersecurity Maturity Model Certification
@@ -31,7 +31,7 @@ As of the CMMC feasibility presentation: **~70% ready.** Being "Cloud Native" ([
 | Automate OS/app updates | Done | Hexnode MDM enforces update policy |
 | Email identity (DKIM/SPF) | Done | Configured on gunnerroofing.com |
 | Device wiping/sanitization | Done | Hexnode remote wipe capability |
-| System Security Plan (SSP) | Done (v1.1) | [[gunner/system-security-plan]] |
+| System Security Plan (SSP) | Done (v1.1) | [[gunnerteam/system-security-plan]] |
 | Acceptable Use Policy (AUP) | Done (v1.1) | [[runbooks/acceptable-use-policy]] |
 
 ### Remaining Gaps

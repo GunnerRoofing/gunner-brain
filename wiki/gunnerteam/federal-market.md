@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [CMMC Presentation.txt]
-related: ["[[concepts/cmmc]]", "[[gunner/system-security-plan]]", "[[runbooks/acceptable-use-policy]]"]
+related: ["[[concepts/cmmc]]", "[[gunnerteam/system-security-plan]]", "[[runbooks/acceptable-use-policy]]"]
 ---
 
 # Federal Market Expansion Strategy

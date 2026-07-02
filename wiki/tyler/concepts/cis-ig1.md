@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-14
 status: stable
 sources: [Gunner IT Governance.xlsx, IT Standards v2 Final.pptx, System Security Plan.docx, IT Decision & Change Log.docx, CIS_Controls_Guide_v8.1.2_0325_v2.pdf, CIS_Controls_Version_8.1.2___March_2025.xlsx]
-related: ["[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[gunner/system-security-plan]]", "[[ciso-track/roadmap]]", "[[concepts/nist-csf]]"]
+related: ["[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[gunnerteam/system-security-plan]]", "[[ciso-track/roadmap]]", "[[concepts/nist-csf]]"]
 ---
 
 # CIS Controls v8.1.2 — Implementation Group 1 (IG1)
@@ -74,7 +74,7 @@ When selecting the framework, three options were presented to leadership:
 
 - Current: network segmentation (CIS 12.5) is planned but not yet implemented — flat network is an open risk
 - Security awareness program (CIS 14.1) partially satisfied by KnowBe4 but formal program ownership not yet documented
-- Backup testing (CIS 11) is planned, not yet executed — see [[gunner/system-security-plan]] POAM
+- Backup testing (CIS 11) is planned, not yet executed — see [[gunnerteam/system-security-plan]] POAM
 
 ## NIST CSF 2.0 Alignment
 

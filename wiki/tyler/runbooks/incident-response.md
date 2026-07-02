@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [System Security Plan.docx]
-related: ["[[concepts/incident-response]]", "[[gunner/system-security-plan]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[runbooks/it-comms-style-guide]]"]
+related: ["[[concepts/incident-response]]", "[[gunnerteam/system-security-plan]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[vendors/keeper]]", "[[runbooks/it-comms-style-guide]]"]
 ---
 
 # Incident Response Runbook
@@ -17,7 +17,7 @@ related: ["[[concepts/incident-response]]", "[[gunner/system-security-plan]]", "
 **Backup Responder:** [[entities/Eric Recchia|Eric Recchia]] (VP of Strategy)  
 **Last Verified:** 2026-04-13  
 
-> A full written IR plan is a POAM item in [[gunner/system-security-plan]]. This runbook covers the defined scenarios. Expand as incidents occur and patterns emerge.
+> A full written IR plan is a POAM item in [[gunnerteam/system-security-plan]]. This runbook covers the defined scenarios. Expand as incidents occur and patterns emerge.
 
 ---
 

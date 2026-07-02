@@ -6,7 +6,7 @@ created: 2026-04-14
 updated: 2026-04-14
 status: stable
 sources: [NIST.CSWP.29.pdf]
-related: ["[[concepts/cis-ig1]]", "[[concepts/cmmc]]", "[[gunner/system-security-plan]]", "[[ciso-track/roadmap]]", "[[summaries/nist-csf-2]]"]
+related: ["[[concepts/cis-ig1]]", "[[concepts/cmmc]]", "[[gunnerteam/system-security-plan]]", "[[ciso-track/roadmap]]", "[[summaries/nist-csf-2]]"]
 ---
 
 # NIST Cybersecurity Framework 2.0

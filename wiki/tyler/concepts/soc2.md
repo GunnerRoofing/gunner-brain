@@ -7,7 +7,7 @@ updated: 2026-05-15
 status: developing
 sources: []
 related:
-  - "[[gunner/system-security-plan]]"
+  - "[[gunnerteam/system-security-plan]]"
   - "[[gunner/aws-environment]]"
   - "[[ciso-track/roadmap]]"
 ---

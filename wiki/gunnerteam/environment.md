@@ -21,7 +21,7 @@ related:
   - '[[vendors/keeper]]'
   - '[[vendors/knowbe4]]'
   - '[[gunner/app-inventory]]'
-  - '[[gunner/system-security-plan]]'
+  - '[[gunnerteam/system-security-plan]]'
   - '[[gunner/brand-colors]]'
   - '[[gunner/completed-projects]]'
   - '[[vendors/jamf]]'
@@ -159,7 +159,7 @@ AWS credentials and Aurora DB connection strings are stored in Keeper (or should
 ## Security Posture
 
 - **Framework:** CIS IG1 (approved SEC-001, 2026-03-18) — see [[concepts/cis-ig1]]
-- **Security plan:** [[gunner/system-security-plan]]
+- **Security plan:** [[gunnerteam/system-security-plan]]
 - **Policies:** [[runbooks/acceptable-use-policy]], IT Communications Style Guide
 - **Incident response:** Hexnode remote wipe for lost/stolen devices; Google Workspace disable + Keeper rotation for account compromise
 - **Email security:** DMARC p=reject (2026-02-03), MTA-STS enforce, BIMI active — see [[vendors/google-workspace]]

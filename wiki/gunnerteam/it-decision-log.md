@@ -6,7 +6,7 @@ created: 2026-04-21
 updated: 2026-04-21
 sources: [IT Decision & Change Log.docx]
 related:
-  - "[[gunner/system-security-plan]]"
+  - "[[gunnerteam/system-security-plan]]"
   - "[[gunner/environment]]"
   - "[[vendors/hexnode]]"
   - "[[concepts/cis-ig1]]"

@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [Acceptable Use Policy.docx, AUP Acknowledgment Form.docx]
-related: ["[[gunner/environment]]", "[[vendors/hexnode]]", "[[vendors/keeper]]", "[[gunner/app-inventory]]", "[[gunner/system-security-plan]]"]
+related: ["[[gunner/environment]]", "[[vendors/hexnode]]", "[[vendors/keeper]]", "[[gunner/app-inventory]]", "[[gunnerteam/system-security-plan]]"]
 ---
 
 # Acceptable Use Policy (AUP)

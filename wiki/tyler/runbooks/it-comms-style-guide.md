@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [IT Communications Style Guide.docx]
-related: ["[[gunner/system-security-plan]]", "[[gunner/environment]]"]
+related: ["[[gunnerteam/system-security-plan]]", "[[gunner/environment]]"]
 ---
 
 # IT Communications Style Guide
@@ -180,6 +180,6 @@ Is something broken right now?
 
 ## Relationship to Incident Response
 
-The IT Communications Style Guide is referenced in the [[gunner/system-security-plan]] as the Crisis Communication Plan. During a security incident, Tier 1 RED communications are the primary mechanism for notifying staff.
+The IT Communications Style Guide is referenced in the [[gunnerteam/system-security-plan]] as the Crisis Communication Plan. During a security incident, Tier 1 RED communications are the primary mechanism for notifying staff.
 
 For a lost/stolen device or account compromise incident, communications follow the RED → GREEN pattern with appropriate discretion about security details shared with all-staff vs. leadership only.

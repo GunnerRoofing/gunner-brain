@@ -17,7 +17,7 @@ related:
   - '[[gunner/masterdb-architecture]]'
   - '[[concepts/soc2]]'
   - '[[gunner/aws-environment]]'
-  - '[[gunner/system-security-plan]]'
+  - '[[gunnerteam/system-security-plan]]'
 ---
 # Secure Coding Guide — Gunner Suite
 

@@ -6,7 +6,7 @@ created: 2026-05-12
 updated: 2026-05-12
 status: stable
 related:
-  - "[[gunner/system-security-plan]]"
+  - "[[gunnerteam/system-security-plan]]"
   - "[[gunner/environment]]"
   - "[[runbooks/incident-response]]"
   - "[[concepts/incident-response]]"
@@ -20,7 +20,7 @@ related:
 
 ## Role at Gunner
 
-Eric Recchia serves as VP of Strategy and is the designated **System Owner** for Gunner Roofing Information Systems (GR IS) under the [[gunner/system-security-plan|SSP]].
+Eric Recchia serves as VP of Strategy and is the designated **System Owner** for Gunner Roofing Information Systems (GR IS) under the [[gunnerteam/system-security-plan|SSP]].
 
 ## IT Governance Relevance
 
@@ -42,7 +42,7 @@ See [[concepts/incident-response]] for the full response authority structure.
 
 ## Related
 
-- [[gunner/system-security-plan]] — SSP; Eric is System Owner
+- [[gunnerteam/system-security-plan]] — SSP; Eric is System Owner
 - [[gunner/environment]] — Key Personnel table
 - [[runbooks/incident-response]] — IR escalation path
 - [[concepts/incident-response]] — IR authority structure

@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [System Security Plan.docx]
-related: ["[[gunner/system-security-plan]]", "[[concepts/cis-ig1]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]"]
+related: ["[[gunnerteam/system-security-plan]]", "[[concepts/cis-ig1]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]"]
 ---
 
 # Summary — System Security Plan (SSP)
@@ -41,4 +41,4 @@ Formal security documentation for Gunner Roofing Information Systems (GR IS). CI
 
 ## Wiki Page
 
-Full wiki page: [[gunner/system-security-plan]]
+Full wiki page: [[gunnerteam/system-security-plan]]

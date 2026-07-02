@@ -6,7 +6,7 @@ created: 2026-04-13
 updated: 2026-04-13
 status: stable
 sources: [System Security Plan.docx]
-related: ["[[gunner/system-security-plan]]", "[[runbooks/incident-response]]", "[[runbooks/it-comms-style-guide]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[threats/t1078-valid-accounts]]", "[[threats/t1486-data-encrypted-for-impact]]"]
+related: ["[[gunnerteam/system-security-plan]]", "[[runbooks/incident-response]]", "[[runbooks/it-comms-style-guide]]", "[[vendors/hexnode]]", "[[vendors/google-workspace]]", "[[threats/t1078-valid-accounts]]", "[[threats/t1486-data-encrypted-for-impact]]"]
 ---
 
 # Incident Response
@@ -21,7 +21,7 @@ related: ["[[gunner/system-security-plan]]", "[[runbooks/incident-response]]", "
 
 ## Defined Incident Types (SSP v1.1)
 
-Three scenarios are defined in [[gunner/system-security-plan]]:
+Three scenarios are defined in [[gunnerteam/system-security-plan]]:
 
 ### Lost or Stolen Device
 1. Employee reports to IT immediately
@@ -62,6 +62,6 @@ The following IR-related items are open in the SSP [[concepts/poam|Plan of Actio
 
 ## Related
 
-- [[gunner/system-security-plan]] — SSP v1.1; IR authority and defined procedures
+- [[gunnerteam/system-security-plan]] — SSP v1.1; IR authority and defined procedures
 - [[runbooks/incident-response]] — full actionable runbook
 - [[runbooks/it-comms-style-guide]] — crisis communication templates (RED tier)

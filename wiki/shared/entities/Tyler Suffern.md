@@ -7,7 +7,7 @@ updated: 2026-05-15
 status: stable
 related:
   - "[[gunner/environment]]"
-  - "[[gunner/system-security-plan]]"
+  - "[[gunnerteam/system-security-plan]]"
   - "[[ciso-track/roadmap]]"
 ---
 

@@ -6,7 +6,7 @@ created: 2026-04-14
 updated: 2026-04-14
 status: developing
 related:
-  - "[[gunner/system-security-plan]]"
+  - "[[gunnerteam/system-security-plan]]"
   - "[[concepts/cmmc]]"
   - "[[concepts/nist-csf]]"
   - "[[concepts/incident-response]]"
@@ -30,7 +30,7 @@ A POAM is a structured document that identifies security weaknesses, describes t
 
 ## Gunner POAM Status
 
-Gunner's POAM items are tracked in [[gunner/system-security-plan]]. Key open items:
+Gunner's POAM items are tracked in [[gunnerteam/system-security-plan]]. Key open items:
 
 - **SI.L1-3.14.2** — Endpoint antivirus not deployed on all systems (CMMC blocker). Remediation: Bitdefender GravityZone (~$1.1k/yr).
 - **iPhone passcode** — Hexnode CIS IG1 allows simple passcode; CIS iOS 26 (institutionally-owned) requires alphanumeric.
