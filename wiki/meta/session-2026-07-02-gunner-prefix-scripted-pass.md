@@ -30,6 +30,8 @@ Executed the follow-up pass planned in [[meta/lint-report-2026-07-02]] / [[meta/
 - [[meta/lint-report-2026-07-02]]: summary line, section header (PLANNED → EXECUTED), Previous Issues status list.
 - [[meta/scripted-pass-plan-gunner-prefix-links-2026-07-02]]: `status: evergreen`, execution callout added at top.
 - `log.md`: lint entry prepended.
+- `wiki/index.md`: stale "(not yet executed)" plan description fixed; this session note indexed.
+- `wiki/tyler/hot.md` + `wiki/hot.md` (Tyler block): link-convention entry added on `/save` — canonical prefixes only, `gunner/` prefix dead, duplicate-basename watchlist.
 
 ## Outcome
 
